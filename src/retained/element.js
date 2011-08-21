@@ -71,7 +71,7 @@ pl.retained.Element.prototype.setSize = function(size) {
  * Only valid if caching is enabled
  * Ensures that the a non-cached draw is done during the next pass
  */
-pl.retained.Element.prototype.clearCache = function(){
+pl.retained.Element.prototype.invalidateDraw = function() {
   this._lastDrawSize = null;
 };
 
