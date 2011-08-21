@@ -1,4 +1,5 @@
-// TODO -> make this 8-ball. Makes assumptions about the preloadDiv, etc
+// TODO -> this is not ready to be generic
+// It Makes assumptions about the preloadDiv, etc
 // WARNING: this uses jQuery implicitly. Not a pure closure library
 
 goog.provide('pl.Preload');
