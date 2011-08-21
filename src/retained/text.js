@@ -13,7 +13,7 @@ goog.require('goog.array');
  * @param {number=} opt_y
  */
 pl.retained.Text = function(value, width, height, opt_x, opt_y) {
-  goog.base(this, width, height, opt_x, opt_y);
+  goog.base(this, width, height, opt_x, opt_y, true);
   this._value = value;
 };
 goog.inherits(pl.retained.Text, pl.retained.Element);
