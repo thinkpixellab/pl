@@ -1,5 +1,4 @@
 // TODO: 2011-09-21: note that changing properties besides width/height between frames will not invalidate cache
-
 goog.provide('pl.retained.Text');
 
 goog.require('pl.gfx');
@@ -26,9 +25,15 @@ pl.retained.Text.prototype.font = '25px Helvetica';
 
 pl.retained.Text.prototype.lineHeight = 25;
 
+pl.retained.Text.prototype.multiLine = false;
+
 pl.retained.Text.prototype.draw = function(ctx) {
   ctx.font = '25px Helvetica';
   ctx.textBaseline = 'top';
   ctx.fillStyle = this.textFillStyle;
-  pl.gfx.multiFillText(ctx, this._value, 0, 0, this.lineHeight, this.width);
+  if (this.multiLine) {
+    pl.gfx.multiFillText(ctx, this._value, 0, 0, this.lineHeight, this.width);
+  } else {
+    ctx.fillText(this._value, 0, 0);
+  }
 };
