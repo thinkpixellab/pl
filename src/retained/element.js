@@ -4,6 +4,8 @@ goog.require('goog.color.alpha');
 goog.require('goog.math.Coordinate');
 goog.require('goog.math.Rect');
 goog.require('goog.math.Size');
+goog.require('goog.graphics.AffineTransform');
+goog.require('pl.gfx');
 
 /**
  * @constructor
@@ -23,6 +25,11 @@ pl.retained.Element = function(width, height, opt_x, opt_y, opt_enableCache) {
     this._drawInternal = pl.retained.Element.prototype._drawCached;
   }
 };
+
+/**
+ * @type {?goog.graphics.AffineTransform}
+ */
+pl.retained.Element.prototype.transform = null;
 
 /**
  * @param {!CanvasRenderingContext2D} ctx
@@ -80,15 +87,19 @@ pl.retained.Element.prototype.invalidateDraw = function() {
  * @param {!CanvasRenderingContext2D} ctx
  **/
 pl.retained.Element.prototype._drawCore = function(ctx) {
+  if (goog.isDef(this.alpha)) {
+    ctx.globalAlpha = this.alpha;
+  }
+
+  if (this.transform) {
+    pl.gfx.setTransform(ctx, this.transform);
+  }
+
   if (this.fillStyle) {
     ctx.save();
     ctx.fillStyle = this.fillStyle;
     ctx.fillRect(0, 0, this.width, this.height);
     ctx.restore();
-  }
-
-  if (goog.isDef(this.alpha)) {
-    ctx.globalAlpha = this.alpha;
   }
 
   // call the abstract draw method
