@@ -10,10 +10,22 @@ pl.FpsLogger = function() {
    */
   this._lastTick = 0;
 
-  this._count = 0;
+  /**
+   @private
+   @type {number}
+   */
+  this._index = 0;
   this._values = [];
+  /**
+   @private
+   @type {number}
+   */
   this._sum = 0;
-  this.fps = 0;
+
+  /**
+   @type {number}
+   */
+  this.fps = NaN;
 };
 
 /**
@@ -24,18 +36,15 @@ pl.FpsLogger.prototype.AddInterval = function() {
   if (this._lastTick > 0) {
     var secondsPerFrame = currentTick - this._lastTick;
     secondsPerFrame /= 1000;
-    this._count++;
     if (this._values.length < pl.FpsLogger.s_size) {
       this._values.push(secondsPerFrame);
-      this._sum += secondsPerFrame;
-      this.fps = this._count / this._sum;
     } else {
-      var index = this._count % this._values.length;
-      this._sum -= this._values[index];
-      this._values[index] = secondsPerFrame;
-      this._sum += this._values[index];
-      this.fps = this._values.length / this._sum;
+      this._index = this._index % this._values.length;
+      this._sum -= this._values[this._index];
+      this._values[this._index] = secondsPerFrame;
     }
+    this._sum += secondsPerFrame;
+    this.fps = this._values.length / this._sum;
   }
   this._lastTick = currentTick;
 
