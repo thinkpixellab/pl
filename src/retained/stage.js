@@ -38,7 +38,5 @@ pl.retained.Stage.prototype.draw = function() {
     this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height);
   }
 
-  this._element.width = this._canvas.width;
-  this._element.height = this._canvas.height;
   this._element._drawInternal(this._ctx);
 };
