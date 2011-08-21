@@ -1,6 +1,7 @@
 goog.provide('pl.gfx');
 
 goog.require('goog.math.Size');
+goog.require('goog.graphics.AffineTransform');
 
 /**
  * @param {string|CanvasGradient|CanvasPattern} fill
@@ -89,4 +90,12 @@ pl.gfx.multiFillText = function(ctx, text, x, y, lineHeight, fitWidth, opt_measu
   maxHeight = lineHeight * (currentLine);
 
   return new goog.math.Size(maxWidth, maxHeight);
+};
+
+/**
+ * @param {!CanvasRenderingContext2D} ctx
+ * @param {!goog.graphics.AffineTransform} tx
+ */
+pl.gfx.setTransform = function(ctx, tx) {
+  ctx.setTransform(tx.getScaleX(), tx.getShearY(), tx.getShearX(), tx.getScaleY(), tx.getTranslateX(), tx.getTranslateY());
 };
