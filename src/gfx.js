@@ -30,7 +30,7 @@ pl.gfx.fillCircle = function(ctx, x, y, radius, fill) {
  * @param {boolean=} opt_measureOnly
  */
 pl.gfx.multiFillText = function(ctx, text, x, y, lineHeight, fitWidth, opt_measureOnly) {
-  opt_measureOnly = !!opt_measureOnly;
+  var measureOnly = Boolean(opt_measureOnly);
 
   text = text.replace(/(\r\n|\n\r|\r|\n)/g, "\n");
   var sections = text.split("\n");
@@ -40,7 +40,7 @@ pl.gfx.multiFillText = function(ctx, text, x, y, lineHeight, fitWidth, opt_measu
     maxWidth = 0;
 
   var printNextLine = function(str) {
-    if (!opt_measureOnly) {
+    if (!measureOnly) {
       ctx.fillText(str, x, y + (lineHeight * currentLine));
     }
 
