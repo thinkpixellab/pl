@@ -42,7 +42,7 @@ pl.ex.requestAnimationFrame = function(callback){
              goog.global['oRequestAnimationFrame']      ||
              goog.global['msRequestAnimationFrame']     ||
              function(/* function */ callback, /* DOMElement */ element){
-               goog.global.setTimeout(callback, 1000 / 60);
+               goog.global.setTimeout(callback, pl.ex.fallbackFrameTimeout);
              };
   func(callback);
 };
@@ -62,3 +62,9 @@ pl.ex.round = function(number){
  * @type Array.<string>
  **/
 pl.ex.prefixes = "webkit moz o ms khtml".split(' ');
+
+/**
+ * @const
+ * @type {number}
+ **/
+pl.ex.fallbackFrameTimeout = 17; // ms -> ~1000 / 60 -> 60fps;
