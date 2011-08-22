@@ -26,7 +26,7 @@ function init() {
   var image =
   /** @type {!HTMLImageElement} */
   (goog.dom.createDom(goog.dom.TagName.IMG, {
-    'src': '/images/stars.png',
+    'src': 'stars.png',
     'width': '1024',
     'height': '687'
   }));
