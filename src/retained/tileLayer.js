@@ -27,6 +27,10 @@ pl.retained.TileLayer.prototype.setOffset = function(offset) {
   this._offset.y = pl.retained.TileLayer._fix(offset.y, this._tileSize.height);
 };
 
+pl.retained.TileLayer.prototype.getOffset = function(){
+  return this._offset.clone();
+};
+
 pl.retained.TileLayer.prototype.draw = function(ctx) {
   var y, x, w, h, sx, sy, sw, sh, dx, dw, dy, dh;
 
