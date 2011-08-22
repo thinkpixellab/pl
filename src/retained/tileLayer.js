@@ -89,16 +89,7 @@ pl.retained.TileLayer.prototype.draw = function(ctx) {
  * @returns {number}
  */
 pl.retained.TileLayer._fix = function(input, target) {
-  input = pl.ex.round(goog.math.isFiniteNumber(input) ? input : 0);
-  return pl.retained.TileLayer._offset(input, target);
-};
-
-/**
- * @private
- * @param {number} input
- * @param {number} target
- * @returns {number}
- */
-pl.retained.TileLayer._offset = function(input, target) {
-  return input - Math.ceil(input / target) * target;
+  input = input - Math.ceil(input / target) * target;
+  input = pl.ex.round(input);
+  return input;
 };
