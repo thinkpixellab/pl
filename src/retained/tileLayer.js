@@ -1,7 +1,6 @@
 goog.provide('pl.retained.TileLayer');
 
 goog.require('goog.math.Vec2');
-goog.require('goog.asserts');
 goog.require('pl.ex');
 
 /**
@@ -81,6 +80,9 @@ pl.retained.TileLayer.prototype.draw = function(ctx) {
 
 /**
  * @private
+ * @param {number} input
+ * @param {number} target
+ * @returns {number}
  */
 pl.retained.TileLayer._fix = function(input, target) {
   input = pl.ex.round(goog.math.isFiniteNumber(input) ? input : 0);
@@ -89,7 +91,10 @@ pl.retained.TileLayer._fix = function(input, target) {
 
 /**
  * @private
+ * @param {number} input
+ * @param {number} target
+ * @returns {number}
  */
 pl.retained.TileLayer._offset = function(input, target) {
-  return input - Math.floor(input / target) * target - target;
+  return input - Math.ceil(input / target) * target;
 };
