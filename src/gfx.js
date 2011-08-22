@@ -99,3 +99,12 @@ pl.gfx.multiFillText = function(ctx, text, x, y, lineHeight, fitWidth, opt_measu
 pl.gfx.setTransform = function(ctx, tx) {
   ctx.setTransform(tx.getScaleX(), tx.getShearY(), tx.getShearX(), tx.getScaleY(), tx.getTranslateX(), tx.getTranslateY());
 };
+
+/**
+ * @param {!CanvasRenderingContext2D} ctx
+ * @param {!goog.math.Rect} rect
+ */
+pl.gfx.fillRect = function(ctx, rect){
+  ctx.fillRect(rect.left, rect.top, rect.width, rect.height);
+};
+
