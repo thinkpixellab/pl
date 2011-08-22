@@ -1,0 +1,9 @@
+base_path: ../../closure/closure/
+inputs:
+  - js/mg/application.js
+js_paths:
+  - ../../closure/closure/goog
+  - ../src
+deps_path: deps.js
+compile_path: compiled.js
+externs: []
