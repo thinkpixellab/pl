@@ -37,9 +37,26 @@ pl.retained.Element.prototype.transform = null;
 pl.retained.Element.prototype.draw = goog.abstractMethod;
 
 /**
+ * @param {!goog.math.Coordinate=} opt_value
  * @returns {!goog.math.Coordinate}
  */
-pl.retained.Element.prototype.getTopLeft = function() {
+pl.retained.Element.prototype.topLeft = function(opt_value) {
+  if (goog.isDef(opt_value)) {
+    this.x = opt_value.x;
+    this.y = opt_value.y;
+  }
+  return new goog.math.Coordinate(this.x, this.y);
+};
+
+/**
+ * @param {!goog.math.Coordinate=} opt_value
+ * @returns {!goog.math.Coordinate}
+ */
+pl.retained.Element.prototype.center = function(opt_value) {
+  if (goog.isDef(opt_value)) {
+    this.x = opt_value.x - this.width / 2;
+    this.y = opt_value.y - this.width / 2;
+  }
   return new goog.math.Coordinate(this.x, this.y);
 };
 
