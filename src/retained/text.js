@@ -28,7 +28,7 @@ pl.retained.Text.prototype.lineHeight = 25;
 pl.retained.Text.prototype.multiLine = false;
 
 pl.retained.Text.prototype.draw = function(ctx) {
-  ctx.font = '25px Helvetica';
+  ctx.font = this.font;
   ctx.textBaseline = 'top';
   ctx.fillStyle = this.textFillStyle;
   if (this.multiLine) {
