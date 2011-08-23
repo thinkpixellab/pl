@@ -2,9 +2,9 @@ goog.provide('pl.retained.Animation');
 
 /**
  * @constructor
- * @param {!Element} element
+ * @param {!pl.retained.Element} element
  * @param {number} frameCount
- * @param {!function(number, !Element)} func
+ * @param {!function(number, !pl.retained.Element)} func
  */
 pl.retained.Animation = function(element, frameCount, func) {
   this._element = element;
