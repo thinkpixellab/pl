@@ -6,13 +6,13 @@ goog.require('goog.math.Vec2');
 goog.require('pl.ex');
 goog.require('pl.retained.Stage');
 goog.require('pl.retained.Text');
-goog.require('pl.retained.Container');
+goog.require('pl.retained.CarouselContainer');
 goog.require('pl.retained.Animation');
 goog.require('pl.FpsLogger');
 goog.require('pl.DebugDiv');
 
 var fpsLogger, logger;
-var text, stage, container;
+var stage, container;
 var animation;
 
 
@@ -23,27 +23,25 @@ function init() {
   logger = goog.debug.LogManager.getRoot();
   fpsLogger = new pl.FpsLogger();
 
-  var canvas = document.getElementById('content');
+  var canvas =
+  /** @type {!HTMLCanvasElement} */
+  (document.getElementById('content'));
 
-  text = new pl.retained.Text("Swap!", 400, 400);
-  text.fillStyle = 'blue';
-  text.multiLine = true;
+  container = new pl.retained.CarouselContainer(400, 400);
 
-  container = new pl.retained.Container(400, 400);
-  container.addElement(text);
+  for (var i = 0; i < 10; i++) {
+
+    var text = new pl.retained.Text("Dude - " + i, 100, 40);
+    text.fillStyle = 'white';
+    text.textFillStyle = 'black';
+    container.addElement(text);
+  }
 
   stage = new pl.retained.Stage(canvas, container);
 
-  animation = new pl.retained.Animation(container, 100, function(i, element) {
-    if (i === 0) {
-      element.transform = new goog.graphics.AffineTransform();
-    }
-    var transform = element.transform;
-    //transform.setToRotation(Math.PI * 2 * i / 100, 200, 200);
-    var scale = 0.9;
-    transform.translate(200 / scale - 200, 200 / scale - 200);
-    transform.scale(scale, scale);
-    //transform.translate(200/scale,200/scale);
+  animation = new pl.retained.Animation(container, 200, function(i, element) {
+    element.angle(i * Math.PI * 2 / 200);
+
   });
 
   update();
@@ -59,7 +57,7 @@ function update() {
 
   stage.draw();
 
-  //goog.Timer.callOnce(update, 500);
+  //goog.Timer.callOnce(update);
   pl.ex.requestAnimationFrame(update);
 }
 
