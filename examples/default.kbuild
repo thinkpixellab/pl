@@ -1,6 +1,6 @@
 base_path: ../../closure/closure/
 inputs:
-  - js/mg/application.js
+  - carouselDemo.js
 js_paths:
   - ../../closure/closure/goog
   - ../src
