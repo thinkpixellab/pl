@@ -39,7 +39,7 @@ pl.FpsLogger.prototype.AddInterval = function() {
     if (this._values.length < pl.FpsLogger.s_size) {
       this._values.push(secondsPerFrame);
     } else {
-      this._index = this._index % this._values.length;
+      this._index = (this._index + 1) % this._values.length;
       this._sum -= this._values[this._index];
       this._values[this._index] = secondsPerFrame;
     }
