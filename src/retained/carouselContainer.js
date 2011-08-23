@@ -35,22 +35,7 @@ pl.retained.CarouselContainer.prototype.angle = function(opt_radian) {
   return this._angle;
 };
 
-/**
- * @param {!pl.retained.Element} element
- **/
-pl.retained.CarouselContainer.prototype.addElement = function(element) {
-  goog.base(this, 'addElement', element);
-  this._locationsDirty = true;
-  this._sortedChildren = null;
-};
-
-/**
- * @param {!pl.retained.Element} element
- * @param {number=} opt_i The index at which to insert the object. If omitted,
- *      treated as 0. A negative index is counted from the end of the array.
- **/
-pl.retained.CarouselContainer.prototype.insertAt = function(element, opt_i) {
-  goog.base(this, 'insertAt', element, opt_i);
+pl.retained.CarouselContainer.prototype.onChildrenChanged = function() {
   this._locationsDirty = true;
   this._sortedChildren = null;
 };

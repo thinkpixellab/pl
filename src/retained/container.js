@@ -23,6 +23,7 @@ goog.inherits(pl.retained.Container, pl.retained.Element);
  **/
 pl.retained.Container.prototype.addElement = function(element) {
   this._children.push(element);
+  this.onChildrenChanged();
 };
 
 /**
@@ -32,7 +33,10 @@ pl.retained.Container.prototype.addElement = function(element) {
  **/
 pl.retained.Container.prototype.insertAt = function(element, opt_i) {
   goog.array.insertAt(this._children, element, opt_i);
+  this.onChildrenChanged();
 };
+
+pl.retained.Container.prototype.onChildrenChanged = goog.nullFunction;
 
 /**
  * returns {?math.google.Rect}
