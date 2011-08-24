@@ -100,6 +100,13 @@ pl.retained.Element.prototype.invalidateDraw = function() {
 };
 
 /**
+ * returns {!Array.<!pl.retained.Element>}
+ */
+pl.retained.Element.prototype.getVisualChildren = function() {
+  return [];
+};
+
+/**
  * @private
  * @param {!CanvasRenderingContext2D} ctx
  **/

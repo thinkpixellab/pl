@@ -36,12 +36,19 @@ pl.retained.Container.prototype.insertAt = function(element, opt_i) {
   this.onChildrenChanged();
 };
 
+/**
+ * returns {!Array.<!pl.retained.Element>}
+ */
+pl.retained.Container.prototype.getVisualChildren = function() {
+  return goog.array.clone(this._children);
+};
+
 pl.retained.Container.prototype.onChildrenChanged = goog.nullFunction;
 
 /**
  * returns {?math.google.Rect}
  */
-pl.retained.Container.prototype.getChildBounds = function(){
+pl.retained.Container.prototype.getChildBounds = function() {
   var bounds = null;
   if (this._children.length) {
     bounds = this._children[0].getBounds();

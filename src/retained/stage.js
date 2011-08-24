@@ -40,3 +40,22 @@ pl.retained.Stage.prototype.draw = function() {
 
   this._element._drawInternal(this._ctx);
 };
+
+/**
+ * @returns {!CanvasRenderingContext2D}
+ */
+pl.retained.Stage.prototype.getContext = function() {
+  if (!this._ctx) {
+    this._ctx =
+    /** @type {CanvasRenderingContext2D} */
+    this._canvas.getContext('2d');
+  }
+  return this._ctx;
+};
+
+/**
+ * @returns {!pl.retained.Element}
+ */
+pl.retained.Stage.prototype.getRoot = function(){
+  return this._element;
+};
