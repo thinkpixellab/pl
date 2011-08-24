@@ -101,6 +101,17 @@ pl.gfx.setTransform = function(ctx, tx) {
 };
 
 /**
+ * @param {!goog.graphics.AffineTransform} tx
+ * @param {number} scaleX
+ * @param {number} scaleY
+ * @param {number} offsetX
+ * @param {number} offsetY
+ */
+pl.ex.affineOffsetScale = function(tx, scaleX, scaleY, offsetX, offsetY){
+  tx.setTransform(scaleX, 0, 0, scaleY, (1 - scaleX) * offsetX , (1 - scaleY) * offsetY);
+};
+
+/**
  * @param {!CanvasRenderingContext2D} ctx
  * @param {!goog.math.Rect} rect
  */
