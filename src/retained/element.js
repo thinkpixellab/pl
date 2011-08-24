@@ -55,7 +55,7 @@ pl.retained.Element.prototype.topLeft = function(opt_value) {
 pl.retained.Element.prototype.center = function(opt_value) {
   if (goog.isDef(opt_value)) {
     this.x = opt_value.x - this.width / 2;
-    this.y = opt_value.y - this.width / 2;
+    this.y = opt_value.y - this.height / 2;
   }
   return new goog.math.Coordinate(this.x, this.y);
 };
