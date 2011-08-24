@@ -28,20 +28,21 @@ function init() {
   (document.getElementById('content'));
 
   container = new pl.retained.CarouselContainer(400, 400);
+  container.radius(new goog.math.Size(250, 20));
 
   for (var i = 0; i < 10; i++) {
 
-    var text = new pl.retained.Text("Dude - " + i, 100, 40);
-    text.fillStyle = 'white';
+    var text = new pl.retained.Text("Dude - " + i, 150, 30);
+    text.fillStyle = i % 2 ? '#FFF' : '#DDD';
     text.textFillStyle = 'black';
     container.addElement(text);
   }
 
   stage = new pl.retained.Stage(canvas, container);
 
-  animation = new pl.retained.Animation(container, 200, function(i, element) {
-    element.angle(i * Math.PI * 2 / 200);
-
+  var frameCount = 200;
+  animation = new pl.retained.Animation(container, frameCount, function(i, element) {
+    element.angle(i * Math.PI * 2 / frameCount);
   });
 
   update();

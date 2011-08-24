@@ -1,7 +1,9 @@
 goog.provide('pl.retained.CarouselContainer');
 
 goog.require('goog.array');
+goog.require('goog.graphics.AffineTransform');
 goog.require('goog.math.Coordinate');
+goog.require('goog.math.Size');
 goog.require('pl.retained.Element');
 goog.require('pl.retained.Container');
 
@@ -20,6 +22,8 @@ pl.retained.CarouselContainer = function(width, height, opt_x, opt_y, opt_enable
 
   this._angle = 0;
   this._locationsDirty = true;
+  this._radius = new goog.math.Size(this.width / 4, this.height / 8);
+  this._backScale = 0.5;
 };
 goog.inherits(pl.retained.CarouselContainer, pl.retained.Container);
 
@@ -33,6 +37,31 @@ pl.retained.CarouselContainer.prototype.angle = function(opt_radian) {
     this._locationsDirty = true;
   }
   return this._angle;
+};
+
+/**
+ * @param {goog.math.Size=} opt_value
+ * @returns {goog.math.Size}
+ */
+pl.retained.CarouselContainer.prototype.radius = function(opt_value) {
+  if (goog.isDef(opt_value)) {
+    this._radius = opt_value.clone();
+    this._locationsDirty = true;
+  }
+  return this._radius.clone();
+};
+
+/**
+ * should be a value <= 1 && > 0
+ * @param {number=} opt_value
+ * @returns {number}
+ */
+pl.retained.CarouselContainer.prototype.backScale = function(opt_value) {
+  if (goog.isDef(opt_value)) {
+    this._backScale = opt_value;
+    this._locationsDirty = true;
+  }
+  return this._backScale;
 };
 
 pl.retained.CarouselContainer.prototype.onChildrenChanged = function() {
@@ -57,11 +86,22 @@ pl.retained.CarouselContainer.prototype._updateLocations = function() {
     var i = 0;
     var radiansPer = Math.PI * 2 / this._children.length;
     var c = new goog.math.Coordinate(0, 0);
-    var radius = 100;
     goog.array.forEach(this._children, function(element) {
-      c.x = this.width / 2 + radius * Math.cos(this._angle + radiansPer * i);
-      c.y = this.height / 2 + radius * Math.sin(this._angle + radiansPer * i);
+      // location
+      c.x = this.width / 2 + this._radius.width * Math.cos(this._angle + radiansPer * i);
+      var sin = Math.sin(this._angle + radiansPer * i);
+      c.y = this.height / 2 + this._radius.height * sin;
       element.center(c);
+
+      // scale
+      if (this._backScale !== 1) {
+        var scale = (sin + 1) / 2;
+        scale = this._backScale + scale * (1 - this._backScale);
+        element.transform = element.transform || new goog.graphics.AffineTransform();
+        pl.ex.affineOffsetScale(element.transform, scale, scale, element.width / 2, element.height / 2);
+        element.invalidateDraw();
+      }
+
       i++;
     },
     this);
