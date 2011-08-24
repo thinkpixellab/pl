@@ -48,6 +48,7 @@ pl.retained.Element.prototype.topLeft = function(opt_value) {
   return new goog.math.Coordinate(this.x, this.y);
 };
 
+// TODO: this does not take into account transform. Hmm...
 /**
  * @param {!goog.math.Coordinate=} opt_value
  * @returns {!goog.math.Coordinate}
@@ -69,10 +70,17 @@ pl.retained.Element.prototype.setTopLeft = function(x, y) {
   this.y = y;
 };
 
+// TODO: this does not take into account transform. Hmm...
+/**
+ * @returns {!goog.math.Rect}
+ */
 pl.retained.Element.prototype.getBounds = function() {
   return new goog.math.Rect(this.x, this.y, this.width, this.height);
 };
 
+/**
+ * @returns {!goog.math.Size}
+ */
 pl.retained.Element.prototype.getSize = function() {
   return new goog.math.Size(this.width, this.height);
 };
