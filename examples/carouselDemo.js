@@ -27,7 +27,7 @@ function init() {
   /** @type {!HTMLCanvasElement} */
   (document.getElementById('content'));
 
-  container = new pl.retained.CarouselContainer(400, 400);
+  container = new pl.retained.CarouselContainer(500, 500);
   container.radius(new goog.math.Size(250, 20));
 
   for (var i = 0; i < 10; i++) {
