@@ -4,13 +4,17 @@ goog.require('goog.math.Size');
 goog.require('goog.graphics.AffineTransform');
 
 /**
+ * @param {CanvasRenderingContext2D} ctx
+ * @param {number} x
+ * @param {number} y
+ * @param {number} radius
  * @param {string|CanvasGradient|CanvasPattern} fill
  */
 pl.gfx.fillCircle = function(ctx, x, y, radius, fill) {
   ctx.save();
   ctx.fillStyle = fill;
   ctx.beginPath();
-  ctx.arc(x, y, radius, 0, Math.PI * 2);
+  ctx.arc(x, y, radius, 0, Math.PI * 2, false);
   ctx.closePath();
   ctx.fill();
   ctx.restore();
