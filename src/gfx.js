@@ -107,15 +107,30 @@ pl.gfx.setTransform = function(ctx, tx) {
  * @param {number} offsetX
  * @param {number} offsetY
  */
-pl.ex.affineOffsetScale = function(tx, scaleX, scaleY, offsetX, offsetY){
-  tx.setTransform(scaleX, 0, 0, scaleY, (1 - scaleX) * offsetX , (1 - scaleY) * offsetY);
+pl.ex.affineOffsetScale = function(tx, scaleX, scaleY, offsetX, offsetY) {
+  tx.setTransform(scaleX, 0, 0, scaleY, (1 - scaleX) * offsetX, (1 - scaleY) * offsetY);
 };
 
 /**
  * @param {!CanvasRenderingContext2D} ctx
  * @param {!goog.math.Rect} rect
  */
-pl.gfx.fillRect = function(ctx, rect){
+pl.gfx.fillRect = function(ctx, rect) {
   ctx.fillRect(rect.left, rect.top, rect.width, rect.height);
 };
 
+/**
+ * @param {!CanvasRenderingContext2D} ctx
+ * @param {!Array.<!goog.math.Coordinate>} points
+ */
+pl.gfx.lineToPath = function(ctx, points) {
+  if (points.length >= 2) {
+    var point = points[0];
+    ctx.moveTo(point.x, point.y);
+    for (var i = 1; i < points.length; i++) {
+      point = points[i];
+      ctx.lineTo(point.x, point.y);
+    }
+    ctx.closePath();
+  }
+};
