@@ -19,19 +19,19 @@ goog.require('goog.math.Size');
  * @param {string} style a style name
  * @param {string|number|boolean} value
  */
-pl.ex.setStyle = function(element, style, value){
+pl.ex.setStyle = function(element, style, value) {
   goog.style.setStyle(element, style, value);
   goog.array.forEach(pl.ex.prefixes, function(pf) {
     var name = goog.string.buildString('-', pf, '-', style);
     goog.style.setStyle(element, name, value);
-  });  
+  });
 };
 
 /**
  * @param {HTMLCanvasElement} canvasElement
  * @returns {goog.math.Size}
  */
-pl.ex.getCanvasSize = function(canvasElement){
+pl.ex.getCanvasSize = function(canvasElement) {
   return new goog.math.Size(canvasElement.width, canvasElement.height);
 };
 
@@ -53,8 +53,34 @@ pl.ex.requestAnimationFrame = function(callback){
  * @param {number} number
  * @returns {number}
  */
-pl.ex.round = function(number){
+pl.ex.round = function(number) {
   return (0.5 + number) << 0;
+};
+
+/**
+ * @param {!Array.<!goog.math.Coordinate>} points
+ * @returns {!Array.<number>}
+ */
+pl.ex.flattenPoints = function(points) {
+  var nums = new Array(points.length * 2);
+  for (var i = 0; i < points.length; i++) {
+    nums[i * 2] = points[i].x;
+    nums[i * 2 + 1] = points[i].y;
+  }
+  return nums;
+};
+
+/**
+ * //TODO: check for non-even numbered input?
+ * @param {!Array.<number>} numbers
+ * @returns {!Array.<!goog.math.Coordinate>}
+ */
+pl.ex.expandPoints = function(numbers) {
+  var points = new Array(numbers.length / 2);
+  for (var i = 0; i < points.length; i++) {
+    points[i] = new goog.math.Coordinate(numbers[i * 2], numbers[i * 2 + 1]);
+  }
+  return points;
 };
 
 /**
