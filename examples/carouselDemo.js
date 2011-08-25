@@ -11,7 +11,7 @@ goog.require('pl.retained.Stage');
 goog.require('pl.retained.Text');
 goog.require('pl.retained.CarouselContainer');
 goog.require('pl.retained.Animation');
-goog.require('pl.retained.Helper');
+goog.require('pl.retained.helper');
 goog.require('pl.FpsLogger');
 goog.require('pl.DebugDiv');
 
@@ -83,7 +83,7 @@ function update() {
 
   if (mouse) {
     var ctx = stage.getContext();
-    pl.retained.Helper.borderHitTest(stage, mouse.x, mouse.y);
+    pl.retained.helper.borderHitTest(stage, mouse.x, mouse.y);
   }
 }
 

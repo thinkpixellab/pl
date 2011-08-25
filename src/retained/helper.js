@@ -1,4 +1,4 @@
-goog.provide('pl.retained.Helper');
+goog.provide('pl.retained.helper');
 
 goog.require('goog.math.Coordinate');
 goog.require('goog.math.Size');
@@ -11,7 +11,7 @@ goog.require('pl.gfx');
  * @param {!pl.retained.Element} element
  * @returns {!goog.graphics.AffineTransform}
  */
-pl.retained.Helper.getTransform = function(element) {
+pl.retained.helper.getTransform = function(element) {
   var tx = goog.graphics.AffineTransform.getTranslateInstance(element.x, element.y);
   if (element.transform) {
     tx.concatenate(element.transform);
@@ -22,12 +22,12 @@ pl.retained.Helper.getTransform = function(element) {
 /**
  * @param {!pl.retained.Stage} stage
  */
-pl.retained.Helper.borderElements = function(stage) {
+pl.retained.helper.borderElements = function(stage) {
   var ctx = stage.getContext();
   ctx.strokeStyle = 'red';
   ctx.lineWidth = 2;
   ctx.beginPath();
-  pl.retained.Helper._borderElement(ctx, stage.getRoot());
+  pl.retained.helper._borderElement(ctx, stage.getRoot());
   ctx.stroke();
 };
 
@@ -36,15 +36,15 @@ pl.retained.Helper.borderElements = function(stage) {
  * @param {!pl.retained.Element} element
  * @param {boolean=} opt_excludeChildren
  */
-pl.retained.Helper._borderElement = function(ctx, element, opt_excludeChildren) {
-  var tx = pl.retained.Helper.getTransform(element);
+pl.retained.helper._borderElement = function(ctx, element, opt_excludeChildren) {
+  var tx = pl.retained.helper.getTransform(element);
   pl.gfx.transform(ctx, tx);
   ctx.strokeRect(0,0,element.width,element.height);
 
   if (!opt_excludeChildren) {
     goog.array.forEach(element.getVisualChildren(), function(e) {
       ctx.save();
-      pl.retained.Helper._borderElement(ctx, e);
+      pl.retained.helper._borderElement(ctx, e);
       ctx.restore();
     });
   }
@@ -55,8 +55,8 @@ pl.retained.Helper._borderElement = function(ctx, element, opt_excludeChildren) 
  * @param {number} x
  * @param {number} y
  */
-pl.retained.Helper.hitTest = function(stage, x, y) {
-  return pl.retained.Helper._hitTest(stage.getRoot(), x, y);
+pl.retained.helper.hitTest = function(stage, x, y) {
+  return pl.retained.helper._hitTest(stage.getRoot(), x, y);
 };
 
 /**
@@ -64,9 +64,9 @@ pl.retained.Helper.hitTest = function(stage, x, y) {
  * @param {number} x
  * @param {number} y
  */
-pl.retained.Helper._hitTest = function(element, x, y) {
+pl.retained.helper._hitTest = function(element, x, y) {
   var point = [x, y];
-  pl.retained.Helper.getTransform(element).createInverse().transform(point, 0, point, 0, 1);
+  pl.retained.helper.getTransform(element).createInverse().transform(point, 0, point, 0, 1);
 
   var c = new goog.math.Coordinate(point[0], point[1]);
   var bounds = new goog.math.Rect(0, 0, element.width, element.height);
@@ -78,7 +78,7 @@ pl.retained.Helper._hitTest = function(element, x, y) {
 
     for (var i = 0; i < children.length; i++) {
       var e = children[i];
-      hits = pl.retained.Helper._hitTest(e, c.x, c.y);
+      hits = pl.retained.helper._hitTest(e, c.x, c.y);
       if (hits.length) {
         break;
       }
@@ -93,10 +93,10 @@ pl.retained.Helper._hitTest = function(element, x, y) {
 /**
  * @param {!pl.retained.Stage} stage
  */
-pl.retained.Helper.borderHitTest = function(stage, x, y) {
+pl.retained.helper.borderHitTest = function(stage, x, y) {
   var ctx = stage.getContext();
 
-  var hits = pl.retained.Helper.hitTest(stage, x, y);
+  var hits = pl.retained.helper.hitTest(stage, x, y);
   if (hits.length) {
     ctx.save();
     ctx.strokeStyle = 'rgba(0,0,255,0.5)';
@@ -104,7 +104,7 @@ pl.retained.Helper.borderHitTest = function(stage, x, y) {
 
     ctx.beginPath();
     goog.array.forEach(hits, function(e) {
-      pl.retained.Helper._borderElement(ctx, e, true);
+      pl.retained.helper._borderElement(ctx, e, true);
     });
     ctx.stroke();
     ctx.restore();
