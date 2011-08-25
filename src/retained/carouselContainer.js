@@ -65,10 +65,7 @@ pl.retained.CarouselContainer.prototype.backScale = function(opt_value) {
 };
 
 /**
- * @param {boolean=} opt_frontToBack
- * @returns {!Array.<!pl.retained.Element>}
- */
-/* TODO: implement this for the sorted children...
+  TODO: implement this for the sorted children...
 pl.retained.CarouselContainer.prototype.getVisualChildren = function(opt_frontToBack) {
   if (opt_frontToBack) {
     var value = new Array(this._children.length);

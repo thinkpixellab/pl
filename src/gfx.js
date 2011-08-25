@@ -105,6 +105,14 @@ pl.gfx.setTransform = function(ctx, tx) {
 };
 
 /**
+ * @param {!CanvasRenderingContext2D} ctx
+ * @param {!goog.graphics.AffineTransform} tx
+ */
+pl.gfx.transform = function(ctx, tx) {
+  ctx.transform(tx.getScaleX(), tx.getShearY(), tx.getShearX(), tx.getScaleY(), tx.getTranslateX(), tx.getTranslateY());
+};
+
+/**
  * @param {!goog.graphics.AffineTransform} tx
  * @param {number} scaleX
  * @param {number} scaleY

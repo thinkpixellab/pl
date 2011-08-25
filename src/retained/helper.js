@@ -9,20 +9,6 @@ goog.require('pl.gfx');
 
 /**
  * @param {!pl.retained.Element} element
- * @returns {!Array.<!goog.math.Coordinate>}
- */
-pl.retained.Helper.getTransformedCorners = function(element) {
-  // corners of this element
-  // clock-wise from top left
-  // x0,y0,x1,y1....xn,yn
-  var flat = [0, 0, element.width, 0, element.width, element.height, 0, element.height];
-
-  pl.retained.Helper.getTransform(element).transform(flat, 0, flat, 0, 4);
-  return pl.ex.expandPoints(flat);
-};
-
-/**
- * @param {!pl.retained.Element} element
  * @returns {!goog.graphics.AffineTransform}
  */
 pl.retained.Helper.getTransform = function(element) {
@@ -51,17 +37,16 @@ pl.retained.Helper.borderElements = function(stage) {
  * @param {boolean=} opt_excludeChildren
  */
 pl.retained.Helper._borderElement = function(ctx, element, opt_excludeChildren) {
-  var corners = pl.retained.Helper.getTransformedCorners(element);
-
-  pl.gfx.lineToPath(ctx, corners);
+  var tx = pl.retained.Helper.getTransform(element);
+  pl.gfx.transform(ctx, tx);
+  ctx.strokeRect(0,0,element.width,element.height);
 
   if (!opt_excludeChildren) {
-    ctx.save();
-    ctx.translate(element.x, element.y);
     goog.array.forEach(element.getVisualChildren(), function(e) {
+      ctx.save();
       pl.retained.Helper._borderElement(ctx, e);
+      ctx.restore();
     });
-    ctx.restore();
   }
 };
 
@@ -111,12 +96,10 @@ pl.retained.Helper._hitTest = function(element, x, y) {
 pl.retained.Helper.borderHitTest = function(stage, x, y) {
   var ctx = stage.getContext();
 
-  pl.gfx.fillCircle(ctx, x, y, 10, 'blue');
-
   var hits = pl.retained.Helper.hitTest(stage, x, y);
   if (hits.length) {
-
-    ctx.strokeStyle = 'green';
+    ctx.save();
+    ctx.strokeStyle = 'rgba(0,0,255,0.5)';
     ctx.lineWidth = 2;
 
     ctx.beginPath();
@@ -124,5 +107,6 @@ pl.retained.Helper.borderHitTest = function(stage, x, y) {
       pl.retained.Helper._borderElement(ctx, e, true);
     });
     ctx.stroke();
+    ctx.restore();
   }
 };
