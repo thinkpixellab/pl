@@ -108,9 +108,10 @@ pl.retained.Element.prototype.invalidateDraw = function() {
 };
 
 /**
- * returns {!Array.<!pl.retained.Element>}
+ * @param {boolean=} opt_frontToBack
+ * @returns {!Array.<!pl.retained.Element>}
  */
-pl.retained.Element.prototype.getVisualChildren = function() {
+pl.retained.Element.prototype.getVisualChildren = function(opt_frontToBack) {
   return [];
 };
 

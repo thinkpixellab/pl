@@ -89,7 +89,7 @@ pl.retained.Helper._hitTest = function(element, x, y) {
   var hits = [];
   if (bounds.contains(c)) {
 
-    var children = element.getVisualChildren();
+    var children = element.getVisualChildren(true);
 
     for (var i = 0; i < children.length; i++) {
       var e = children[i];

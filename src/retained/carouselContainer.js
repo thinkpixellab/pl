@@ -64,6 +64,23 @@ pl.retained.CarouselContainer.prototype.backScale = function(opt_value) {
   return this._backScale;
 };
 
+/**
+ * @param {boolean=} opt_frontToBack
+ * @returns {!Array.<!pl.retained.Element>}
+ */
+/* TODO: implement this for the sorted children...
+pl.retained.CarouselContainer.prototype.getVisualChildren = function(opt_frontToBack) {
+  if (opt_frontToBack) {
+    var value = new Array(this._children.length);
+    for (var i = 0; i < this._children.length; i++) {
+      value[this._children.length - 1 - i] = this._children[i];
+    }
+    return value;
+  } else {
+    return goog.array.clone(this._children);
+  }
+};*/
+
 pl.retained.CarouselContainer.prototype.onChildrenChanged = function() {
   this._locationsDirty = true;
   this._sortedChildren = null;

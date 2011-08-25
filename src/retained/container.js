@@ -37,10 +37,19 @@ pl.retained.Container.prototype.insertAt = function(element, opt_i) {
 };
 
 /**
- * returns {!Array.<!pl.retained.Element>}
+ * @param {boolean=} opt_frontToBack
+ * @returns {!Array.<!pl.retained.Element>}
  */
-pl.retained.Container.prototype.getVisualChildren = function() {
-  return goog.array.clone(this._children);
+pl.retained.Container.prototype.getVisualChildren = function(opt_frontToBack) {
+  if (opt_frontToBack) {
+    var value = new Array(this._children.length);
+    for (var i = 0; i < this._children.length; i++) {
+      value[this._children.length - 1 - i] = this._children[i];
+    }
+    return value;
+  } else {
+    return goog.array.clone(this._children);
+  }
 };
 
 pl.retained.Container.prototype.onChildrenChanged = goog.nullFunction;
