@@ -5,6 +5,7 @@ goog.addDependency("../../../pl/src/fpsLogger.js", ['pl.FpsLogger'], []);
 goog.addDependency("../../../pl/src/gfx.js", ['pl.gfx'], ['goog.math.Size', 'goog.graphics.AffineTransform']);
 goog.addDependency("../../../pl/src/keyBinding.js", ['pl.KeyBinding', 'pl.KeyBindingEvent'], ['goog.events.Event', 'goog.events.EventTarget', 'goog.ui.KeyboardShortcutHandler', 'goog.ui.KeyboardShortcutHandler.EventType']);
 goog.addDependency("../../../pl/src/preload.js", ['pl.Preload'], ['goog.object']);
+goog.addDependency("../../../pl/src/property.js", ['pl.Property'], ['goog.math.Coordinate', 'goog.math.Size', 'goog.array']);
 goog.addDependency("../../../pl/src/soundEffect.js", ['pl.SoundEffect'], []);
 goog.addDependency("../../../pl/src/stats.js", ['pl.Stats'], ['goog.dom']);
 goog.addDependency("../../../pl/src/box2d/collision/b2AABB.js", ['box2d.AABB'], ['box2d.Vec2']);
@@ -86,7 +87,8 @@ goog.addDependency("../../../pl/src/retained/animation.js", ['pl.retained.Animat
 goog.addDependency("../../../pl/src/retained/carouselContainer.js", ['pl.retained.CarouselContainer'], ['goog.array', 'goog.graphics.AffineTransform', 'goog.math.Coordinate', 'goog.math.Size', 'pl.retained.Element', 'pl.retained.Container']);
 goog.addDependency("../../../pl/src/retained/container.js", ['pl.retained.Container'], ['goog.array', 'pl.retained.Element']);
 goog.addDependency("../../../pl/src/retained/element.js", ['pl.retained.Element'], ['goog.color.alpha', 'goog.math.Coordinate', 'goog.math.Rect', 'goog.math.Size', 'goog.graphics.AffineTransform', 'pl.gfx']);
-goog.addDependency("../../../pl/src/retained/helper.js", ['pl.retained.helper'], ['goog.math.Coordinate', 'goog.math.Size', 'goog.array', 'pl.retained.Element', 'pl.ex', 'pl.gfx']);
+goog.addDependency("../../../pl/src/retained/helper.js", ['pl.retained.helper'], ['goog.math.Coordinate', 'goog.math.Size', 'goog.array', 'pl.ex', 'pl.gfx', 'pl.retained.mouse', 'pl.retained.Element']);
+goog.addDependency("../../../pl/src/retained/mouse.js", ['pl.retained.mouse'], ['goog.math.Coordinate', 'goog.array', 'pl.retained.Stage', 'pl.Property']);
 goog.addDependency("../../../pl/src/retained/stage.js", ['pl.retained.Stage'], ['goog.math.Coordinate', 'goog.math.Size', 'pl.retained.Element', 'pl.ex']);
 goog.addDependency("../../../pl/src/retained/text.js", ['pl.retained.Text'], ['pl.gfx', 'pl.retained.Element']);
 goog.addDependency("../../../pl/src/retained/tileLayer.js", ['pl.retained.TileLayer'], ['goog.math.Vec2', 'pl.ex', 'pl.gfx']);

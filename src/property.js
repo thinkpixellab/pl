@@ -37,6 +37,24 @@ pl.Property.prototype.set = function(object, value){
   pl.Property.set(object, this, value);
 };
 
+pl.Property.prototype._notify = function(object){
+  var listener = pl.Property._callbackProperty.get(object);
+  if(listener){
+    listener(this);
+  }
+};
+
+/**
+ * @param {!Object} object
+ * @param {!Function} listener.
+ */
+pl.Property.watchChanges = function(object, listener){
+  if(pl.Property._callbackProperty.get(object)){
+    throw Error("already set");
+  }
+  pl.Property._callbackProperty.set(object, listener);
+};
+
 /**
  * @param {!Object} object
  * @param {!pl.Property} property
@@ -44,6 +62,7 @@ pl.Property.prototype.set = function(object, value){
 pl.Property.set = function(object, property, value){
   var hash = object[pl.Property._PROP_ID_PROPERTY] || (object[pl.Property._PROP_ID_PROPERTY] = {});
   hash[property._id] = value;
+  property._notify(object);
 };
 
 /**
@@ -54,6 +73,7 @@ pl.Property.clear = function(object, property){
   if(object[pl.Property._PROP_ID_PROPERTY]){
     var hash = object[pl.Property._PROP_ID_PROPERTY];
     delete hash[property._id];
+    property._notify(object);
   }
 };
 /**
@@ -99,3 +119,5 @@ pl.Property._PROP_ID_PROPERTY = 'prop_uid_' +
  * @private
  */
 pl.Property._properties = [];
+
+pl.Property._callbackProperty = new pl.Property("Callback");
