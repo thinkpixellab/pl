@@ -21,6 +21,9 @@ pl.retained.Element = function(width, height, opt_x, opt_y, opt_enableCache) {
   this.x = opt_x || 0;
   this.y = opt_y || 0;
 
+  /** @type {?pl.retained.Container} */
+  this._parent = null;
+
   if (opt_enableCache) {
     this._drawInternal = pl.retained.Element.prototype._drawCached;
   }
@@ -58,7 +61,7 @@ pl.retained.Element.prototype.center = function(opt_value) {
     this.x = opt_value.x - this.width / 2;
     this.y = opt_value.y - this.height / 2;
   }
-  return new goog.math.Coordinate(this.x, this.y);
+  return new goog.math.Coordinate(this.x + this.width / 2, this.y + this.height / 2);
 };
 
 /**
