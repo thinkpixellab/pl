@@ -14,6 +14,8 @@ goog.require('pl.retained.Element');
  */
 pl.retained.Container = function(width, height, opt_x, opt_y, opt_enableCache) {
   goog.base(this, width, height, opt_x, opt_y, opt_enableCache);
+
+  /** @type {!Array.<!pl.retained.Element>} */
   this._children = [];
 };
 goog.inherits(pl.retained.Container, pl.retained.Element);

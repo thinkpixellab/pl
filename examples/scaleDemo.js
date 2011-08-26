@@ -40,7 +40,7 @@ function init() {
 
   animation = new pl.retained.Animation(container, frames, function(i, element) {
     var scale = 1 - i / frames;
-    pl.ex.affineOffsetScale(element.transform, scale, scale, element.width / 2, element.height / 2);
+    pl.gfx.affineOffsetScale(element.transform, scale, scale, element.width / 2, element.height / 2);
     element.invalidateDraw();
   });
 

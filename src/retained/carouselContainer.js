@@ -112,7 +112,7 @@ pl.retained.CarouselContainer.prototype._updateLocations = function() {
         var scale = (sin + 1) / 2;
         scale = this._backScale + scale * (1 - this._backScale);
         element.transform = element.transform || new goog.graphics.AffineTransform();
-        pl.ex.affineOffsetScale(element.transform, scale, scale, element.width / 2, element.height / 2);
+        pl.gfx.affineOffsetScale(element.transform, scale, scale, element.width / 2, element.height / 2);
         element.invalidateDraw();
       }
 
