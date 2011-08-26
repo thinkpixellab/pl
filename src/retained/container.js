@@ -24,8 +24,7 @@ goog.inherits(pl.retained.Container, pl.retained.Element);
  * @param {!pl.retained.Element} element
  **/
 pl.retained.Container.prototype.addElement = function(element) {
-  this._children.push(element);
-  this.onChildrenChanged();
+  this.insertAt(element, this._children.length);
 };
 
 /**
