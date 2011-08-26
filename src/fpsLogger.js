@@ -29,7 +29,7 @@ pl.FpsLogger = function() {
 };
 
 /**
- @returns {number}
+ @return {number}
  **/
 pl.FpsLogger.prototype.AddInterval = function() {
   var currentTick = goog.now();

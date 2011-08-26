@@ -14,7 +14,7 @@ pl.retained.Animation = function(element, frameCount, func) {
   this._frame = 0;
 };
 
-pl.retained.Animation.prototype.tick = function(){
+pl.retained.Animation.prototype.tick = function() {
   this._func(this._frame, this._element);
   this._frame = (this._frame + 1) % this._frameCount;
 };

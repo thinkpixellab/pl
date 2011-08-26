@@ -1,7 +1,7 @@
 goog.provide('pl.gfx');
 
-goog.require('goog.math.Size');
 goog.require('goog.graphics.AffineTransform');
+goog.require('goog.math.Size');
 
 /**
  * @param {CanvasRenderingContext2D} ctx
@@ -37,8 +37,8 @@ pl.gfx.fillCircle = function(ctx, x, y, radius, fill) {
 pl.gfx.multiFillText = function(ctx, text, x, y, lineHeight, fitWidth, opt_measureOnly) {
   var measureOnly = Boolean(opt_measureOnly);
 
-  text = text.replace(/(\r\n|\n\r|\r|\n)/g, "\n");
-  var sections = text.split("\n");
+  text = text.replace(/(\r\n|\n\r|\r|\n)/g, '\n');
+  var sections = text.split('\n');
 
   var i, index, str, wordWidth, words, currentLine = 0,
     maxHeight = 0,

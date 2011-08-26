@@ -50,7 +50,7 @@ pl.retained.TileLayer.prototype.draw = function(ctx) {
  * @private
  * @param {number} input
  * @param {number} target
- * @returns {number}
+ * @return {number}
  */
 pl.retained.TileLayer._fix = function(input, target) {
   input = input - Math.ceil(input / target) * target;

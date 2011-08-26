@@ -1,16 +1,16 @@
 goog.provide('pl.retained.helper');
 
+goog.require('goog.array');
 goog.require('goog.math.Coordinate');
 goog.require('goog.math.Size');
-goog.require('goog.array');
 goog.require('pl.ex');
 goog.require('pl.gfx');
-goog.require('pl.retained.mouse');
 goog.require('pl.retained.Element');
+goog.require('pl.retained.mouse');
 
 /**
  * @param {!pl.retained.Element} element
- * @returns {!goog.graphics.AffineTransform}
+ * @return {!goog.graphics.AffineTransform}
  */
 pl.retained.helper.getTransform = function(element) {
   var tx = goog.graphics.AffineTransform.getTranslateInstance(element.x, element.y);

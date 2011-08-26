@@ -1,15 +1,15 @@
 goog.provide('pl.Property');
 
+goog.require('goog.array');
 goog.require('goog.math.Coordinate');
 goog.require('goog.math.Size');
-goog.require('goog.array');
 
 /**
  * @constructor
  * @param {!string} name
  * @param {*=} opt_defaultValue
  */
-pl.Property = function(name, opt_defaultValue){
+pl.Property = function(name, opt_defaultValue) {
   this._name = name;
   this._defaultValue = opt_defaultValue;
   this._id = pl.Property._properties.length;
@@ -19,27 +19,27 @@ pl.Property = function(name, opt_defaultValue){
 /**
  * @param {!Object} object
  */
-pl.Property.prototype.clear = function(object){
+pl.Property.prototype.clear = function(object) {
   pl.Property.clear(object, this);
 };
 
 /**
  * @param {!Object} object
  */
-pl.Property.prototype.get = function(object){
+pl.Property.prototype.get = function(object) {
   return pl.Property.get(object, this);
 };
 
 /**
  * @param {!Object} object
  */
-pl.Property.prototype.set = function(object, value){
+pl.Property.prototype.set = function(object, value) {
   pl.Property.set(object, this, value);
 };
 
-pl.Property.prototype._notify = function(object){
+pl.Property.prototype._notify = function(object) {
   var listener = pl.Property._callbackProperty.get(object);
-  if(listener){
+  if (listener) {
     listener(this);
   }
 };
@@ -48,9 +48,9 @@ pl.Property.prototype._notify = function(object){
  * @param {!Object} object
  * @param {!Function} listener.
  */
-pl.Property.watchChanges = function(object, listener){
-  if(pl.Property._callbackProperty.get(object)){
-    throw Error("already set");
+pl.Property.watchChanges = function(object, listener) {
+  if (pl.Property._callbackProperty.get(object)) {
+    throw Error('already set');
   }
   pl.Property._callbackProperty.set(object, listener);
 };
@@ -59,7 +59,7 @@ pl.Property.watchChanges = function(object, listener){
  * @param {!Object} object
  * @param {!pl.Property} property
  */
-pl.Property.set = function(object, property, value){
+pl.Property.set = function(object, property, value) {
   var hash = object[pl.Property._PROP_ID_PROPERTY] || (object[pl.Property._PROP_ID_PROPERTY] = {});
   hash[property._id] = value;
   property._notify(object);
@@ -69,8 +69,8 @@ pl.Property.set = function(object, property, value){
  * @param {!Object} object
  * @param {!pl.Property} property
  */
-pl.Property.clear = function(object, property){
-  if(object[pl.Property._PROP_ID_PROPERTY]){
+pl.Property.clear = function(object, property) {
+  if (object[pl.Property._PROP_ID_PROPERTY]) {
     var hash = object[pl.Property._PROP_ID_PROPERTY];
     delete hash[property._id];
     property._notify(object);
@@ -80,12 +80,12 @@ pl.Property.clear = function(object, property){
  * @param {!Object} object
  * @param {!pl.Property} property
  */
-pl.Property.get = function(object, property){
+pl.Property.get = function(object, property) {
   var coreVal = pl.Property.getCore(object, property);
-  if(coreVal){
+  if (coreVal) {
     return coreVal[0];
   }
-  else{
+  else {
     return property._defaultValue;
   }
 };
@@ -95,13 +95,13 @@ pl.Property.get = function(object, property){
  * @param {!pl.Property} property
  * @return {Array|undefined}
  */
-pl.Property.getCore = function(object, property){
-  if(object[pl.Property._PROP_ID_PROPERTY]){
+pl.Property.getCore = function(object, property) {
+  if (object[pl.Property._PROP_ID_PROPERTY]) {
     var hash = object[pl.Property._PROP_ID_PROPERTY];
-    if(property._id in hash){
+    if (property._id in hash) {
       return [hash[property._id]];
     }
-    else{
+    else {
       return null;
     }
   }
@@ -120,4 +120,4 @@ pl.Property._PROP_ID_PROPERTY = 'prop_uid_' +
  */
 pl.Property._properties = [];
 
-pl.Property._callbackProperty = new pl.Property("Callback");
+pl.Property._callbackProperty = new pl.Property('Callback');

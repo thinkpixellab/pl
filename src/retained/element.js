@@ -1,10 +1,10 @@
 goog.provide('pl.retained.Element');
 
 goog.require('goog.color.alpha');
+goog.require('goog.graphics.AffineTransform');
 goog.require('goog.math.Coordinate');
 goog.require('goog.math.Rect');
 goog.require('goog.math.Size');
-goog.require('goog.graphics.AffineTransform');
 goog.require('pl.gfx');
 
 /**
@@ -38,7 +38,7 @@ pl.retained.Element.prototype.draw = goog.abstractMethod;
 
 /**
  * @param {!goog.math.Coordinate=} opt_value
- * @returns {!goog.math.Coordinate}
+ * @return {!goog.math.Coordinate}
  */
 pl.retained.Element.prototype.topLeft = function(opt_value) {
   if (goog.isDef(opt_value)) {
@@ -51,7 +51,7 @@ pl.retained.Element.prototype.topLeft = function(opt_value) {
 // TODO: this does not take into account transform. Hmm...
 /**
  * @param {!goog.math.Coordinate=} opt_value
- * @returns {!goog.math.Coordinate}
+ * @return {!goog.math.Coordinate}
  */
 pl.retained.Element.prototype.center = function(opt_value) {
   if (goog.isDef(opt_value)) {
@@ -72,14 +72,14 @@ pl.retained.Element.prototype.setTopLeft = function(x, y) {
 
 // TODO: this does not take into account transform. Hmm...
 /**
- * @returns {!goog.math.Rect}
+ * @return {!goog.math.Rect}
  */
 pl.retained.Element.prototype.getBounds = function() {
   return new goog.math.Rect(this.x, this.y, this.width, this.height);
 };
 
 /**
- * @returns {!goog.math.Size}
+ * @return {!goog.math.Size}
  */
 pl.retained.Element.prototype.getSize = function() {
   return new goog.math.Size(this.width, this.height);
@@ -87,7 +87,7 @@ pl.retained.Element.prototype.getSize = function() {
 
 /**
  * @param {goog.math.Size} size
- * @returns {boolean}
+ * @return {boolean}
  */
 pl.retained.Element.prototype.setSize = function(size) {
   if (!goog.math.Size.equals(this.getSize(), size)) {
@@ -109,7 +109,7 @@ pl.retained.Element.prototype.invalidateDraw = function() {
 
 /**
  * @param {boolean=} opt_frontToBack
- * @returns {!Array.<!pl.retained.Element>}
+ * @return {!Array.<!pl.retained.Element>}
  */
 pl.retained.Element.prototype.getVisualChildren = function(opt_frontToBack) {
   return [];

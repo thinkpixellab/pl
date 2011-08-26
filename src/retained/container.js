@@ -38,7 +38,7 @@ pl.retained.Container.prototype.insertAt = function(element, opt_i) {
 
 /**
  * @param {boolean=} opt_frontToBack
- * @returns {!Array.<!pl.retained.Element>}
+ * @return {!Array.<!pl.retained.Element>}
  */
 pl.retained.Container.prototype.getVisualChildren = function(opt_frontToBack) {
   if (opt_frontToBack) {

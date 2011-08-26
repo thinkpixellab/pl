@@ -2,8 +2,8 @@ goog.provide('pl.retained.Stage');
 
 goog.require('goog.math.Coordinate');
 goog.require('goog.math.Size');
-goog.require('pl.retained.Element');
 goog.require('pl.ex');
+goog.require('pl.retained.Element');
 
 /**
  * @constructor
@@ -17,7 +17,7 @@ pl.retained.Stage = function(canvas, rootElement) {
 
 /**
  * @param {goog.math.Size} size
- * @returns {boolean}
+ * @return {boolean}
  */
 pl.retained.Stage.prototype.setSize = function(size) {
   if (!goog.math.Size.equals(pl.ex.getCanvasSize(this._canvas), size)) {
@@ -42,7 +42,7 @@ pl.retained.Stage.prototype.draw = function() {
 };
 
 /**
- * @returns {!CanvasRenderingContext2D}
+ * @return {!CanvasRenderingContext2D}
  */
 pl.retained.Stage.prototype.getContext = function() {
   if (!this._ctx) {
@@ -54,8 +54,8 @@ pl.retained.Stage.prototype.getContext = function() {
 };
 
 /**
- * @returns {!pl.retained.Element}
+ * @return {!pl.retained.Element}
  */
-pl.retained.Stage.prototype.getRoot = function(){
+pl.retained.Stage.prototype.getRoot = function() {
   return this._element;
 };

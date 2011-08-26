@@ -4,8 +4,8 @@ goog.require('goog.array');
 goog.require('goog.graphics.AffineTransform');
 goog.require('goog.math.Coordinate');
 goog.require('goog.math.Size');
-goog.require('pl.retained.Element');
 goog.require('pl.retained.Container');
+goog.require('pl.retained.Element');
 
 /**
  * @constructor
@@ -29,7 +29,7 @@ goog.inherits(pl.retained.CarouselContainer, pl.retained.Container);
 
 /**
  * @param {number=} opt_radian
- * @returns {number}
+ * @return {number}
  */
 pl.retained.CarouselContainer.prototype.angle = function(opt_radian) {
   if (goog.isDef(opt_radian)) {
@@ -41,7 +41,7 @@ pl.retained.CarouselContainer.prototype.angle = function(opt_radian) {
 
 /**
  * @param {goog.math.Size=} opt_value
- * @returns {goog.math.Size}
+ * @return {goog.math.Size}
  */
 pl.retained.CarouselContainer.prototype.radius = function(opt_value) {
   if (goog.isDef(opt_value)) {
@@ -54,7 +54,7 @@ pl.retained.CarouselContainer.prototype.radius = function(opt_value) {
 /**
  * should be a value <= 1 && > 0
  * @param {number=} opt_value
- * @returns {number}
+ * @return {number}
  */
 pl.retained.CarouselContainer.prototype.backScale = function(opt_value) {
   if (goog.isDef(opt_value)) {
