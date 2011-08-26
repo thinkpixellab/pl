@@ -3,9 +3,10 @@ goog.provide('pl.retained.helper');
 goog.require('goog.math.Coordinate');
 goog.require('goog.math.Size');
 goog.require('goog.array');
-goog.require('pl.retained.Element');
 goog.require('pl.ex');
 goog.require('pl.gfx');
+goog.require('pl.retained.mouse');
+goog.require('pl.retained.Element');
 
 /**
  * @param {!pl.retained.Element} element
@@ -24,7 +25,7 @@ pl.retained.helper.getTransform = function(element) {
  */
 pl.retained.helper.borderElements = function(stage) {
   var ctx = stage.getContext();
-  ctx.strokeStyle = 'red';
+  ctx.strokeStyle = 'blue';
   ctx.lineWidth = 2;
   ctx.beginPath();
   pl.retained.helper._borderElement(ctx, stage.getRoot());
@@ -39,7 +40,19 @@ pl.retained.helper.borderElements = function(stage) {
 pl.retained.helper._borderElement = function(ctx, element, opt_excludeChildren) {
   var tx = pl.retained.helper.getTransform(element);
   pl.gfx.transform(ctx, tx);
-  ctx.strokeRect(0,0,element.width,element.height);
+  if (pl.retained.mouse.IsMouseDirectlyOverProperty.get(element)) {
+    ctx.save();
+    ctx.strokeStyle = 'red';
+    ctx.strokeRect(0, 0, element.width, element.height);
+    ctx.restore();
+  } else if (pl.retained.mouse.IsMouseOverProperty.get(element)) {
+    ctx.save();
+    ctx.strokeStyle = 'pink';
+    ctx.strokeRect(0, 0, element.width, element.height);
+    ctx.restore();
+  } else {
+    ctx.strokeRect(0, 0, element.width, element.height);
+  }
 
   if (!opt_excludeChildren) {
     goog.array.forEach(element.getVisualChildren(), function(e) {
