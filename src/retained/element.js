@@ -12,15 +12,11 @@ goog.require('pl.gfx');
  * @constructor
  * @param {number} width
  * @param {number} height
- * @param {number=} opt_x
- * @param {number=} opt_y
  * @param {boolean=} opt_enableCache
  */
-pl.retained.Element = function(width, height, opt_x, opt_y, opt_enableCache) {
+pl.retained.Element = function(width, height, opt_enableCache) {
   this.width = width;
   this.height = height;
-  this.x = opt_x || 0;
-  this.y = opt_y || 0;
 
   /**
    * @private
@@ -36,53 +32,23 @@ pl.retained.Element = function(width, height, opt_x, opt_y, opt_enableCache) {
 /**
  * @type {?goog.graphics.AffineTransform}
  */
-pl.retained.Element.prototype.transform = null;
+pl.retained.Element.prototype.parentTransform = null;
+
+/**
+ * @return {?goog.graphics.AffineTransform}
+ */
+pl.retained.Element.prototype.getTransform = function() {
+  if (this.parentTransform) {
+    return this.parentTransform.clone();
+  } else {
+    return null;
+  }
+};
 
 /**
  * @param {!CanvasRenderingContext2D} ctx
  **/
 pl.retained.Element.prototype.draw = goog.abstractMethod;
-
-/**
- * @param {!goog.math.Coordinate=} opt_value
- * @return {!goog.math.Coordinate}
- */
-pl.retained.Element.prototype.topLeft = function(opt_value) {
-  if (goog.isDef(opt_value)) {
-    this.setTopLeft(opt_value.x, opt_value.y);
-  }
-  return new goog.math.Coordinate(this.x, this.y);
-};
-
-// TODO: this does not take into account transform. Hmm...
-/**
- * @param {!goog.math.Coordinate=} opt_value
- * @return {!goog.math.Coordinate}
- */
-pl.retained.Element.prototype.center = function(opt_value) {
-  if (goog.isDef(opt_value)) {
-    this.setTopLeft(opt_value.x - this.width / 2, opt_value.y - this.height / 2);
-  }
-  return new goog.math.Coordinate(this.x + this.width / 2, this.y + this.height / 2);
-};
-
-/**
- * @param {number} x
- * @param {number} y
- */
-pl.retained.Element.prototype.setTopLeft = function(x, y) {
-  this.x = x;
-  this.y = y;
-  this._invalidateParent();
-};
-
-// TODO: this does not take into account transform. Hmm...
-/**
- * @return {!goog.math.Rect}
- */
-pl.retained.Element.prototype.getBounds = function() {
-  return new goog.math.Rect(this.x, this.y, this.width, this.height);
-};
 
 /**
  * @return {!goog.math.Size}
@@ -145,10 +111,6 @@ pl.retained.Element.prototype._drawCore = function(ctx) {
     ctx.globalAlpha = this.alpha;
   }
 
-  if (this.transform) {
-    pl.gfx.setTransform(ctx, this.transform);
-  }
-
   if (this.fillStyle) {
     ctx.save();
     ctx.fillStyle = this.fillStyle;
@@ -168,7 +130,7 @@ pl.retained.Element.prototype._drawNormal = function(ctx) {
   ctx.save();
 
   // Translate to the starting position
-  ctx.translate(this.x, this.y);
+  pl.gfx.transform(ctx, this.getTransform());
 
   // clip to the bounds of the object
   ctx.beginPath();
@@ -199,7 +161,12 @@ pl.retained.Element.prototype._drawCached = function(ctx) {
 
     this._drawCore(cacheCtx);
   }
-  ctx.drawImage(this._cacheCanvas, this.x, this.y);
+
+  ctx.save();
+  pl.gfx.transform(ctx, this.getTransform());
+
+  ctx.drawImage(this._cacheCanvas, 0, 0);
+  ctx.restore();
   this._lastDrawSize = this.getSize();
 };
 

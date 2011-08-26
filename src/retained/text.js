@@ -10,11 +10,9 @@ goog.require('pl.retained.Element');
  * @param {string} value
  * @param {number} width
  * @param {number} height
- * @param {number=} opt_x
- * @param {number=} opt_y
  */
-pl.retained.Text = function(value, width, height, opt_x, opt_y) {
-  goog.base(this, width, height, opt_x, opt_y, true);
+pl.retained.Text = function(value, width, height) {
+  goog.base(this, width, height, true);
   this._value = value;
 };
 goog.inherits(pl.retained.Text, pl.retained.Element);

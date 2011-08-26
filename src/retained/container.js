@@ -8,13 +8,11 @@ goog.require('pl.retained.Element');
  * @constructor
  * @param {number} width
  * @param {number} height
- * @param {number=} opt_x
- * @param {number=} opt_y
  * @param {boolean=} opt_enableCache
  * @extends {pl.retained.Element}
  */
-pl.retained.Container = function(width, height, opt_x, opt_y, opt_enableCache) {
-  goog.base(this, width, height, opt_x, opt_y, opt_enableCache);
+pl.retained.Container = function(width, height, opt_enableCache) {
+  goog.base(this, width, height, opt_enableCache);
 
   /** @type {!Array.<!pl.retained.Element>} */
   this._children = [];
@@ -63,10 +61,10 @@ pl.retained.Container.prototype.onChildrenChanged = goog.nullFunction;
 pl.retained.Container.prototype.getChildBounds = function() {
   var bounds = null;
   if (this._children.length) {
-    bounds = this._children[0].getBounds();
+    bounds = pl.retained.helper.getBounds(this._children[0]);
 
     goog.array.forEach(this._children, function(child) {
-      bounds.boundingRect(child.getBounds());
+      bounds.boundingRect(pl.retained.helper.getBounds(child));
     },
     this);
   }

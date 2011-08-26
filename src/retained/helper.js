@@ -9,18 +9,6 @@ goog.require('pl.retained.Element');
 goog.require('pl.retained.mouse');
 
 /**
- * @param {!pl.retained.Element} element
- * @return {!goog.graphics.AffineTransform}
- */
-pl.retained.helper.getTransform = function(element) {
-  var tx = goog.graphics.AffineTransform.getTranslateInstance(element.x, element.y);
-  if (element.transform) {
-    tx.concatenate(element.transform);
-  }
-  return tx;
-};
-
-/**
  * @param {!pl.retained.Stage} stage
  */
 pl.retained.helper.borderElements = function(stage) {
@@ -38,8 +26,8 @@ pl.retained.helper.borderElements = function(stage) {
  * @param {boolean=} opt_excludeChildren
  */
 pl.retained.helper._borderElement = function(ctx, element, opt_excludeChildren) {
-  var tx = pl.retained.helper.getTransform(element);
-  pl.gfx.transform(ctx, tx);
+  pl.gfx.transform(ctx, element.getTransform());
+  ctx.strokeRect(0, 0, element.width, element.height);
   if (pl.retained.mouse.IsMouseDirectlyOverProperty.get(element)) {
     ctx.save();
     ctx.strokeStyle = 'red';
@@ -67,6 +55,7 @@ pl.retained.helper._borderElement = function(ctx, element, opt_excludeChildren) 
  * @param {!pl.retained.Stage} stage
  * @param {number} x
  * @param {number} y
+ * @return {!Array.<!pl.retained.Element>}
  */
 pl.retained.helper.hitTest = function(stage, x, y) {
   return pl.retained.helper._hitTest(stage.getRoot(), x, y);
@@ -76,12 +65,12 @@ pl.retained.helper.hitTest = function(stage, x, y) {
  * @param {!pl.retained.Element} element
  * @param {number} x
  * @param {number} y
+ * @return {!Array.<!pl.retained.Element>}
  */
 pl.retained.helper._hitTest = function(element, x, y) {
-  var point = [x, y];
-  pl.retained.helper.getTransform(element).createInverse().transform(point, 0, point, 0, 1);
+  var c = new goog.math.Coordinate(x, y);
+  pl.retained.helper.transformPointGlobalToLocal(element, c);
 
-  var c = new goog.math.Coordinate(point[0], point[1]);
   var bounds = new goog.math.Rect(0, 0, element.width, element.height);
 
   var hits = [];
@@ -105,6 +94,8 @@ pl.retained.helper._hitTest = function(element, x, y) {
 
 /**
  * @param {!pl.retained.Stage} stage
+ * @param {number} x
+ * @param {number} y
  */
 pl.retained.helper.borderHitTest = function(stage, x, y) {
   var ctx = stage.getContext();
@@ -122,4 +113,65 @@ pl.retained.helper.borderHitTest = function(stage, x, y) {
     ctx.stroke();
     ctx.restore();
   }
+};
+
+// modifies the provided point IN PLACE
+/**
+ * @param {!pl.retained.Element} element
+ * @param {!goog.math.Coordinate} point
+ * @return {!goog.math.Coordinate}
+ */
+pl.retained.helper.transformPointLocalToGlobal = function(element, point) {
+  var tx = element.getTransform();
+  if (tx) {
+    pl.ex.transformCoordinate(tx, point);
+  }
+  return point;
+};
+
+// modifies the provided point IN PLACE
+/**
+ * @param {!pl.retained.Element} element
+ * @param {!goog.math.Coordinate} point
+ * @return {!goog.math.Coordinate}
+ */
+pl.retained.helper.transformPointGlobalToLocal = function(element, point) {
+  var tx = element.getTransform();
+  if (tx) {
+    pl.ex.transformCoordinate(tx.createInverse(), point);
+  }
+  return point;
+};
+
+/**
+ * @param {!pl.retained.Element} element
+ * @return {!goog.math.Rect}
+ */
+pl.retained.helper.getBounds = function(element) {
+  var corners = pl.retained.helper.getCorners(element);
+  var left = corners[0].x;
+  var right = corners[0].x;
+  var top = corners[0].y;
+  var bottom = corners[0].y;
+
+  for (var i = 1; i < corners.length; i++) {
+    left = Math.min(left, corners[i].x);
+    right = Math.max(right, corners[i].x);
+    top = Math.min(top, corners[i].y);
+    bottom = Math.max(bottom, corners[i].y);
+  }
+
+  return new goog.math.Rect(left, top, right - left, bottom - top);
+};
+
+/**
+ * @param {!pl.retained.Element} element
+ * @return {!Array.<!goog.math.Coordinate>}
+ */
+pl.retained.helper.getCorners = function(element) {
+  var points = [new goog.math.Coordinate(0, 0), new goog.math.Coordinate(element.width, 0), new goog.math.Coordinate(element.width, element.height), new goog.math.Coordinate(0, element.height)];
+  goog.array.forEach(points, function(p) {
+    pl.retained.helper.transformPointLocalToGlobal(element, p);
+  });
+  return points;
 };
