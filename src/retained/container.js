@@ -1,6 +1,7 @@
 goog.provide('pl.retained.Container');
 
 goog.require('goog.array');
+goog.require('goog.asserts');
 goog.require('pl.retained.Element');
 
 /**
@@ -34,6 +35,7 @@ pl.retained.Container.prototype.addElement = function(element) {
  **/
 pl.retained.Container.prototype.insertAt = function(element, opt_i) {
   goog.array.insertAt(this._children, element, opt_i);
+  element.claim(this);
   this.onChildrenChanged();
 };
 
@@ -79,4 +81,12 @@ pl.retained.Container.prototype.draw = function(ctx) {
     element._drawInternal(ctx);
   },
   this);
+};
+
+/**
+ * @param {!pl.retained.Element} child
+ */
+pl.retained.Container.prototype.childInvalidated = function(child) {
+  goog.asserts.assert(goog.array.contains(this._children, child), 'Must be the containers child');
+  this.invalidateDraw();
 };

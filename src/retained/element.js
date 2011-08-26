@@ -1,5 +1,6 @@
 goog.provide('pl.retained.Element');
 
+goog.require('goog.asserts');
 goog.require('goog.color.alpha');
 goog.require('goog.graphics.AffineTransform');
 goog.require('goog.math.Coordinate');
@@ -21,7 +22,10 @@ pl.retained.Element = function(width, height, opt_x, opt_y, opt_enableCache) {
   this.x = opt_x || 0;
   this.y = opt_y || 0;
 
-  /** @type {?pl.retained.Container} */
+  /**
+   * @private
+   * @type {?pl.retained.Container}
+   */
   this._parent = null;
 
   if (opt_enableCache) {
@@ -45,8 +49,7 @@ pl.retained.Element.prototype.draw = goog.abstractMethod;
  */
 pl.retained.Element.prototype.topLeft = function(opt_value) {
   if (goog.isDef(opt_value)) {
-    this.x = opt_value.x;
-    this.y = opt_value.y;
+    this.setTopLeft(opt_value.x, opt_value.y);
   }
   return new goog.math.Coordinate(this.x, this.y);
 };
@@ -58,8 +61,7 @@ pl.retained.Element.prototype.topLeft = function(opt_value) {
  */
 pl.retained.Element.prototype.center = function(opt_value) {
   if (goog.isDef(opt_value)) {
-    this.x = opt_value.x - this.width / 2;
-    this.y = opt_value.y - this.height / 2;
+    this.setTopLeft(opt_value.x - this.width / 2, opt_value.y - this.height / 2);
   }
   return new goog.math.Coordinate(this.x + this.width / 2, this.y + this.height / 2);
 };
@@ -71,6 +73,7 @@ pl.retained.Element.prototype.center = function(opt_value) {
 pl.retained.Element.prototype.setTopLeft = function(x, y) {
   this.x = x;
   this.y = y;
+  this._invalidateParent();
 };
 
 // TODO: this does not take into account transform. Hmm...
@@ -108,6 +111,13 @@ pl.retained.Element.prototype.setSize = function(size) {
  */
 pl.retained.Element.prototype.invalidateDraw = function() {
   this._lastDrawSize = null;
+  this._invalidateParent();
+};
+
+pl.retained.Element.prototype._invalidateParent = function() {
+  if (this._parent) {
+    this._parent.childInvalidated(this);
+  }
 };
 
 /**
@@ -116,6 +126,14 @@ pl.retained.Element.prototype.invalidateDraw = function() {
  */
 pl.retained.Element.prototype.getVisualChildren = function(opt_frontToBack) {
   return [];
+};
+
+/**
+ * @param {!pl.retained.Container} parent
+ */
+pl.retained.Element.prototype.claim = function(parent) {
+  goog.asserts.assert(this._parent === null, 'already claimed');
+  this._parent = parent;
 };
 
 /**
