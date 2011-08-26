@@ -93,7 +93,7 @@ pl.retained.Element.prototype.setSize = function(size) {
   if (!goog.math.Size.equals(this.getSize(), size)) {
     this.width = size.width;
     this.height = size.height;
-    this._lastDrawSize = null;
+    this.invalidateDraw();
     return true;
   }
   return false;
