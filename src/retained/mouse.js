@@ -8,6 +8,7 @@ goog.require('pl.retained.Stage');
 /**
  * @param {!pl.retained.Stage} stage
  * @param {goog.math.Coordinate=} opt_coordinate
+ * @return {?Array.<!pl.retained.Element>}
  */
 pl.retained.mouse.markMouseOver = function(stage, opt_coordinate) {
     var items = /** @type {undefined|Array.<!pl.retained.Element>} */ pl.retained.mouse._stageMouseCacheProperty.get(stage);
@@ -26,7 +27,9 @@ pl.retained.mouse.markMouseOver = function(stage, opt_coordinate) {
       if (hits.length) {
         pl.retained.mouse.IsMouseDirectlyOverProperty.set(hits[hits.length - 1], true);
       }
+      return hits;
     }
+    return null;
 };
 
 pl.retained.mouse.IsMouseOverProperty = new pl.Property('IsMouseOver', false);
