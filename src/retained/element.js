@@ -94,12 +94,22 @@ pl.retained.Element.prototype.getVisualChildren = function(opt_frontToBack) {
   return [];
 };
 
+// TODO: make the notion of a parent abstract...stage should be a parent, etc
 /**
  * @param {!pl.retained.Container} parent
  */
 pl.retained.Element.prototype.claim = function(parent) {
   goog.asserts.assert(this._parent === null, 'already claimed');
   this._parent = parent;
+};
+
+// TODO: make the notion of a parent abstract...stage should be a parent, etc
+/**
+ * @param {!pl.retained.Container} parent
+ */
+pl.retained.Element.prototype.disown = function(parent) {
+  goog.asserts.assert(this._parent == parent);
+  this._parent = null;
 };
 
 /**

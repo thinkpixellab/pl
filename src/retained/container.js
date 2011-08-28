@@ -38,6 +38,18 @@ pl.retained.Container.prototype.insertAt = function(element, opt_i) {
 };
 
 /**
+ * @param {!pl.retained.Element} element
+ * @return {boolean} true if the item was removed, otherwise, false.
+ */
+pl.retained.Container.prototype.remove = function(element) {
+  if (goog.array.remove(this._children, element)) {
+    element.disown(this);
+    return true;
+  }
+  return false;
+};
+
+/**
  * @param {boolean=} opt_frontToBack
  * @return {!Array.<!pl.retained.Element>}
  */
