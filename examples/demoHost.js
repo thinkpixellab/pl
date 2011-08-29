@@ -1,6 +1,7 @@
 goog.provide('DemoHost');
 
 goog.require('demos.CarouselDemo');
+goog.require('demos.ScaleDemo');
 goog.require('demos.Swap');
 goog.require('demos.Tile');
 goog.require('demos.Transition');
@@ -19,7 +20,7 @@ DemoHost = function() {
   this._logger = goog.debug.LogManager.getRoot();
   this._fpsLogger = new pl.FpsLogger();
 
-  this._loadDemo(demos.Tile);
+  this._loadDemo(demos.ScaleDemo);
 
   this._drawFrame();
   this._updateHUD();
