@@ -44,6 +44,7 @@ pl.retained.Container.prototype.insertAt = function(element, opt_i) {
 pl.retained.Container.prototype.remove = function(element) {
   if (goog.array.remove(this._children, element)) {
     element.disown(this);
+    this.onChildrenChanged();
     return true;
   }
   return false;
