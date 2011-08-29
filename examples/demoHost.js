@@ -25,7 +25,7 @@ DemoHost = function() {
   this._logger = goog.debug.LogManager.getRoot();
   this._fpsLogger = new pl.FpsLogger();
 
-  var select1 = new goog.ui.Select();
+  var select1 = new goog.ui.Select('Pick a demo...');
   goog.object.forEach(demos, function(d) {
     select1.addItem(new goog.ui.MenuItem(d.description, d));
   });
@@ -73,7 +73,7 @@ DemoHost.prototype._drawFrame = function() {
 
 DemoHost.prototype._updateHUD = function() {
   pl.DebugDiv.clear();
-  this._logger.info(this._fpsLogger.fps);
+  this._logger.info(String(this._fpsLogger.fps));
 
   var func = goog.bind(this._updateHUD, this);
   goog.Timer.callOnce(func, 2000);
