@@ -37,6 +37,8 @@ demos.Swap = function(canvas) {
   });
 };
 
+demos.Swap.description = 'Swap';
+
 demos.Swap.prototype.frame = function(){
   this._animation.tick();
   this._stage.draw();

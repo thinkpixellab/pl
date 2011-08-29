@@ -25,8 +25,9 @@ demos.Transition = function(canvas){
   this._container.addElement(text);
   
   this._stage = new pl.retained.Stage(canvas, this._container);
-}
+};
 
+demos.Transition.description = 'Transition';
 
 demos.Transition.prototype.frame = function() {
   var element = this._container;

@@ -33,6 +33,7 @@ demos.ScaleDemo = function(canvas) {
   });
 };
 
+demos.ScaleDemo.description = 'Scale';
 
 demos.ScaleDemo.prototype.frame = function(){
   this._animation.tick();

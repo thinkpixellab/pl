@@ -45,6 +45,8 @@ demos.CarouselDemo = function(canvas) {
   });
 };
 
+demos.CarouselDemo.description = 'Carousel';
+
 demos.CarouselDemo.prototype.frame = function() {
   this._animation.tick();
   this._stage.draw();
