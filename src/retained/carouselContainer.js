@@ -33,6 +33,7 @@ pl.retained.CarouselContainer.prototype.angle = function(opt_radian) {
   if (goog.isDef(opt_radian)) {
     this._angle = Number(opt_radian) || 0;
     this._locationsDirty = true;
+    this.invalidateDraw();
   }
   return this._angle;
 };
@@ -45,6 +46,7 @@ pl.retained.CarouselContainer.prototype.radius = function(opt_value) {
   if (goog.isDef(opt_value)) {
     this._radius = opt_value.clone();
     this._locationsDirty = true;
+    this.invalidateDraw();
   }
   return this._radius.clone();
 };
