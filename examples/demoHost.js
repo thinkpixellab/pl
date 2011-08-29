@@ -1,14 +1,10 @@
 goog.provide('DemoHost');
 
-goog.require('demos.CarouselDemo');
-goog.require('demos.ScaleDemo');
-goog.require('demos.Swap');
-goog.require('demos.Tile');
-goog.require('demos.Transition');
+goog.require('demos');
 goog.require('goog.Timer');
+goog.require('goog.array');
 goog.require('goog.debug.LogManager');
 goog.require('goog.dom');
-goog.require('goog.object');
 goog.require('goog.ui.Component.EventType');
 goog.require('goog.ui.MenuItem');
 goog.require('goog.ui.Select');
@@ -26,7 +22,7 @@ DemoHost = function() {
   this._fpsLogger = new pl.FpsLogger();
 
   var select1 = new goog.ui.Select('Pick a demo...');
-  goog.object.forEach(demos, function(d) {
+  goog.array.forEach(demos.all, function(d) {
     select1.addItem(new goog.ui.MenuItem(d.description, d));
   });
   select1.render(goog.dom.getElement('DemoSelect'));
@@ -38,7 +34,7 @@ DemoHost = function() {
   },
   false, this);
 
-  this._loadDemo(goog.object.getAnyValue(demos));
+  this._loadDemo(demos.all[0]);
 
   this._drawFrame();
   this._updateHUD();
