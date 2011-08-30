@@ -59,12 +59,12 @@ DemoHost.prototype._drawFrame = function() {
   this._fpsLogger.AddInterval();
   var func = goog.bind(this._drawFrame, this);
 
-  //goog.Timer.callOnce(func, 100);
-  pl.ex.requestAnimationFrame(func);
-
   if (this._demo) {
     this._demo.frame();
   }
+
+  //goog.Timer.callOnce(func, 100);
+  pl.ex.requestAnimationFrame(func);
 };
 
 DemoHost.prototype._updateHUD = function() {
