@@ -21,14 +21,14 @@ DemoHost = function() {
   this._logger = goog.debug.LogManager.getRoot();
   this._fpsLogger = new pl.FpsLogger();
 
-  var select1 = new goog.ui.Select('Pick a demo...');
+  var selectControl = new goog.ui.Select('Pick a demo...');
   goog.array.forEach(demos.all, function(d) {
-    select1.addItem(new goog.ui.MenuItem(d.description, d));
+    selectControl.addItem(new goog.ui.MenuItem(d.description, d));
   });
-  select1.render(goog.dom.getElement('DemoSelect'));
-  select1.setSelectedIndex(0);
+  selectControl.render(goog.dom.getElement('DemoSelect'));
+  selectControl.setSelectedIndex(0);
 
-  goog.events.listen(select1, goog.ui.Component.EventType.ACTION, function(e) {
+  goog.events.listen(selectControl, goog.ui.Component.EventType.ACTION, function(e) {
     var select = e.target;
     this._loadDemo(select.getValue());
   },
