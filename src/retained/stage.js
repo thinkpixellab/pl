@@ -29,6 +29,11 @@ pl.retained.Stage.prototype.setSize = function(size) {
   return false;
 };
 
+/**
+ * @return {boolean} Returns 'true' if the system has updated in the last frame.
+ *                   Indicates animations are running and you might want to continue
+ *                   pushing frames.
+ **/
 pl.retained.Stage.prototype.draw = function() {
   if (!this._ctx) {
     this._ctx =
@@ -38,7 +43,7 @@ pl.retained.Stage.prototype.draw = function() {
     this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height);
   }
 
-  this._element.draw(this._ctx);
+  return this._element.draw(this._ctx);
 };
 
 /**

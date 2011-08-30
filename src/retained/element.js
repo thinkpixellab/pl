@@ -110,9 +110,18 @@ pl.retained.Element.prototype.disown = function(parent) {
   this._parent = null;
 };
 
+/**
+ * @param {!CanvasRenderingContext2D} ctx
+ * @return {boolean} Returns 'true' if the system has updated in the last frame.
+ *                   Indicates animations are running and you might want to continue
+ *                   pushing frames.
+ **/
 pl.retained.Element.prototype.draw = function(ctx) {
   this.update();
+  var dirty = Boolean(!this._lastDrawSize);
   this._drawInternal(ctx);
+  this._lastDrawSize = this.getSize();
+  return dirty;
 };
 
 /**
@@ -199,5 +208,4 @@ pl.retained.Element.prototype._drawCached = function(ctx) {
 
   ctx.drawImage(this._cacheCanvas, 0, 0);
   ctx.restore();
-  this._lastDrawSize = this.getSize();
 };
