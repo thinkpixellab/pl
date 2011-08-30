@@ -33,7 +33,10 @@ pl.retained.TileLayer.prototype.getOffset = function() {
   return this._offset.clone();
 };
 
-pl.retained.TileLayer.prototype.draw = function(ctx) {
+/**
+ * @override
+ */
+pl.retained.TileLayer.prototype.drawOverride = function(ctx) {
   if (!this._pattern) {
     this._pattern = ctx.createPattern(this._image, 'repeat');
   }

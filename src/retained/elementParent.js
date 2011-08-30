@@ -7,7 +7,6 @@ goog.require('goog.asserts');
  * @interface
  */
 pl.retained.ElementParent = function() {};
-goog.inherits(pl.retained.Container, pl.retained.Element);
 
 /**
  * @param {!pl.retained.Element} child

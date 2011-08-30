@@ -25,7 +25,10 @@ pl.retained.Text.prototype.lineHeight = 25;
 
 pl.retained.Text.prototype.multiLine = false;
 
-pl.retained.Text.prototype.draw = function(ctx) {
+/**
+ * @override
+ */
+pl.retained.Text.prototype.drawOverride = function(ctx) {
   ctx.font = this.font;
   ctx.textBaseline = 'top';
   ctx.fillStyle = this.textFillStyle;

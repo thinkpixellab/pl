@@ -47,9 +47,10 @@ pl.retained.Element.prototype.getTransform = function() {
 };
 
 /**
+ * @protected
  * @param {!CanvasRenderingContext2D} ctx
- **/
-pl.retained.Element.prototype.draw = goog.abstractMethod;
+ */
+pl.retained.Element.prototype.drawOverride = goog.abstractMethod;
 
 /**
  * @return {!goog.math.Size}
@@ -128,7 +129,7 @@ pl.retained.Element.prototype._drawCore = function(ctx) {
   }
 
   // call the abstract draw method
-  this.draw(ctx);
+  this.drawOverride(ctx);
 };
 
 /**

@@ -87,9 +87,10 @@ pl.retained.CarouselContainer.prototype.onChildrenChanged = function() {
 };
 
 /**
+ * @override
  * @param {!CanvasRenderingContext2D} ctx
  **/
-pl.retained.CarouselContainer.prototype.draw = function(ctx) {
+pl.retained.CarouselContainer.prototype.drawOverride = function(ctx) {
   this._updateLocations();
   goog.array.forEach(this._sortedChildren, function(element) {
     element._drawInternal(ctx);
