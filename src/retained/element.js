@@ -7,6 +7,7 @@ goog.require('goog.math.Coordinate');
 goog.require('goog.math.Rect');
 goog.require('goog.math.Size');
 goog.require('pl.gfx');
+goog.require('pl.retained.ElementParent');
 
 /**
  * @constructor
@@ -20,7 +21,7 @@ pl.retained.Element = function(width, height, opt_enableCache) {
 
   /**
    * @private
-   * @type {?pl.retained.Container}
+   * @type {?pl.retained.ElementParent}
    */
   this._parent = null;
 
@@ -94,18 +95,16 @@ pl.retained.Element.prototype.getVisualChildren = function(opt_frontToBack) {
   return [];
 };
 
-// TODO: make the notion of a parent abstract...stage should be a parent, etc
 /**
- * @param {!pl.retained.Container} parent
+ * @param {!pl.retained.ElementParent} parent
  */
 pl.retained.Element.prototype.claim = function(parent) {
   goog.asserts.assert(this._parent === null, 'already claimed');
   this._parent = parent;
 };
 
-// TODO: make the notion of a parent abstract...stage should be a parent, etc
 /**
- * @param {!pl.retained.Container} parent
+ * @param {!pl.retained.ElementParent} parent
  */
 pl.retained.Element.prototype.disown = function(parent) {
   goog.asserts.assert(this._parent == parent);

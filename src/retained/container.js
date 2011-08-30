@@ -3,12 +3,14 @@ goog.provide('pl.retained.Container');
 goog.require('goog.array');
 goog.require('goog.asserts');
 goog.require('pl.retained.Element');
+goog.require('pl.retained.ElementParent');
 
 /**
  * @constructor
  * @param {number} width
  * @param {number} height
  * @param {boolean=} opt_enableCache
+ * @implements {pl.retained.ElementParent}
  * @extends {pl.retained.Element}
  */
 pl.retained.Container = function(width, height, opt_enableCache) {
