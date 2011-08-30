@@ -87,7 +87,7 @@ pl.retained.CarouselContainer.prototype.onChildrenChanged = function() {
 /**
  * @override
  **/
-pl.retained.Container.prototype.update = function() {
+pl.retained.CarouselContainer.prototype.update = function() {
   this._updateLocations();
   goog.base(this, 'update');
 };

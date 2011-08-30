@@ -94,6 +94,7 @@ pl.retained.Container.prototype.update = function() {
     element.update();
   },
   this);
+  goog.base(this, 'update');
 };
 
 /**
