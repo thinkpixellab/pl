@@ -2,15 +2,18 @@ goog.provide('pl.retained.Element');
 
 goog.require('goog.asserts');
 goog.require('goog.color.alpha');
+goog.require('goog.events.EventTarget');
 goog.require('goog.graphics.AffineTransform');
 goog.require('goog.math.Coordinate');
 goog.require('goog.math.Rect');
 goog.require('goog.math.Size');
 goog.require('pl.gfx');
 goog.require('pl.retained.ElementParent');
+goog.require('pl.retained.EventType');
 
 /**
  * @constructor
+ * @extends {goog.events.EventTarget}
  * @param {number} width
  * @param {number} height
  * @param {boolean=} opt_enableCache
@@ -29,6 +32,7 @@ pl.retained.Element = function(width, height, opt_enableCache) {
     this._drawInternal = pl.retained.Element.prototype._drawCached;
   }
 };
+goog.inherits(pl.retained.Element, goog.events.EventTarget);
 
 /**
  * @type {?goog.graphics.AffineTransform}
@@ -121,6 +125,7 @@ pl.retained.Element.prototype.drawOverride = goog.abstractMethod;
  * @protected
  */
 pl.retained.Element.prototype.update = function() {
+  this.dispatchEvent(pl.retained.EventType.UPDATE);
 };
 
 /**

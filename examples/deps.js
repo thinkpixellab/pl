@@ -92,8 +92,9 @@ goog.addDependency("../../../pl/src/qr/QRUtil.js", ['QR.Util'], ['QR.Polynomial'
 goog.addDependency("../../../pl/src/retained/animation.js", ['pl.retained.Animation'], []);
 goog.addDependency("../../../pl/src/retained/carouselContainer.js", ['pl.retained.CarouselContainer'], ['goog.array', 'goog.graphics.AffineTransform', 'goog.math.Coordinate', 'goog.math.Size', 'pl.retained.Container', 'pl.retained.Element']);
 goog.addDependency("../../../pl/src/retained/container.js", ['pl.retained.Container'], ['goog.array', 'goog.asserts', 'pl.retained.Element', 'pl.retained.ElementParent']);
-goog.addDependency("../../../pl/src/retained/element.js", ['pl.retained.Element'], ['goog.asserts', 'goog.color.alpha', 'goog.graphics.AffineTransform', 'goog.math.Coordinate', 'goog.math.Rect', 'goog.math.Size', 'pl.gfx', 'pl.retained.ElementParent']);
+goog.addDependency("../../../pl/src/retained/element.js", ['pl.retained.Element'], ['goog.asserts', 'goog.color.alpha', 'goog.graphics.AffineTransform', 'pl.retained.EventType', 'goog.math.Coordinate', 'goog.math.Rect', 'goog.math.Size', 'pl.gfx', 'pl.retained.ElementParent', 'goog.events.EventTarget']);
 goog.addDependency("../../../pl/src/retained/elementParent.js", ['pl.retained.ElementParent'], ['goog.array', 'goog.asserts']);
+goog.addDependency("../../../pl/src/retained/eventType.js", ['pl.retained.EventType'], []);
 goog.addDependency("../../../pl/src/retained/helper.js", ['pl.retained.helper'], ['goog.array', 'goog.math.Coordinate', 'goog.math.Size', 'pl.ex', 'pl.gfx', 'pl.retained.Element', 'pl.retained.mouse']);
 goog.addDependency("../../../pl/src/retained/mouse.js", ['pl.retained.mouse'], ['goog.array', 'goog.math.Coordinate', 'pl.Property', 'pl.retained.Stage']);
 goog.addDependency("../../../pl/src/retained/stage.js", ['pl.retained.Stage'], ['goog.math.Coordinate', 'goog.math.Size', 'pl.ex', 'pl.retained.Element']);
