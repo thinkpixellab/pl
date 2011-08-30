@@ -103,7 +103,7 @@ pl.retained.Container.prototype.update = function() {
  **/
 pl.retained.Container.prototype.drawOverride = function(ctx) {
   goog.array.forEach(this._children, function(element) {
-    element.draw(ctx);
+    element._drawInternal(ctx);
   },
   this);
 };

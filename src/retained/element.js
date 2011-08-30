@@ -120,7 +120,6 @@ pl.retained.Element.prototype.draw = function(ctx) {
   this.update();
   var dirty = Boolean(!this._lastDrawSize);
   this._drawInternal(ctx);
-  this._lastDrawSize = this.getSize();
   return dirty;
 };
 
@@ -155,6 +154,7 @@ pl.retained.Element.prototype._drawCore = function(ctx) {
 
   // call the abstract draw method
   this.drawOverride(ctx);
+  this._lastDrawSize = this.getSize();
 };
 
 /**
