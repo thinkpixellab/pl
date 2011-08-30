@@ -20,27 +20,55 @@ pl.Property = function(name, opt_defaultValue) {
  * @param {!Object} object
  */
 pl.Property.prototype.clear = function(object) {
-  pl.Property.clear(object, this);
+  if (object[pl.Property._PROP_ID_PROPERTY]) {
+    var hash = object[pl.Property._PROP_ID_PROPERTY];
+    delete hash[this._id];
+    this._notify(object);
+  }
 };
 
 /**
  * @param {!Object} object
  */
 pl.Property.prototype.get = function(object) {
-  return pl.Property.get(object, this);
+  var coreVal = this.getCore(object);
+  if (coreVal) {
+    return coreVal[0];
+  }
+  else {
+    return this._defaultValue;
+  }
 };
 
 /**
  * @param {!Object} object
  */
 pl.Property.prototype.set = function(object, value) {
-  pl.Property.set(object, this, value);
+  var hash = object[pl.Property._PROP_ID_PROPERTY] || (object[pl.Property._PROP_ID_PROPERTY] = {});
+  hash[this._id] = value;
+  this._notify(object);
 };
 
 pl.Property.prototype._notify = function(object) {
   var listener = pl.Property._callbackProperty.get(object);
   if (listener) {
     listener(this);
+  }
+};
+
+/**
+ * @param {!Object} object
+ * @return {Array|undefined}
+ */
+pl.Property.prototype.getCore = function(object) {
+  if (object[pl.Property._PROP_ID_PROPERTY]) {
+    var hash = object[pl.Property._PROP_ID_PROPERTY];
+    if (this._id in hash) {
+      return [hash[this._id]];
+    }
+    else {
+      return null;
+    }
   }
 };
 
@@ -53,58 +81,6 @@ pl.Property.watchChanges = function(object, listener) {
     throw Error('already set');
   }
   pl.Property._callbackProperty.set(object, listener);
-};
-
-/**
- * @param {!Object} object
- * @param {!pl.Property} property
- */
-pl.Property.set = function(object, property, value) {
-  var hash = object[pl.Property._PROP_ID_PROPERTY] || (object[pl.Property._PROP_ID_PROPERTY] = {});
-  hash[property._id] = value;
-  property._notify(object);
-};
-
-/**
- * @param {!Object} object
- * @param {!pl.Property} property
- */
-pl.Property.clear = function(object, property) {
-  if (object[pl.Property._PROP_ID_PROPERTY]) {
-    var hash = object[pl.Property._PROP_ID_PROPERTY];
-    delete hash[property._id];
-    property._notify(object);
-  }
-};
-/**
- * @param {!Object} object
- * @param {!pl.Property} property
- */
-pl.Property.get = function(object, property) {
-  var coreVal = pl.Property.getCore(object, property);
-  if (coreVal) {
-    return coreVal[0];
-  }
-  else {
-    return property._defaultValue;
-  }
-};
-
-/**
- * @param {!Object} object
- * @param {!pl.Property} property
- * @return {Array|undefined}
- */
-pl.Property.getCore = function(object, property) {
-  if (object[pl.Property._PROP_ID_PROPERTY]) {
-    var hash = object[pl.Property._PROP_ID_PROPERTY];
-    if (property._id in hash) {
-      return [hash[property._id]];
-    }
-    else {
-      return null;
-    }
-  }
 };
 
 /**
