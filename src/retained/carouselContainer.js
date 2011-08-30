@@ -33,7 +33,6 @@ pl.retained.CarouselContainer.prototype.angle = function(opt_radian) {
   if (goog.isDef(opt_radian)) {
     this._angle = Number(opt_radian) || 0;
     this._locationsDirty = true;
-    this.invalidateDraw();
   }
   return this._angle;
 };
@@ -46,7 +45,6 @@ pl.retained.CarouselContainer.prototype.radius = function(opt_value) {
   if (goog.isDef(opt_value)) {
     this._radius = opt_value.clone();
     this._locationsDirty = true;
-    this.invalidateDraw();
   }
   return this._radius.clone();
 };
@@ -88,10 +86,17 @@ pl.retained.CarouselContainer.prototype.onChildrenChanged = function() {
 
 /**
  * @override
+ **/
+pl.retained.Container.prototype.update = function() {
+  this._updateLocations();
+  goog.base(this, 'update');
+};
+
+/**
+ * @override
  * @param {!CanvasRenderingContext2D} ctx
  **/
 pl.retained.CarouselContainer.prototype.drawOverride = function(ctx) {
-  this._updateLocations();
   goog.array.forEach(this._sortedChildren, function(element) {
     element._drawInternal(ctx);
   },
@@ -100,6 +105,7 @@ pl.retained.CarouselContainer.prototype.drawOverride = function(ctx) {
 
 pl.retained.CarouselContainer.prototype._updateLocations = function() {
   if (this._locationsDirty) {
+    this.invalidateDraw();
     this._locationsDirty = false;
     var i = 0;
     var radiansPer = Math.PI * 2 / this._children.length;
@@ -122,8 +128,6 @@ pl.retained.CarouselContainer.prototype._updateLocations = function() {
         scale = this._backScale + scale * (1 - this._backScale);
         pl.gfx.affineOffsetScale(tx, scale, scale, element.width / 2, element.height / 2);
         tx.preConcatenate(goog.graphics.AffineTransform.getTranslateInstance(topLeft.x, topLeft.y));
-
-        element.invalidateDraw();
       }
 
       i++;

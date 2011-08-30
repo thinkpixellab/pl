@@ -47,12 +47,6 @@ pl.retained.Element.prototype.getTransform = function() {
 };
 
 /**
- * @protected
- * @param {!CanvasRenderingContext2D} ctx
- */
-pl.retained.Element.prototype.drawOverride = goog.abstractMethod;
-
-/**
  * @return {!goog.math.Size}
  */
 pl.retained.Element.prototype.getSize = function() {
@@ -112,6 +106,23 @@ pl.retained.Element.prototype.disown = function(parent) {
   this._parent = null;
 };
 
+pl.retained.Element.prototype.draw = function(ctx) {
+  this.update();
+  this._drawInternal(ctx);
+};
+
+/**
+ * @protected
+ * @param {!CanvasRenderingContext2D} ctx
+ */
+pl.retained.Element.prototype.drawOverride = goog.abstractMethod;
+
+/**
+ * @protected
+ */
+pl.retained.Element.prototype.update = function() {
+};
+
 /**
  * @private
  * @param {!CanvasRenderingContext2D} ctx
@@ -155,6 +166,12 @@ pl.retained.Element.prototype._drawNormal = function(ctx) {
  * @private
  * @param {!CanvasRenderingContext2D} ctx
  **/
+pl.retained.Element.prototype._drawInternal = pl.retained.Element.prototype._drawNormal;
+
+/**
+ * @private
+ * @param {!CanvasRenderingContext2D} ctx
+ **/
 pl.retained.Element.prototype._drawCached = function(ctx) {
   if (!this._cacheCanvas || !goog.math.Size.equals(pl.ex.getCanvasSize(this._cacheCanvas), this._lastDrawSize)) {
     if (!this._cacheCanvas) {
@@ -179,9 +196,3 @@ pl.retained.Element.prototype._drawCached = function(ctx) {
   ctx.restore();
   this._lastDrawSize = this.getSize();
 };
-
-/**
- * @private
- * @param {!CanvasRenderingContext2D} ctx
- **/
-pl.retained.Element.prototype._drawInternal = pl.retained.Element.prototype._drawNormal;

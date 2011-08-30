@@ -88,11 +88,21 @@ pl.retained.Container.prototype.getChildBounds = function() {
 
 /**
  * @override
+ **/
+pl.retained.Container.prototype.update = function() {
+  goog.array.forEach(this._children, function(element) {
+    element.update();
+  },
+  this);
+};
+
+/**
+ * @override
  * @param {!CanvasRenderingContext2D} ctx
  **/
 pl.retained.Container.prototype.drawOverride = function(ctx) {
   goog.array.forEach(this._children, function(element) {
-    element._drawInternal(ctx);
+    element.draw(ctx);
   },
   this);
 };
