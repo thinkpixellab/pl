@@ -9,5 +9,8 @@ deps_path: deps.js
 compile_path: compiled.js
 externs: []
 fix_paths:
+  - ../src
   - demoHost.js
   - demos
+fix_exclude_paths:
+  - ../src/qr
