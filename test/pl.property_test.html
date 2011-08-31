@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>PL Tests - pl.Property</title>
+<script src="../../closure/closure/goog/base.js"></script>
+<script src="../examples/deps.js"></script>
+<script>
+  goog.require('goog.testing.asserts');
+  goog.require('goog.testing.jsunit');
+  goog.require('pl.Property');
+</script>
+</head>
+<body>
+<script>
+
+function testWithoutDefault(){
+  var testProperty = new pl.Property("Test Property");
+
+  var object = {};
+  assertEquals(undefined, testProperty.get(object));
+
+  testProperty.set(object, "the foo!");
+  assertEquals("the foo!", testProperty.get(object));
+
+  testProperty.clear(object);
+  assertEquals(undefined, testProperty.get(object));
+}
+
+function testWithDefault(){
+  var testProperty = new pl.Property("Test Property", 42);
+
+  var object = {};
+  assertEquals(42, testProperty.get(object));
+
+  testProperty.set(object, "the foo!");
+  assertEquals("the foo!", testProperty.get(object));
+
+  testProperty.clear(object);
+  assertEquals(42, testProperty.get(object));
+}
+
+</script>
+</body>
+</html>
