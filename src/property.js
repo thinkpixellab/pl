@@ -12,8 +12,7 @@ goog.require('goog.math.Size');
 pl.Property = function(name, opt_defaultValue) {
   this._name = name;
   this._defaultValue = opt_defaultValue;
-  this._id = pl.Property._properties.length;
-  pl.Property._properties.push(this);
+  this._id = pl.Property._propertyId++;
 };
 
 /**
@@ -91,9 +90,9 @@ pl.Property._PROP_ID_PROPERTY = 'prop_uid_' +
     Math.floor(Math.random() * 2147483648).toString(36);
 
 /**
- * @type {!Array.<!pl.Property>}
+ * @type {number}
  * @private
  */
-pl.Property._properties = [];
+pl.Property._propertyId = 0;
 
 pl.Property._callbackProperty = new pl.Property('Callback');
