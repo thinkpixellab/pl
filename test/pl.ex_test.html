@@ -15,12 +15,24 @@ See the COPYING file for details.
   goog.require('goog.testing.asserts');
   goog.require('goog.testing.jsunit');
   goog.require('pl.ex');
+  goog.require('goog.graphics.AffineTransform');
 </script>
 </head>
 <body>
 <script>
-    function testFoo(){
-        
+    function testTransformCoordinate(){
+        var tx = new goog.graphics.AffineTransform();
+
+        var x = goog.math.uniformRandom(-20, 20);
+        var y = goog.math.uniformRandom(-20, 20);
+
+        var pt = new goog.math.Coordinate(x, y);
+
+        pl.ex.transformCoordinate(tx, pt);
+
+        assertEquals(pt.x, x);
+        assertEquals(pt.y, y);
+
     }
 
 </script>
