@@ -20,21 +20,70 @@ See the COPYING file for details.
 </head>
 <body>
 <script>
-    function testTransformCoordinate(){
-        var tx = new goog.graphics.AffineTransform();
+function testTransformCoordinates() {
+  var tx = new goog.graphics.AffineTransform();
 
-        var x = goog.math.uniformRandom(-20, 20);
-        var y = goog.math.uniformRandom(-20, 20);
-
-        var pt = new goog.math.Coordinate(x, y);
-
-        pl.ex.transformCoordinate(tx, pt);
-
-        assertEquals(pt.x, x);
-        assertEquals(pt.y, y);
-
+  for (var i = 0; i < 100; i++) {
+    var testSize = goog.math.uniformRandom(0, 20);
+    var pts = [];
+    for(var j=0;j<testSize;j++){
+      pts.push(new goog.math.Coordinate(rand(), rand()));
     }
 
+    randomizeTransform(tx);
+
+    var array = pl.ex.flattenPoints(pts);
+
+    pl.ex.transformCoordinates(tx, pts);
+    tx.transform(array, 0, array, 0, pts.length);
+
+    for (var j = 0; j < pts.length; j++) {
+      assertEquals(pts[j].x, array[j * 2]);
+      assertEquals(pts[j].y, array[j * 2 + 1]);
+    }
+  }
+}
+
+
+
+function testTransformCoordinate() {
+  var tx = new goog.graphics.AffineTransform();
+  var pt = new goog.math.Coordinate();
+
+  for (var i = 0; i < 1000; i++) {
+
+    randomizePoint(pt);
+    randomizeTransform(tx);
+
+    var array = [pt.x, pt.y];
+
+    pl.ex.transformCoordinate(tx, pt);
+    tx.transform(array, 0, array, 0, 1);
+
+    assertEquals(pt.x, array[0]);
+    assertEquals(pt.y, array[1]);
+
+  }
+}
+
+
+
+function randomizePoint(pt) {
+  pt.x = rand();
+  pt.y = rand();
+}
+
+
+
+function randomizeTransform(tx) {
+  tx.setTransform(rand(), rand(), rand(), rand(), rand(), rand());
+}
+
+
+
+function rand() {
+  return goog.math.uniformRandom(-20, 20);
+}
 </script>
 </body>
 </html>

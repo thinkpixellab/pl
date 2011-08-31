@@ -84,15 +84,16 @@ pl.ex.expandPoints = function(numbers) {
 };
 
 /**
+ * Note: this method mutates the point that was passed in.
  * @param {!goog.graphics.AffineTransform} tx
  * @param {!goog.math.Coordinate} point
  * @return {!goog.math.Coordinate}
  */
 pl.ex.transformCoordinate = function(tx, point) {
-  var foo = [point.x, point.y];
-  tx.transform(foo, 0, foo, 0, 1);
-  point.x = foo[0];
-  point.y = foo[1];
+  var oldX = point.x;
+  point.x = oldX * tx.m00_ + point.y * tx.m01_ + tx.m02_;
+  point.y = oldX * tx.m10_ + point.y * tx.m11_ + tx.m12_;
+
   return point;
 };
 
@@ -102,7 +103,7 @@ pl.ex.transformCoordinate = function(tx, point) {
  * @return {!Array.<!goog.math.Coordinate>}
  */
 pl.ex.transformCoordinates = function(tx, points) {
-  goog.iter.forEach(points, function(p) {
+  goog.array.forEach(points, function(p) {
     pl.ex.transformCoordinate(tx, p);
   });
   return points;
