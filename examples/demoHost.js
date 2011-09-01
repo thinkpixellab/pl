@@ -26,7 +26,6 @@ DemoHost = function() {
     selectControl.addItem(new goog.ui.MenuItem(d.description, d));
   });
   selectControl.render(goog.dom.getElement('DemoSelect'));
-  selectControl.setSelectedIndex(0);
 
   goog.events.listen(selectControl, goog.ui.Component.EventType.ACTION, function(e) {
     var select = e.target;
@@ -34,7 +33,8 @@ DemoHost = function() {
   },
   false, this);
 
-  this._loadDemo(demos.all[0]);
+  selectControl.setSelectedIndex(0);
+  selectControl.dispatchEvent(goog.ui.Component.EventType.ACTION);
 
   this._drawFrame();
   this._updateHUD();
