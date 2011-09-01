@@ -12,5 +12,3 @@ fix_paths:
   - ../src
   - demoHost.js
   - demos
-fix_exclude_paths:
-  - ../src/qr
