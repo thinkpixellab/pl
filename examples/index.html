@@ -10,6 +10,30 @@
     <link rel="stylesheet" href="../../closure/closure/goog/css/menuseparator.css">
     <link rel="stylesheet" href="../../closure/closure/goog/css/flatmenubutton.css">
 
+    <style>
+    .goog-slider {
+        display: inline-block;
+    }
+
+    .goog-slider-horizontal {
+      background-color: ThreeDFace;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .goog-slider-thumb {
+      position: absolute;
+      background-color: ThreeDShadow;
+      overflow: hidden;
+    }
+
+    .goog-slider-horizontal .goog-slider-thumb {
+      top: 0;
+      width: 20px;
+      height: 100%;
+    }
+    </style>
+
     <script src="../../closure/closure/goog/base.js"></script>
     <script src="deps.js"></script>
     <script src="demoHost.js"></script>
@@ -20,7 +44,13 @@
     <div style='margin: 20px auto; width: 500px;'>
   
     <canvas id="content" width='500' height='500'></canvas>
-    <div style='text-align: center;' id='DemoSelect'>
+    <div style='text-align: center;' id='DemoSelect' class='goog-select'>
+    </div>
+    <div>
+        <input type="button" id='frameButton' value='Request native frame rate' style='vertical-align: top;' />
+      <div id="frameRateSlider" class="goog-slider" style="width: 200px; height: 20px">
+        <div id='sliderThumb' class="goog-slider-thumb"></div>
+      </div>
     </div>
     </div>
 </body>
