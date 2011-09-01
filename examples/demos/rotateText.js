@@ -1,4 +1,4 @@
-goog.provide('demos.Transition');
+goog.provide('demos.RotateText');
 
 goog.require('goog.Timer');
 goog.require('goog.debug.LogManager');
@@ -16,7 +16,7 @@ goog.require('pl.retained.Text');
 /**
  * @constructor
  */
-demos.Transition = function(canvas) {
+demos.RotateText = function(canvas) {
   var text = new pl.retained.Text('Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 400, 400);
   text.fillStyle = 'blue';
   text.multiLine = true;
@@ -27,9 +27,9 @@ demos.Transition = function(canvas) {
   this._stage = new pl.retained.Stage(canvas, this._container);
 };
 
-demos.Transition.description = 'Transition';
+demos.RotateText.description = 'Rotate Text';
 
-demos.Transition.prototype.frame = function() {
+demos.RotateText.prototype.frame = function() {
   var element = this._container;
 
   element.parentTransform = element.parentTransform || new goog.graphics.AffineTransform();
