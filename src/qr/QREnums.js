@@ -1,6 +1,6 @@
-goog.provide('QR.Mode');
 goog.provide('QR.ErrorCorrectLevel');
 goog.provide('QR.MaskPattern');
+goog.provide('QR.Mode');
 
 /**
  * @enum {number}

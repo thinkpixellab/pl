@@ -1,7 +1,7 @@
 goog.provide('QR.Util');
 
-goog.require('QR.Polynomial');
 goog.require('QR.Math');
+goog.require('QR.Polynomial');
 
 QR.Util = {
 
@@ -105,7 +105,7 @@ QR.Util = {
       return ((i * j) % 3 + (i + j) % 2) % 2 == 0;
 
     default:
-      throw new Error("bad maskPattern:" + maskPattern);
+      throw new Error('bad maskPattern:' + maskPattern);
     }
   },
 
@@ -135,7 +135,7 @@ QR.Util = {
       case QR.Mode.MODE_KANJI:
         return 8;
       default:
-        throw new Error("mode:" + mode);
+        throw new Error('mode:' + mode);
       }
 
     } else if (type < 27) {
@@ -151,7 +151,7 @@ QR.Util = {
       case QR.Mode.MODE_KANJI:
         return 10;
       default:
-        throw new Error("mode:" + mode);
+        throw new Error('mode:' + mode);
       }
 
     } else if (type < 41) {
@@ -167,11 +167,11 @@ QR.Util = {
       case QR.Mode.MODE_KANJI:
         return 12;
       default:
-        throw new Error("mode:" + mode);
+        throw new Error('mode:' + mode);
       }
 
     } else {
-      throw new Error("type:" + type);
+      throw new Error('type:' + type);
     }
   },
 

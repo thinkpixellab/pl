@@ -1,10 +1,10 @@
 goog.provide('QR.Code');
 
+goog.require('QR.BitBuffer');
 goog.require('QR.EightBitByte');
 goog.require('QR.Mode');
-goog.require('QR.Util');
 goog.require('QR.RSBlock');
-goog.require('QR.BitBuffer');
+goog.require('QR.Util');
 
 /**
  * @constructor
@@ -41,7 +41,7 @@ QR.Code.prototype = {
 
   isDark: function(row, col) {
     if (row < 0 || this.moduleCount <= row || col < 0 || this.moduleCount <= col) {
-      throw new Error(row + "," + col);
+      throw new Error(row + ',' + col);
     }
     return this.modules[row][col];
   },
@@ -190,7 +190,7 @@ QR.Code.prototype = {
 
     var i, mod;
 
-    // vertical   
+    // vertical
     for (i = 0; i < 15; i++) {
 
       mod = (!test && ((bits >> i) & 1) == 1);
@@ -300,7 +300,7 @@ QR.Code.createData = function(typeNumber, errorCorrectLevel, dataList) {
   }
 
   if (buffer.getLengthInBits() > totalDataCount * 8) {
-    throw new Error("code length overflow. (" + buffer.getLengthInBits() + ">" + totalDataCount * 8 + ")");
+    throw new Error('code length overflow. (' + buffer.getLengthInBits() + '>' + totalDataCount * 8 + ')');
   }
 
   // èIí[ÉRÅ[Éh

@@ -6,7 +6,7 @@ goog.provide('QR.Polynomial');
 QR.Polynomial = function(num, shift) {
 
   if (num.length == undefined) {
-    throw new Error(num.length + "/" + shift);
+    throw new Error(num.length + '/' + shift);
   }
 
   var offset = 0;

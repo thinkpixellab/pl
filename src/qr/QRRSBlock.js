@@ -32,7 +32,7 @@ QR.RSBlock.RS_BLOCK_TABLE = [
   [2, 35, 17],
   [2, 35, 13],
 
-// 4    
+// 4
 [1, 100, 80],
   [2, 50, 32],
   [2, 50, 24],
@@ -50,7 +50,7 @@ QR.RSBlock.RS_BLOCK_TABLE = [
   [4, 43, 19],
   [4, 43, 15],
 
-// 7    
+// 7
 [2, 98, 78],
   [4, 49, 31],
   [2, 32, 14, 4, 33, 15],
@@ -68,7 +68,7 @@ QR.RSBlock.RS_BLOCK_TABLE = [
   [4, 36, 16, 4, 37, 17],
   [4, 36, 12, 4, 37, 13],
 
-// 10   
+// 10
 [2, 86, 68, 2, 87, 69],
   [4, 69, 43, 1, 70, 44],
   [6, 43, 19, 2, 44, 20],
@@ -81,7 +81,7 @@ QR.RSBlock.getRSBlocks = function(typeNumber, errorCorrectLevel) {
   var rsBlock = QR.RSBlock.getRsBlockTable(typeNumber, errorCorrectLevel);
 
   if (rsBlock == undefined) {
-    throw new Error("bad rs block @ typeNumber:" + typeNumber + "/errorCorrectLevel:" + errorCorrectLevel);
+    throw new Error('bad rs block @ typeNumber:' + typeNumber + '/errorCorrectLevel:' + errorCorrectLevel);
   }
 
   var length = rsBlock.length / 3;
