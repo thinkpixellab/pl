@@ -40,6 +40,11 @@ goog.inherits(pl.retained.Element, goog.events.EventTarget);
 pl.retained.Element.prototype.parentTransform = null;
 
 /**
+ * @type {?number}
+ */
+pl.retained.Element.prototype.alpha = null;
+
+/**
  * @return {?goog.graphics.AffineTransform}
  */
 pl.retained.Element.prototype.getTransform = function() {
@@ -141,7 +146,7 @@ pl.retained.Element.prototype.update = function() {
  * @param {!CanvasRenderingContext2D} ctx
  **/
 pl.retained.Element.prototype._drawCore = function(ctx) {
-  if (goog.isDef(this.alpha)) {
+  if (goog.isDefAndNotNull(this.alpha)) {
     ctx.globalAlpha = this.alpha;
   }
 
