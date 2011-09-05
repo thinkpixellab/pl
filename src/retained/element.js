@@ -19,6 +19,7 @@ goog.require('pl.retained.EventType');
  * @param {boolean=} opt_enableCache
  */
 pl.retained.Element = function(width, height, opt_enableCache) {
+  goog.events.EventTarget.call(this);
   this.width = width;
   this.height = height;
 
