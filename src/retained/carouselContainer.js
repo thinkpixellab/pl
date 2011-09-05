@@ -82,6 +82,7 @@ pl.retained.CarouselContainer.prototype.getVisualChildren = function(opt_frontTo
 pl.retained.CarouselContainer.prototype.onChildrenChanged = function() {
   this._locationsDirty = true;
   this._sortedChildren = null;
+  goog.base(this, 'onChildrenChanged');
 };
 
 /**

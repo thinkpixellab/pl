@@ -68,7 +68,9 @@ pl.retained.Container.prototype.getVisualChildren = function(opt_frontToBack) {
   }
 };
 
-pl.retained.Container.prototype.onChildrenChanged = goog.nullFunction;
+pl.retained.Container.prototype.onChildrenChanged = function() {
+  this.invalidateDraw();
+};
 
 /**
  * returns {?math.google.Rect}
