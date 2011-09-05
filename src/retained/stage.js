@@ -1,19 +1,27 @@
 goog.provide('pl.retained.Stage');
 
+goog.require('goog.events.EventTarget');
 goog.require('goog.math.Coordinate');
 goog.require('goog.math.Size');
 goog.require('pl.ex');
 goog.require('pl.retained.Element');
+goog.require('pl.retained.ElementParent');
+goog.require('pl.retained.EventType');
 
 /**
  * @constructor
+ * @extends {goog.events.EventTarget}
+ * @implements {pl.retained.ElementParent}
  * @param {!HTMLCanvasElement} canvas
  * @param {!pl.retained.Element} rootElement
  */
 pl.retained.Stage = function(canvas, rootElement) {
+  goog.events.EventTarget.call(this);
   this._canvas = canvas;
   this._element = rootElement;
+  this._element.claim(this);
 };
+goog.inherits(pl.retained.Stage, goog.events.EventTarget);
 
 /**
  * @param {goog.math.Size} size
@@ -63,4 +71,11 @@ pl.retained.Stage.prototype.getContext = function() {
  */
 pl.retained.Stage.prototype.getRoot = function() {
   return this._element;
+};
+
+/**
+ * @param {!pl.retained.Element} child
+ */
+pl.retained.Stage.prototype.childInvalidated = function(child) {
+  this.dispatchEvent(pl.retained.EventType.UPDATE);
 };
