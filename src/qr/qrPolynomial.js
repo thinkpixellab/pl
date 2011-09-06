@@ -1,9 +1,9 @@
-goog.provide('QR.Polynomial');
+goog.provide('qr.Polynomial');
 
 /**
  @constructor
  */
-QR.Polynomial = function(num, shift) {
+qr.Polynomial = function(num, shift) {
 
   if (num.length == undefined) {
     throw new Error(num.length + '/' + shift);
@@ -23,7 +23,7 @@ QR.Polynomial = function(num, shift) {
   }
 };
 
-QR.Polynomial.prototype = {
+qr.Polynomial.prototype = {
 
   get: function(index) {
     return this.num[index];
@@ -41,11 +41,11 @@ QR.Polynomial.prototype = {
 
     for (var i = 0; i < this.getLength(); i++) {
       for (var j = 0; j < e.getLength(); j++) {
-        num[i + j] ^= QR.Math.gexp(QR.Math.glog(this.get(i)) + QR.Math.glog(e.get(j)));
+        num[i + j] ^= qr.Math.gexp(qr.Math.glog(this.get(i)) + qr.Math.glog(e.get(j)));
       }
     }
 
-    return new QR.Polynomial(num, 0);
+    return new qr.Polynomial(num, 0);
   },
 
   mod: function(e) {
@@ -54,7 +54,7 @@ QR.Polynomial.prototype = {
       return this;
     }
 
-    var ratio = QR.Math.glog(this.get(0)) - QR.Math.glog(e.get(0));
+    var ratio = qr.Math.glog(this.get(0)) - qr.Math.glog(e.get(0));
 
     var num = {
       length: this.getLength()
@@ -66,10 +66,10 @@ QR.Polynomial.prototype = {
     }
 
     for (i = 0; i < e.getLength(); i++) {
-      num[i] ^= QR.Math.gexp(QR.Math.glog(e.get(i)) + ratio);
+      num[i] ^= qr.Math.gexp(qr.Math.glog(e.get(i)) + ratio);
     }
 
     // recursive call
-    return new QR.Polynomial(num, 0).mod(e);
+    return new qr.Polynomial(num, 0).mod(e);
   }
 };

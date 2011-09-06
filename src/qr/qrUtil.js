@@ -1,9 +1,9 @@
-goog.provide('QR.Util');
+goog.provide('qr.Util');
 
-goog.require('QR.Math');
-goog.require('QR.Polynomial');
+goog.require('qr.Math');
+goog.require('qr.Polynomial');
 
-QR.Util = {
+qr.Util = {
 
   PATTERN_POSITION_TABLE: [
     [],
@@ -53,16 +53,16 @@ QR.Util = {
 
   getBCHTypeInfo: function(data) {
     var d = data << 10;
-    while (QR.Util.getBCHDigit(d) - QR.Util.getBCHDigit(QR.Util.G15) >= 0) {
-      d ^= (QR.Util.G15 << (QR.Util.getBCHDigit(d) - QR.Util.getBCHDigit(QR.Util.G15)));
+    while (qr.Util.getBCHDigit(d) - qr.Util.getBCHDigit(qr.Util.G15) >= 0) {
+      d ^= (qr.Util.G15 << (qr.Util.getBCHDigit(d) - qr.Util.getBCHDigit(qr.Util.G15)));
     }
-    return ((data << 10) | d) ^ QR.Util.G15_MASK;
+    return ((data << 10) | d) ^ qr.Util.G15_MASK;
   },
 
   getBCHTypeNumber: function(data) {
     var d = data << 12;
-    while (QR.Util.getBCHDigit(d) - QR.Util.getBCHDigit(QR.Util.G18) >= 0) {
-      d ^= (QR.Util.G18 << (QR.Util.getBCHDigit(d) - QR.Util.getBCHDigit(QR.Util.G18)));
+    while (qr.Util.getBCHDigit(d) - qr.Util.getBCHDigit(qr.Util.G18) >= 0) {
+      d ^= (qr.Util.G18 << (qr.Util.getBCHDigit(d) - qr.Util.getBCHDigit(qr.Util.G18)));
     }
     return (data << 12) | d;
   },
@@ -80,28 +80,28 @@ QR.Util = {
   },
 
   getPatternPosition: function(typeNumber) {
-    return QR.Util.PATTERN_POSITION_TABLE[typeNumber - 1];
+    return qr.Util.PATTERN_POSITION_TABLE[typeNumber - 1];
   },
 
   getMask: function(maskPattern, i, j) {
 
     switch (maskPattern) {
 
-    case QR.MaskPattern.PATTERN000:
+    case qr.MaskPattern.PATTERN000:
       return (i + j) % 2 == 0;
-    case QR.MaskPattern.PATTERN001:
+    case qr.MaskPattern.PATTERN001:
       return i % 2 == 0;
-    case QR.MaskPattern.PATTERN010:
+    case qr.MaskPattern.PATTERN010:
       return j % 3 == 0;
-    case QR.MaskPattern.PATTERN011:
+    case qr.MaskPattern.PATTERN011:
       return (i + j) % 3 == 0;
-    case QR.MaskPattern.PATTERN100:
+    case qr.MaskPattern.PATTERN100:
       return (Math.floor(i / 2) + Math.floor(j / 3)) % 2 == 0;
-    case QR.MaskPattern.PATTERN101:
+    case qr.MaskPattern.PATTERN101:
       return (i * j) % 2 + (i * j) % 3 == 0;
-    case QR.MaskPattern.PATTERN110:
+    case qr.MaskPattern.PATTERN110:
       return ((i * j) % 2 + (i * j) % 3) % 2 == 0;
-    case QR.MaskPattern.PATTERN111:
+    case qr.MaskPattern.PATTERN111:
       return ((i * j) % 3 + (i + j) % 2) % 2 == 0;
 
     default:
@@ -111,10 +111,10 @@ QR.Util = {
 
   getErrorCorrectPolynomial: function(errorCorrectLength) {
 
-    var a = new QR.Polynomial([1], 0);
+    var a = new qr.Polynomial([1], 0);
 
     for (var i = 0; i < errorCorrectLength; i++) {
-      a = a.multiply(new QR.Polynomial([1, QR.Math.gexp(i)], 0));
+      a = a.multiply(new qr.Polynomial([1, qr.Math.gexp(i)], 0));
     }
 
     return a;
@@ -126,13 +126,13 @@ QR.Util = {
 
       // 1 - 9
       switch (mode) {
-      case QR.Mode.MODE_NUMBER:
+      case qr.Mode.MODE_NUMBER:
         return 10;
-      case QR.Mode.MODE_ALPHA_NUM:
+      case qr.Mode.MODE_ALPHA_NUM:
         return 9;
-      case QR.Mode.MODE_8BIT_BYTE:
+      case qr.Mode.MODE_8BIT_BYTE:
         return 8;
-      case QR.Mode.MODE_KANJI:
+      case qr.Mode.MODE_KANJI:
         return 8;
       default:
         throw new Error('mode:' + mode);
@@ -142,13 +142,13 @@ QR.Util = {
 
       // 10 - 26
       switch (mode) {
-      case QR.Mode.MODE_NUMBER:
+      case qr.Mode.MODE_NUMBER:
         return 12;
-      case QR.Mode.MODE_ALPHA_NUM:
+      case qr.Mode.MODE_ALPHA_NUM:
         return 11;
-      case QR.Mode.MODE_8BIT_BYTE:
+      case qr.Mode.MODE_8BIT_BYTE:
         return 16;
-      case QR.Mode.MODE_KANJI:
+      case qr.Mode.MODE_KANJI:
         return 10;
       default:
         throw new Error('mode:' + mode);
@@ -158,13 +158,13 @@ QR.Util = {
 
       // 27 - 40
       switch (mode) {
-      case QR.Mode.MODE_NUMBER:
+      case qr.Mode.MODE_NUMBER:
         return 14;
-      case QR.Mode.MODE_ALPHA_NUM:
+      case qr.Mode.MODE_ALPHA_NUM:
         return 13;
-      case QR.Mode.MODE_8BIT_BYTE:
+      case qr.Mode.MODE_8BIT_BYTE:
         return 16;
-      case QR.Mode.MODE_KANJI:
+      case qr.Mode.MODE_KANJI:
         return 12;
       default:
         throw new Error('mode:' + mode);

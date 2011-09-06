@@ -1,11 +1,11 @@
-goog.provide('QR.ErrorCorrectLevel');
-goog.provide('QR.MaskPattern');
-goog.provide('QR.Mode');
+goog.provide('qr.ErrorCorrectLevel');
+goog.provide('qr.MaskPattern');
+goog.provide('qr.Mode');
 
 /**
  * @enum {number}
  */
-QR.Mode = {
+qr.Mode = {
   MODE_NUMBER: 1 << 0,
   MODE_ALPHA_NUM: 1 << 1,
   MODE_8BIT_BYTE: 1 << 2,
@@ -15,7 +15,7 @@ QR.Mode = {
 /**
  * @enum {number}
  */
-QR.ErrorCorrectLevel = {
+qr.ErrorCorrectLevel = {
   L: 1,
   M: 0,
   Q: 3,
@@ -25,7 +25,7 @@ QR.ErrorCorrectLevel = {
 /**
  * @enum {number}
  */
-QR.MaskPattern = {
+qr.MaskPattern = {
   PATTERN000: 0,
   PATTERN001: 1,
   PATTERN010: 2,

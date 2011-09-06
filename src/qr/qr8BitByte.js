@@ -1,15 +1,15 @@
-goog.provide('QR.EightBitByte');
+goog.provide('qr.EightBitByte');
 
 /**
  * @constructor
  * @param {string} data
  */
-QR.EightBitByte = function(data) {
-  this.mode = QR.Mode.MODE_8BIT_BYTE;
+qr.EightBitByte = function(data) {
+  this.mode = qr.Mode.MODE_8BIT_BYTE;
   this.data = data;
 };
 
-QR.EightBitByte.prototype = {
+qr.EightBitByte.prototype = {
 
   getLength: function(buffer) {
     return this.data.length;
