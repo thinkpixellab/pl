@@ -20,7 +20,9 @@ demos.ScaleDemo = function(canvas) {
   var container = new pl.retained.Text('Dude', 300, 50);
   container.fillStyle = 'white';
   container.textFillStyle = 'black';
-  pl.retained.helper.center(container, new goog.math.Coordinate(250, 250));
+
+  var vec = new goog.math.Vec2((500 - 300) / 2, (500 - 50) / 2);
+  var tx = container.addTransform().setToTranslation(vec.x, vec.y);
 
   this._stage = new pl.retained.Stage(canvas, container);
 
@@ -28,7 +30,8 @@ demos.ScaleDemo = function(canvas) {
 
   var animation = new pl.retained.Animation(container, frames, function(i, element) {
     var scale = 1 - i / frames;
-    pl.gfx.affineOffsetScale(element.parentTransform, scale, scale, element.width / 2, element.height / 2);
+    pl.gfx.affineOffsetScale(tx, scale, scale, element.width / 2, element.height / 2);
+    tx.preTranslate(vec.x, vec.y);
     element.invalidateDraw();
   });
 };

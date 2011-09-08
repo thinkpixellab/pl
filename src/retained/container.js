@@ -36,6 +36,8 @@ pl.retained.Container.prototype.addElement = function(element) {
 pl.retained.Container.prototype.insertAt = function(element, opt_i) {
   goog.array.insertAt(this._children, element, opt_i);
   element.claim(this);
+  goog.asserts.assert(!pl.retained.Container._containerTransformProperty.isSet(element), 'No container transform should be set...yet');
+  pl.retained.Container._containerTransformProperty.set(element, element.addTransform());
   this.onChildrenChanged();
 };
 
@@ -46,10 +48,26 @@ pl.retained.Container.prototype.insertAt = function(element, opt_i) {
 pl.retained.Container.prototype.remove = function(element) {
   if (goog.array.remove(this._children, element)) {
     element.disown(this);
+    var tx = pl.retained.Container._containerTransformProperty.get(element);
+    goog.asserts.assert(!!tx, 'A container transform should exist');
+    pl.retained.Container._containerTransformProperty.clear(element);
+    element.removeTransform(tx);
     this.onChildrenChanged();
     return true;
   }
   return false;
+};
+
+/**
+ * @protected
+ * @param {!pl.retained.Element} child
+ * @return {!goog.graphics.AffineTransform}
+ */
+pl.retained.Container.prototype.getChildTransform = function(child) {
+  goog.asserts.assert(goog.array.contains(this._children, child), 'Should be a child that this container actually owns');
+  var tx = pl.retained.Container._containerTransformProperty.get(child);
+  goog.asserts.assert(!!tx, 'A container transform should exist');
+  return tx;
 };
 
 /**
@@ -116,4 +134,33 @@ pl.retained.Container.prototype.drawOverride = function(ctx) {
 pl.retained.Container.prototype.childInvalidated = function(child) {
   goog.asserts.assert(goog.array.contains(this._children, child), 'Must be the containers child');
   this.invalidateDraw();
+};
+
+pl.retained.Container._containerTransformProperty = new pl.Property('containerTransfrom');
+
+/**
+ * @param {!goog.math.Coordinate=} opt_value
+ * @param {!pl.retained.Element} element
+ * @return {!goog.math.Coordinate}
+ */
+pl.retained.Container.prototype.topLeft = function(element, opt_value) {
+  var tx = this.getChildTransform(element);
+  if (opt_value) {
+    tx.setToTranslation(opt_value.x, opt_value.y);
+  }
+  return pl.ex.transformCoordinate(tx, new goog.math.Coordinate());
+};
+
+/**
+ * @param {!goog.math.Coordinate=} opt_value
+ * @param {!pl.retained.Element} element
+ * @return {!goog.math.Coordinate}
+ */
+pl.retained.Container.prototype.center = function(element, opt_value) {
+  var sizeOffset = new goog.math.Vec2(element.width / 2, element.height / 2);
+  if (opt_value) {
+    var tl = goog.math.Vec2.difference(opt_value, sizeOffset);
+    this.topLeft(element, tl);
+  }
+  return sizeOffset.add(this.topLeft(element));
 };

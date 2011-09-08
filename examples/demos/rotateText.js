@@ -21,19 +21,18 @@ demos.RotateText = function(canvas) {
   text.fillStyle = 'blue';
   text.multiLine = true;
 
-  this._container = new pl.retained.Container(400, 400);
-  this._container.addElement(text);
+  var container = new pl.retained.Container(400, 400);
+  container.addElement(text);
 
-  this._stage = new pl.retained.Stage(canvas, this._container);
+  this._stage = new pl.retained.Stage(canvas, container);
+
+  this._tx = container.addTransform();
 };
 
 demos.RotateText.description = 'Rotate Text';
 
 demos.RotateText.prototype.frame = function() {
-  var element = this._container;
-
-  element.parentTransform = element.parentTransform || new goog.graphics.AffineTransform();
-  element.parentTransform.rotate(Math.PI * 0.001, 200, 200);
+  this._tx.rotate(Math.PI * 0.001, 200, 200);
 
   this._stage.draw();
 };

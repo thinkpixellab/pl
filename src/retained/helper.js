@@ -171,31 +171,3 @@ pl.retained.helper.getCorners = function(element) {
   });
   return points;
 };
-
-/**
- * @param {!goog.math.Coordinate=} opt_value
- * @param {!pl.retained.Element} element
- * @return {!goog.math.Coordinate}
- */
-pl.retained.helper.topLeft = function(element, opt_value) {
-  if (opt_value) {
-    element.parentTransform = element.parentTransform || new goog.graphics.AffineTransform();
-    element.parentTransform.setToTranslation(opt_value.x, opt_value.y);
-  }
-  return pl.retained.helper.transformPointLocalToGlobal(element, new goog.math.Coordinate());
-};
-
-/**
- * @param {!goog.math.Coordinate=} opt_value
- * @param {!pl.retained.Element} element
- * @return {!goog.math.Coordinate}
- */
-pl.retained.helper.center = function(element, opt_value) {
-  var sizeOffset = new goog.math.Vec2(element.width / 2, element.height / 2);
-  if (opt_value) {
-    var tl = goog.math.Vec2.difference(opt_value, sizeOffset);
-    pl.retained.helper.topLeft(element, tl);
-  }
-  return sizeOffset.add(pl.retained.helper.topLeft(element));
-};
-

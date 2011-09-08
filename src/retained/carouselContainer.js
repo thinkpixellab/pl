@@ -112,7 +112,7 @@ pl.retained.CarouselContainer.prototype._updateLocations = function() {
     var radiansPer = Math.PI * 2 / this._children.length;
     var topLeft = new goog.math.Coordinate(0, 0);
     goog.array.forEach(this._children, function(element) {
-      var tx = element.parentTransform = element.parentTransform || new goog.graphics.AffineTransform();
+      var tx = this.getChildTransform(element);
 
       // location
       topLeft.x = this.width / 2 + this._radius.width * Math.cos(this._angle + radiansPer * i) - element.width / 2;
@@ -135,8 +135,12 @@ pl.retained.CarouselContainer.prototype._updateLocations = function() {
     },
     this);
     this._sortedChildren = this._sortedChildren || goog.array.clone(this._children);
+
+    var _this = this;
     goog.array.sort(this._sortedChildren, function(a, b) {
-      return goog.array.defaultCompare(a.parentTransform.getTranslateY(), b.parentTransform.getTranslateY());
+      var ax = _this.getChildTransform(a);
+      var bx = _this.getChildTransform(b);
+      return goog.array.defaultCompare(ax.getTranslateY(), bx.getTranslateY());
     });
   }
 };

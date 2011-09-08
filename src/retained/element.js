@@ -1,5 +1,6 @@
 goog.provide('pl.retained.Element');
 
+goog.require('goog.array');
 goog.require('goog.asserts');
 goog.require('goog.color.alpha');
 goog.require('goog.events.EventTarget');
@@ -36,24 +37,47 @@ pl.retained.Element = function(width, height, opt_enableCache) {
 goog.inherits(pl.retained.Element, goog.events.EventTarget);
 
 /**
- * @type {?goog.graphics.AffineTransform}
- */
-pl.retained.Element.prototype.parentTransform = null;
-
-/**
  * @type {?number}
  */
 pl.retained.Element.prototype.alpha = null;
+
+/**
+ * @type {?Array.<!goog.graphics.AffineTransform>}
+ */
+pl.retained.Element.prototype._transfroms = null;
 
 /**
  * @return {!goog.graphics.AffineTransform}
  */
 pl.retained.Element.prototype.getTransform = function() {
   var tx = new goog.graphics.AffineTransform();
-  if (this.parentTransform) {
-    tx.concatenate(this.parentTransform);
+  if (this._transforms) {
+    goog.array.forEach(this._transforms, function(t) {
+      tx.concatenate(t);
+    });
   }
   return tx;
+};
+
+/**
+ * @return {!goog.graphics.AffineTransform}
+ */
+pl.retained.Element.prototype.addTransform = function() {
+  var txs = this._transforms || (this._transforms = []);
+  var tx = new goog.graphics.AffineTransform();
+  txs.push(tx);
+  return tx;
+};
+
+/**
+ * @param {!goog.graphics.AffineTransform} tx
+ */
+pl.retained.Element.prototype.removeTransform = function(tx) {
+  goog.asserts.assert(goog.array.contains(this._transforms, tx), 'The provided tx should be here.');
+  goog.array.remove(this._transforms, tx);
+  if (!this._transforms.length) {
+    this._transforms = null;
+  }
 };
 
 /**

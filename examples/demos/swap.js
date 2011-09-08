@@ -16,12 +16,8 @@ goog.require('pl.retained.Text');
  * @constructor
  */
 demos.Swap = function(canvas) {
-
   var container = new pl.retained.Container(400, 400);
-
   this._stage = new pl.retained.Stage(canvas, container);
-
-
   this._count = 0;
 };
 
@@ -41,14 +37,14 @@ demos.Swap.prototype.frame = function() {
 
 demos.Swap.createText = function() {
   var text = new pl.retained.Text('Swap!', 400, 400);
-  text.parentTransform = new goog.graphics.AffineTransform();
   text.fillStyle = 'blue';
   text.multiLine = true;
+  var tx = text.addTransform();
 
   var frameCount = 100;
-  var animation = new pl.retained.Animation(text, frameCount, function(i, element) {
+  new pl.retained.Animation(text, frameCount, function(i, element) {
     var ratio = (frameCount - i) / frameCount;
-    pl.gfx.affineOffsetScale(element.parentTransform, ratio, ratio, element.width / 2, element.height / 2);
+    pl.gfx.affineOffsetScale(tx, ratio, ratio, element.width / 2, element.height / 2);
     element.alpha = ratio;
     element.invalidateDraw();
   },
