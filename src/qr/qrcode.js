@@ -24,20 +24,14 @@ qr.Code = function(typeNumber, errorCorrectLevel) {
     }
   }
 
-  this.dataCache = null;
+  /**
+   * @type {?Array.<number>}
+   */
+  this._dataCache = null;
   this.dataList = [];
 };
 
 qr.Code.prototype = {
-
-  /**
-   * @param {string} data
-   */
-  addData: function(data) {
-    var newData = new qr.EightBitByte(data);
-    this.dataList.push(newData);
-    this.dataCache = null;
-  },
 
   isDark: function(row, col) {
     if (row < 0 || this.moduleCount <= row || col < 0 || this.moduleCount <= col) {
@@ -52,30 +46,6 @@ qr.Code.prototype = {
 
   make: function() {
     this.makeImpl(false, this.getBestMaskPattern());
-  },
-
-  /**
-   * @param {boolean} test
-   * @param {number} maskPattern
-   */
-  makeImpl: function(test, maskPattern) {
-
-    this.setupPositionProbePattern(0, 0);
-    this.setupPositionProbePattern(this.moduleCount - 7, 0);
-    this.setupPositionProbePattern(0, this.moduleCount - 7);
-    this.setupPositionAdjustPattern();
-    this.setupTimingPattern();
-    this.setupTypeInfo(test, maskPattern);
-
-    if (this.typeNumber >= 7) {
-      this.setupTypeNumber(test);
-    }
-
-    if (this.dataCache == null) {
-      this.dataCache = qr.Code.createData(this.typeNumber, this.errorCorrectLevel, this.dataList);
-    }
-
-    this.mapData(this.dataCache, maskPattern);
   },
 
   setupPositionProbePattern: function(row, col) {
@@ -279,6 +249,9 @@ qr.Code.prototype = {
 qr.Code.PAD0 = 0xEC;
 qr.Code.PAD1 = 0x11;
 
+/**
+ * @return {!Array.<number>}
+ */
 qr.Code.createData = function(typeNumber, errorCorrectLevel, dataList) {
 
   var rsBlocks = qr.RSBlock.getRSBlocks(typeNumber, errorCorrectLevel);
@@ -330,6 +303,9 @@ qr.Code.createData = function(typeNumber, errorCorrectLevel, dataList) {
   return qr.Code.createBytes(buffer, rsBlocks);
 };
 
+/**
+ * @return {!Array.<number>}
+ */
 qr.Code.createBytes = function(buffer, rsBlocks) {
 
   var offset = 0;
@@ -382,15 +358,12 @@ qr.Code.createBytes = function(buffer, rsBlocks) {
     totalCodeCount += rsBlocks[i].totalCount;
   }
 
-  var data = {
-    length: totalCodeCount
-  };
-  var index = 0;
+  var data = [];
 
   for (i = 0; i < maxDcCount; i++) {
     for (r = 0; r < rsBlocks.length; r++) {
       if (i < dcdata[r].length) {
-        data[index++] = dcdata[r][i];
+        data.push(dcdata[r][i]);
       }
     }
   }
@@ -398,11 +371,43 @@ qr.Code.createBytes = function(buffer, rsBlocks) {
   for (i = 0; i < maxEcCount; i++) {
     for (r = 0; r < rsBlocks.length; r++) {
       if (i < ecdata[r].length) {
-        data[index++] = ecdata[r][i];
+        data.push(ecdata[r][i]);
       }
     }
   }
 
   return data;
+};
 
+/**
+ * @param {string} data
+ */
+qr.Code.prototype.addData = function(data) {
+  var newData = new qr.EightBitByte(data);
+  this.dataList.push(newData);
+  this._dataCache = null;
+};
+
+/**
+ * @param {boolean} test
+ * @param {number} maskPattern
+ */
+qr.Code.prototype.makeImpl = function(test, maskPattern) {
+
+  this.setupPositionProbePattern(0, 0);
+  this.setupPositionProbePattern(this.moduleCount - 7, 0);
+  this.setupPositionProbePattern(0, this.moduleCount - 7);
+  this.setupPositionAdjustPattern();
+  this.setupTimingPattern();
+  this.setupTypeInfo(test, maskPattern);
+
+  if (this.typeNumber >= 7) {
+    this.setupTypeNumber(test);
+  }
+
+  if (this._dataCache == null) {
+    this._dataCache = qr.Code.createData(this.typeNumber, this.errorCorrectLevel, this.dataList);
+  }
+
+  this.mapData(this._dataCache, maskPattern);
 };
