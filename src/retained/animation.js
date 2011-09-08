@@ -24,6 +24,11 @@ pl.retained.Animation = function(element, frameCount, func, opt_finishFunc) {
 };
 goog.inherits(pl.retained.Animation, pl.Behavior);
 
+/**
+ * @type {boolean}
+ */
+pl.retained.Animation.prototype.detachOnFinish = false;
+
 pl.retained.Animation.prototype.detach = function() {
   var removed = this.getElement().removeEventListener(pl.retained.EventType.UPDATE, this._tick, false, this);
   goog.asserts.assert(removed);
@@ -40,6 +45,9 @@ pl.retained.Animation.prototype._tick = function() {
   this._frame++;
   if (this._frame == this._frameCount) {
     this._finishFunc(element);
+    if(this.detachOnFinish){
+      this.detach();
+    }
   }
   this._frame = this._frame % this._frameCount;
 };
