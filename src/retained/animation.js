@@ -45,7 +45,7 @@ pl.retained.Animation.prototype._tick = function() {
   this._frame++;
   if (this._frame == this._frameCount) {
     this._finishFunc(element);
-    if(this.detachOnFinish){
+    if (this.detachOnFinish) {
       this.detach();
     }
   }
