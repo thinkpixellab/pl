@@ -30,7 +30,7 @@ goog.inherits(pl.retained.Animation, pl.Behavior);
 pl.retained.Animation.prototype.detachOnFinish = false;
 
 pl.retained.Animation.prototype.detach = function() {
-  var removed = this.getElement().removeEventListener(pl.retained.EventType.UPDATE, this._tick, false, this);
+  var removed = goog.events.unlisten(this.getElement(), pl.retained.EventType.UPDATE, this._tick, false, this);
   goog.asserts.assert(removed);
   goog.base(this, 'detach');
 };
