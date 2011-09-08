@@ -48,6 +48,14 @@ pl.Property.prototype.set = function(object, value) {
   this._notify(object);
 };
 
+/**
+ * @param {!Object} object
+ * @return {boolean}
+ */
+pl.Property.prototype.isSet = function(object) {
+  return object[pl.Property._PROP_ID_PROPERTY] && this._id in object[pl.Property._PROP_ID_PROPERTY];
+};
+
 pl.Property.prototype._notify = function(object) {
   var listener = pl.Property._callbackProperty.get(object);
   if (listener) {
