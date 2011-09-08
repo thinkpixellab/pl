@@ -46,14 +46,14 @@ pl.retained.Element.prototype.parentTransform = null;
 pl.retained.Element.prototype.alpha = null;
 
 /**
- * @return {?goog.graphics.AffineTransform}
+ * @return {!goog.graphics.AffineTransform}
  */
 pl.retained.Element.prototype.getTransform = function() {
+  var tx = new goog.graphics.AffineTransform();
   if (this.parentTransform) {
-    return this.parentTransform.clone();
-  } else {
-    return null;
+    tx.concatenate(this.parentTransform);
   }
+  return tx;
 };
 
 /**

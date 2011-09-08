@@ -123,9 +123,7 @@ pl.retained.helper.borderHitTest = function(stage, x, y) {
  */
 pl.retained.helper.transformPointLocalToGlobal = function(element, point) {
   var tx = element.getTransform();
-  if (tx) {
-    pl.ex.transformCoordinate(tx, point);
-  }
+  pl.ex.transformCoordinate(tx, point);
   return point;
 };
 
@@ -137,9 +135,7 @@ pl.retained.helper.transformPointLocalToGlobal = function(element, point) {
  */
 pl.retained.helper.transformPointGlobalToLocal = function(element, point) {
   var tx = element.getTransform();
-  if (tx) {
-    pl.ex.transformCoordinate(tx.createInverse(), point);
-  }
+  pl.ex.transformCoordinate(tx.createInverse(), point);
   return point;
 };
 
