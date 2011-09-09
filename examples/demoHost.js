@@ -5,6 +5,7 @@ goog.require('goog.Timer');
 goog.require('goog.array');
 goog.require('goog.debug.LogManager');
 goog.require('goog.dom');
+goog.require('goog.style');
 goog.require('goog.ui.Component.EventType');
 goog.require('goog.ui.MenuItem');
 goog.require('goog.ui.Select');
@@ -18,6 +19,7 @@ goog.require('pl.ex');
  */
 DemoHost = function() {
   pl.DebugDiv.enable();
+  goog.style.setUnselectable(document.body, true);
 
   this._logger = goog.debug.LogManager.getRoot();
   this._fpsLogger = new pl.FpsLogger();
@@ -33,14 +35,16 @@ DemoHost = function() {
   this._slider.decorate(el);
   this._slider.addEventListener(goog.ui.Component.EventType.CHANGE, function() {
     this._setFrame(this._slider.getValue());
-  }, false, this);
+  },
+  false, this);
 
   this._setFrame(this._frameMs);
 
   var frameButton = document.getElementById('frameButton');
   goog.events.listen(frameButton, goog.events.EventType.CLICK, function() {
     this._setFrame(null);
-  }, false, this);
+  },
+  false, this);
 
   //
   // Demo Selector
@@ -72,8 +76,7 @@ DemoHost.prototype._setFrame = function(ms) {
   if (ms) {
     this._logger.info('Requesting at frame length of ' + ms + 'ms');
     this._frameMs = ms;
-  }
-  else {
+  } else {
     this._logger.info('Requesting native frame speed');
     this._frameMs = 0;
   }
