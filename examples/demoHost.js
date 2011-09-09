@@ -81,18 +81,14 @@ DemoHost.prototype._setFrame = function(ms) {
 };
 
 DemoHost.prototype._loadDemo = function(demoCtr) {
-  var canvas = document.getElementById('content');
   var newCanvas = goog.dom.createDom('canvas', {
     'id': 'content',
     'width': 500,
     'height': 500
   });
-  if (canvas) {
-    goog.dom.replaceNode(newCanvas, canvas);
-  }
-  canvas = newCanvas;
+  goog.dom.replaceNode(newCanvas, document.getElementById('content'));
 
-  this._demo = new demoCtr(canvas);
+  this._demo = new demoCtr(newCanvas);
 };
 
 DemoHost.prototype._drawFrame = function() {
