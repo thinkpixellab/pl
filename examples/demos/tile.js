@@ -1,10 +1,6 @@
 goog.provide('demos.Tile');
 
-goog.require('goog.Timer');
-goog.require('goog.debug.LogManager');
-goog.require('goog.math.Coordinate');
 goog.require('goog.math.Vec2');
-goog.require('pl.ex');
 goog.require('pl.retained.Container');
 goog.require('pl.retained.Stage');
 goog.require('pl.retained.TileLayer');

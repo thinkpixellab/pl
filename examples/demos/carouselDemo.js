@@ -1,15 +1,7 @@
 goog.provide('demos.CarouselDemo');
 
-goog.require('goog.Timer');
-goog.require('goog.debug.LogManager');
 goog.require('goog.events');
 goog.require('goog.events.EventType');
-goog.require('goog.math.Coordinate');
-goog.require('goog.math.Vec2');
-goog.require('pl.DebugDiv');
-goog.require('pl.FpsLogger');
-goog.require('pl.ex');
-goog.require('pl.gfx');
 goog.require('pl.retained.Animation');
 goog.require('pl.retained.CarouselContainer');
 goog.require('pl.retained.Stage');

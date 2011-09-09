@@ -1,17 +1,8 @@
 goog.provide('demos.RotateText');
 
-goog.require('goog.Timer');
-goog.require('goog.debug.LogManager');
-goog.require('goog.math.Coordinate');
-goog.require('goog.math.Vec2');
-goog.require('pl.DebugDiv');
-goog.require('pl.FpsLogger');
-goog.require('pl.ex');
 goog.require('pl.retained.Container');
 goog.require('pl.retained.Stage');
 goog.require('pl.retained.Text');
-
-
 
 /**
  * @constructor

@@ -1,17 +1,10 @@
 goog.provide('demos.ScaleDemo');
 
-goog.require('goog.Timer');
-goog.require('goog.debug.LogManager');
-goog.require('goog.math.Coordinate');
 goog.require('goog.math.Vec2');
-goog.require('pl.ex');
 goog.require('pl.gfx');
 goog.require('pl.retained.Animation');
-goog.require('pl.retained.CarouselContainer');
 goog.require('pl.retained.Stage');
 goog.require('pl.retained.Text');
-goog.require('pl.retained.helper');
-
 
 /**
  * @constructor
