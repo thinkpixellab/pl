@@ -7,7 +7,7 @@ goog.addDependency("../../../pl/examples/demos/swap.js", ['demos.Swap'], ['pl.re
 goog.addDependency("../../../pl/examples/demos/tile.js", ['demos.Tile'], ['goog.math.Vec2', 'pl.retained.Container', 'pl.retained.Stage', 'pl.retained.TileLayer']);
 goog.addDependency("../../../pl/src/behavior.js", ['pl.Behavior'], ['goog.array', 'goog.asserts', 'pl.Property']);
 goog.addDependency("../../../pl/src/debugDiv.js", ['pl.DebugDiv'], ['goog.asserts', 'goog.debug.LogManager', 'goog.dom', 'goog.style']);
-goog.addDependency("../../../pl/src/ex.js", ['pl.ex'], ['goog.array', 'goog.math.Size', 'goog.string', 'goog.style']);
+goog.addDependency("../../../pl/src/ex.js", ['pl.ex'], ['goog.array', 'goog.asserts', 'goog.math.Size', 'goog.string', 'goog.style']);
 goog.addDependency("../../../pl/src/fpsLogger.js", ['pl.FpsLogger'], []);
 goog.addDependency("../../../pl/src/gfx.js", ['pl.gfx'], ['goog.graphics.AffineTransform', 'goog.math.Size']);
 goog.addDependency("../../../pl/src/images.js", ['pl.images'], ['goog.asserts', 'goog.net.EventType', 'goog.net.ImageLoader', 'goog.object']);

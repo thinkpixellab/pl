@@ -1,6 +1,7 @@
 goog.provide('pl.ex');
 
 goog.require('goog.array');
+goog.require('goog.asserts');
 goog.require('goog.math.Size');
 goog.require('goog.string');
 goog.require('goog.style');
@@ -107,6 +108,20 @@ pl.ex.transformCoordinates = function(tx, points) {
     pl.ex.transformCoordinate(tx, p);
   });
   return points;
+};
+
+/**
+ * @param {!Array} arr The source array.
+ * @param {Function=} opt_randFn Optional random function to use for shuffling.
+ *     Takes no arguments, and returns a random number on the interval [0, 1).
+ *     Defaults to Math.random() using JavaScript's built-in Math library.
+ */
+pl.ex.getRandom = function(arr, opt_randFn) {
+  goog.asserts.assert(arr && arr.length);
+  var randFn = opt_randFn || Math.random;
+
+  var i = Math.floor(randFn() * (arr.length));
+  return arr[i];
 };
 
 /**
