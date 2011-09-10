@@ -1,6 +1,7 @@
 goog.provide('DemoHost');
 
 goog.require('demos');
+goog.require('goog.History');
 goog.require('goog.Timer');
 goog.require('goog.array');
 goog.require('goog.debug.LogManager');
@@ -49,20 +50,28 @@ DemoHost = function() {
   //
   // Demo Selector
   //
-  var selectControl = new goog.ui.Select('Pick a demo...');
+  this._selectControl = new goog.ui.Select('Pick a demo...');
   goog.array.forEach(demos.all, function(d) {
-    selectControl.addItem(new goog.ui.MenuItem(d.description, d));
-  });
-  selectControl.render(goog.dom.getElement('DemoSelect'));
+    this._selectControl.addItem(new goog.ui.MenuItem(d.description));
+  }, this);
+  this._selectControl.render(goog.dom.getElement('DemoSelect'));
 
-  goog.events.listen(selectControl, goog.ui.Component.EventType.ACTION, function(e) {
+  goog.events.listen(this._selectControl, goog.ui.Component.EventType.ACTION, function(e) {
     var select = e.target;
-    this._loadDemo(select.getValue());
+    this._history.setToken(select.getValue());
   },
   false, this);
 
-  selectControl.setSelectedIndex(0);
-  selectControl.dispatchEvent(goog.ui.Component.EventType.ACTION);
+  //
+  // History!
+  //
+  var historyElement =
+  /** @type {!HTMLInputElement} */
+  document.getElementById('history_state');
+
+  this._history = new goog.History(false, undefined, historyElement);
+  this._history.addEventListener(goog.history.EventType.NAVIGATE, this._navigate, false, this);
+  this._history.setEnabled(true);
 
   this._frameFunc = goog.bind(this._drawFrame, this);
 
@@ -71,6 +80,21 @@ DemoHost = function() {
 };
 
 DemoHost.prototype._frameMs = 0;
+
+DemoHost.prototype._navigate = function(e) {
+  var demo;
+  if (e.token.length === 0) {
+    demo = demos.all[0];
+  }
+  else {
+    demo = goog.array.find(demos.all, function(d) {
+      return d.description === e.token;
+    }, this);
+  }
+  var i = goog.array.indexOf(demos.all, demo);
+  this._selectControl.setSelectedIndex(i);
+  this._loadDemo(demo);
+};
 
 DemoHost.prototype._setFrame = function(ms) {
   if (ms) {
