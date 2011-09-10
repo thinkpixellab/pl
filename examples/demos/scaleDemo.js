@@ -10,18 +10,18 @@ goog.require('pl.retained.Text');
  * @constructor
  */
 demos.ScaleDemo = function(canvas) {
-  var container = new pl.retained.Text('Dude', 300, 50);
-  container.fillStyle = 'white';
-  container.textFillStyle = 'black';
+  var text = new pl.retained.Text('Dude', 300, 50);
+  text.fillStyle = 'white';
+  text.textFillStyle = 'black';
 
   var vec = new goog.math.Vec2((500 - 300) / 2, (500 - 50) / 2);
-  var tx = container.addTransform().setToTranslation(vec.x, vec.y);
+  var tx = text.addTransform().setToTranslation(vec.x, vec.y);
 
-  this._stage = new pl.retained.Stage(canvas, container);
+  this._stage = new pl.retained.Stage(canvas, text);
 
   var frames = 50;
 
-  var animation = new pl.retained.Animation(container, frames, function(i, element) {
+  var animation = new pl.retained.Animation(text, frames, function(i, element) {
     var scale = 1 - i / frames;
     pl.gfx.affineOffsetScale(tx, scale, scale, element.width / 2, element.height / 2);
     tx.preTranslate(vec.x, vec.y);
