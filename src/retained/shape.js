@@ -17,7 +17,7 @@ goog.inherits(pl.retained.Shape, pl.retained.Element);
 /**
  * @type {?(string|CanvasGradient|CanvasPattern)}
  */
-pl.retained.Text.prototype.fillStyle = 'white';
+pl.retained.Shape.prototype.fillStyle = 'white';
 
 /**
  * @override
