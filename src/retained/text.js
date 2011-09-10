@@ -1,4 +1,3 @@
-// TODO: 2011-09-21: note that changing properties besides width/height between frames will not invalidate cache
 goog.provide('pl.retained.Text');
 
 goog.require('pl.gfx');
@@ -26,9 +25,19 @@ pl.retained.Text.prototype.lineHeight = 25;
 pl.retained.Text.prototype.multiLine = false;
 
 /**
+ * @type {?(string|CanvasGradient|CanvasPattern)}
+ */
+pl.retained.Text.prototype.fillStyle = null;
+
+/**
  * @override
  */
 pl.retained.Text.prototype.drawOverride = function(ctx) {
+  if (this.fillStyle) {
+    ctx.fillStyle = this.fillStyle;
+    ctx.fillRect(0, 0, this.width, this.height);
+  }
+
   ctx.font = this.font;
   ctx.textBaseline = 'top';
   ctx.fillStyle = this.textFillStyle;

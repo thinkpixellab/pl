@@ -177,13 +177,6 @@ pl.retained.Element.prototype._drawCore = function(ctx) {
     ctx.globalAlpha = this.alpha;
   }
 
-  if (this.fillStyle) {
-    ctx.save();
-    ctx.fillStyle = this.fillStyle;
-    ctx.fillRect(0, 0, this.width, this.height);
-    ctx.restore();
-  }
-
   // call the abstract draw method
   this.drawOverride(ctx);
   this._lastDrawSize = this.getSize();
