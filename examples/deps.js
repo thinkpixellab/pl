@@ -3,7 +3,7 @@ goog.addDependency("../../../pl/examples/demos/carouselDemo.js", ['demos.Carouse
 goog.addDependency("../../../pl/examples/demos/demos.js", ['demos'], ['demos.CarouselDemo', 'demos.RotateText', 'demos.ScaleDemo', 'demos.Swap', 'demos.Tile']);
 goog.addDependency("../../../pl/examples/demos/rotateText.js", ['demos.RotateText'], ['pl.retained.Container', 'pl.retained.Stage', 'pl.retained.Text']);
 goog.addDependency("../../../pl/examples/demos/scaleDemo.js", ['demos.ScaleDemo'], ['goog.math.Vec2', 'pl.gfx', 'pl.retained.Animation', 'pl.retained.Stage', 'pl.retained.Text']);
-goog.addDependency("../../../pl/examples/demos/swap.js", ['demos.Swap'], ['pl.retained.Animation', 'pl.retained.Container', 'pl.retained.Stage', 'pl.retained.Text']);
+goog.addDependency("../../../pl/examples/demos/swap.js", ['demos.Swap'], ['goog.math.Size', 'pl.ex', 'pl.retained.Animation', 'pl.retained.Container', 'pl.retained.Shape', 'pl.retained.Stage']);
 goog.addDependency("../../../pl/examples/demos/tile.js", ['demos.Tile'], ['goog.math.Vec2', 'pl.retained.Container', 'pl.retained.Stage', 'pl.retained.TileLayer']);
 goog.addDependency("../../../pl/src/behavior.js", ['pl.Behavior'], ['goog.array', 'goog.asserts', 'pl.Property']);
 goog.addDependency("../../../pl/src/debugDiv.js", ['pl.DebugDiv'], ['goog.asserts', 'goog.debug.LogManager', 'goog.dom', 'goog.style']);
