@@ -4,8 +4,10 @@ goog.require('demos');
 goog.require('goog.History');
 goog.require('goog.Timer');
 goog.require('goog.array');
+goog.require('goog.asserts');
 goog.require('goog.debug.LogManager');
 goog.require('goog.dom');
+goog.require('goog.string');
 goog.require('goog.style');
 goog.require('goog.ui.Component.EventType');
 goog.require('goog.ui.MenuItem');
@@ -57,8 +59,8 @@ DemoHost = function() {
   this._selectControl.render(goog.dom.getElement('DemoSelect'));
 
   goog.events.listen(this._selectControl, goog.ui.Component.EventType.ACTION, function(e) {
-    var select = e.target;
-    this._history.setToken(select.getValue());
+    value = goog.string.urlEncode(e.target.getValue());
+    this._history.setToken(value);
   },
   false, this);
 
@@ -87,9 +89,11 @@ DemoHost.prototype._navigate = function(e) {
     demo = demos.all[0];
   }
   else {
+    value = goog.string.urlDecode(e.token);
     demo = goog.array.find(demos.all, function(d) {
-      return d.description === e.token;
+      return d.description === value;
     }, this);
+    goog.asserts.assert(demo, 'should have a valid demo here!');
   }
   var i = goog.array.indexOf(demos.all, demo);
   this._selectControl.setSelectedIndex(i);
