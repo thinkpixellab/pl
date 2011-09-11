@@ -137,30 +137,3 @@ pl.retained.Container.prototype.childInvalidated = function(child) {
 };
 
 pl.retained.Container._containerTransformProperty = new pl.Property('containerTransfrom');
-
-/**
- * @param {!goog.math.Coordinate=} opt_value
- * @param {!pl.retained.Element} element
- * @return {!goog.math.Coordinate}
- */
-pl.retained.Container.prototype.topLeft = function(element, opt_value) {
-  var tx = this.getChildTransform(element);
-  if (opt_value) {
-    tx.setToTranslation(opt_value.x, opt_value.y);
-  }
-  return pl.ex.transformCoordinate(tx, new goog.math.Coordinate());
-};
-
-/**
- * @param {!goog.math.Coordinate=} opt_value
- * @param {!pl.retained.Element} element
- * @return {!goog.math.Coordinate}
- */
-pl.retained.Container.prototype.center = function(element, opt_value) {
-  var sizeOffset = new goog.math.Vec2(element.width / 2, element.height / 2);
-  if (opt_value) {
-    var tl = goog.math.Vec2.difference(opt_value, sizeOffset);
-    this.topLeft(element, tl);
-  }
-  return sizeOffset.add(this.topLeft(element));
-};
