@@ -24,12 +24,6 @@ pl.retained.Element = function(width, height, opt_enableCache) {
   this.width = width;
   this.height = height;
 
-  /**
-   * @private
-   * @type {?pl.retained.ElementParent}
-   */
-  this._parent = null;
-
   if (opt_enableCache) {
     this._drawInternal = pl.retained.Element.prototype._drawCached;
   }
@@ -37,14 +31,21 @@ pl.retained.Element = function(width, height, opt_enableCache) {
 goog.inherits(pl.retained.Element, goog.events.EventTarget);
 
 /**
+ * @private
+ * @type {?goog.math.Size}
+ */
+pl.retained.Element.prototype._lastDrawSize = null;
+
+/**
+ * @private
+ * @type {?pl.retained.ElementParent}
+ */
+pl.retained.Element.prototype._parent = null;
+
+/**
  * @type {?number}
  */
 pl.retained.Element.prototype.alpha = null;
-
-/**
- * @type {?Array.<!goog.graphics.AffineTransform>}
- */
-pl.retained.Element.prototype._transfroms = null;
 
 /**
  * @return {!goog.graphics.AffineTransform}
@@ -102,8 +103,8 @@ pl.retained.Element.prototype.setSize = function(size) {
 };
 
 /**
- * Only valid if caching is enabled
- * Ensures that the a non-cached draw is done during the next pass
+ * Ensures this element is drawn the next pass
+ * passes invalidation up the parent path
  */
 pl.retained.Element.prototype.invalidateDraw = function() {
   if (this._lastDrawSize !== null) {
@@ -112,6 +113,9 @@ pl.retained.Element.prototype.invalidateDraw = function() {
   }
 };
 
+/**
+ * @private
+ */
 pl.retained.Element.prototype._invalidateParent = function() {
   if (this._parent) {
     this._parent.childInvalidated(this);
