@@ -153,7 +153,7 @@ pl.gfx.lineToPath = function(ctx, points) {
  * @param {goog.graphics.AffineTransform} source
  * @param {goog.graphics.AffineTransform} target
  * @param {number} lerp
- * @return {goog.graphics.AffineTransform}
+ * @return {!goog.graphics.AffineTransform}
  */
 pl.gfx.lerpTx = function(source, target, lerp) {
   var m00 = goog.math.lerp(source.getScaleX(), target.getScaleX(), lerp);
