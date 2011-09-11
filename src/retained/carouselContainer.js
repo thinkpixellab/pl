@@ -16,7 +16,6 @@ goog.require('pl.retained.Element');
  */
 pl.retained.CarouselContainer = function(width, height, opt_enableCache) {
   goog.base(this, width, height, opt_enableCache);
-  this._children = [];
 
   this._angle = 0;
   this._locationsDirty = true;
