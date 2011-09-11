@@ -59,7 +59,7 @@ DemoHost = function() {
   this._selectControl.render(goog.dom.getElement('DemoSelect'));
 
   goog.events.listen(this._selectControl, goog.ui.Component.EventType.ACTION, function(e) {
-    value = goog.string.urlEncode(e.target.getValue());
+    var value = goog.string.urlEncode(e.target.getValue());
     this._history.setToken(value);
   },
   false, this);
@@ -89,7 +89,7 @@ DemoHost.prototype._navigate = function(e) {
     demo = demos.all[0];
   }
   else {
-    value = goog.string.urlDecode(e.token);
+    var value = goog.string.urlDecode(e.token);
     demo = goog.array.find(demos.all, function(d) {
       return d.description === value;
     }, this);
