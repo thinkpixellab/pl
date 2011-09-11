@@ -148,3 +148,20 @@ pl.gfx.lineToPath = function(ctx, points) {
     ctx.closePath();
   }
 };
+
+/**
+ * @param {goog.graphics.AffineTransform} source
+ * @param {goog.graphics.AffineTransform} target
+ * @param {number} lerp
+ * @return {goog.graphics.AffineTransform}
+ */
+pl.gfx.lerpTx = function(source, target, lerp) {
+  var m00 = goog.math.lerp(source.getScaleX(), target.getScaleX(), lerp);
+  var m10 = goog.math.lerp(source.getShearY(), target.getShearY(), lerp);
+  var m01 = goog.math.lerp(source.getShearX(), target.getShearX(), lerp);
+  var m11 = goog.math.lerp(source.getScaleY(), target.getScaleY(), lerp);
+  var m02 = goog.math.lerp(source.getTranslateX(), target.getTranslateX(), lerp);
+  var m12 = goog.math.lerp(source.getTranslateY(), target.getTranslateY(), lerp);
+
+  return new goog.graphics.AffineTransform(m00, m10, m01, m11, m02, m12);
+};
