@@ -48,8 +48,9 @@ box2d.CircleShape = function(def, body, localCenter) {
   var rX = this.m_R.col1.x * this.m_localPosition.x + this.m_R.col2.x * this.m_localPosition.y;
   var rY = this.m_R.col1.y * this.m_localPosition.x + this.m_R.col2.y * this.m_localPosition.y;
   //this.m_position = this.m_body->this.m_position + r;
-  this.m_position.x = this.m_body.m_position.x + rX;
-  this.m_position.y = this.m_body.m_position.y + rY;
+
+  var bodyP = this.m_body.getPosition();
+  this.m_position.Set(bodyP.x + rX, bodyP.y + rY);
   //this.m_maxRadius = r.Length() + this.m_radius;
   this.m_maxRadius = Math.sqrt(rX * rX + rY * rY) + this.m_radius;
 

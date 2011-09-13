@@ -147,7 +147,7 @@ box2d.Island.prototype.Solve = function(step, gravity) {
     b.m_angularVelocity *= b.m_angularDamping;
 
     // Store positions for conservative advancement.
-    b.m_position0.SetV(b.m_position);
+    b.setPosition(b.m_position);
     b.m_rotation0 = b.m_rotation;
   }
 

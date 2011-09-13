@@ -221,8 +221,10 @@ box2d.PolyShape = function(def, body, newOrigin) {
 
   this.m_R.SetM(this.m_body.m_R);
   //this.m_position.SetV( this.m_body.m_position  + b2Mul(this.m_body->this.m_R, this.m_localCentroid) );
-  this.m_position.x = this.m_body.m_position.x + (this.m_R.col1.x * this.m_localCentroid.x + this.m_R.col2.x * this.m_localCentroid.y);
-  this.m_position.y = this.m_body.m_position.y + (this.m_R.col1.y * this.m_localCentroid.x + this.m_R.col2.y * this.m_localCentroid.y);
+  var bodyP = this.m_body.getPosition();
+
+  this.m_position.x = bodyP.x + (this.m_R.col1.x * this.m_localCentroid.x + this.m_R.col2.x * this.m_localCentroid.y);
+  this.m_position.y = bodyP.y + (this.m_R.col1.y * this.m_localCentroid.x + this.m_R.col2.y * this.m_localCentroid.y);
 
   //var R = box2d.Math.b2MulMM(this.m_R, this.m_localOBB.R);
   //R.col1 = b2MulMV(this.m_R, this.m_localOBB.R.col1);
@@ -294,8 +296,10 @@ box2d.PolyShape.prototype.Synchronize = function(position1, R1, position2, R2) {
   // The body transform is copied for convenience.
   this.m_R.SetM(R2);
   //this.m_position = this.m_body->this.m_position + b2Mul(this.m_body->this.m_R, this.m_localCentroid)
-  this.m_position.x = this.m_body.m_position.x + (R2.col1.x * this.m_localCentroid.x + R2.col2.x * this.m_localCentroid.y);
-  this.m_position.y = this.m_body.m_position.y + (R2.col1.y * this.m_localCentroid.x + R2.col2.y * this.m_localCentroid.y);
+  var bodyP = this.m_body.getPosition();
+
+  this.m_position.x = bodyP.x + (R2.col1.x * this.m_localCentroid.x + R2.col2.x * this.m_localCentroid.y);
+  this.m_position.y = bodyP.y + (R2.col1.y * this.m_localCentroid.x + R2.col2.y * this.m_localCentroid.y);
 
   if (this.m_proxyId == box2d.Pair.b2_nullProxy) {
     return;
