@@ -41,14 +41,14 @@ box2d.Body = function(bd, world) {
    * @private
    * @type {!box2d.Vec2}
    */
-  this._position = new box2d.Vec2();
-  this._position.SetV(bd.position);
+  this.m_position = new box2d.Vec2();
+  this.m_position.SetV(bd.position);
   /**
    @private
    @type {!box2d.Vec2}
    */
-  this._position0 = new box2d.Vec2();
-  this._position0.SetV(this._position);
+  this.m_position0 = new box2d.Vec2();
+  this.m_position0.SetV(this.m_position);
 
   var i = 0;
   var sd;
@@ -113,7 +113,7 @@ box2d.Body = function(bd, world) {
   // Compute center of mass, and shift the origin to the COM.
   if (this.m_mass > 0.0) {
     this.m_center.scale(1.0 / this.m_mass);
-    this._position.add(box2d.Math.b2MulMV(this.m_R, this.m_center));
+    this.m_position.add(box2d.Math.b2MulMV(this.m_R, this.m_center));
   } else {
     this.m_flags |= box2d.Body.Flags.staticFlag;
   }
@@ -191,13 +191,13 @@ box2d.Body.prototype.SetOriginPosition = function(position, rotation) {
 
   this.m_rotation = rotation;
   this.m_R.Set(this.m_rotation);
-  this._position = box2d.Vec2.add(position, box2d.Math.b2MulMV(this.m_R, this.m_center));
+  this.m_position = box2d.Vec2.add(position, box2d.Math.b2MulMV(this.m_R, this.m_center));
 
-  this._position0.SetV(this._position);
+  this.m_position0.SetV(this.m_position);
   this.m_rotation0 = this.m_rotation;
 
   for (var s = this.m_shapeList; s != null; s = s.m_next) {
-    s.Synchronize(this._position, this.m_R, this._position, this.m_R);
+    s.Synchronize(this.m_position, this.m_R, this.m_position, this.m_R);
   }
 
   this.m_world.m_broadPhase.Commit();
@@ -207,7 +207,7 @@ box2d.Body.prototype.SetOriginPosition = function(position, rotation) {
 // necessarily coincide with the center of mass. It depends on how the
 // shapes are created.
 box2d.Body.prototype.GetOriginPosition = function() {
-  return box2d.Vec2.subtract(this._position, box2d.Math.b2MulMV(this.m_R, this.m_center));
+  return box2d.Vec2.subtract(this.m_position, box2d.Math.b2MulMV(this.m_R, this.m_center));
 };
 
 // Set the position of the body's center of mass and rotation (radians).
@@ -219,13 +219,13 @@ box2d.Body.prototype.SetCenterPosition = function(position, rotation) {
 
   this.m_rotation = rotation;
   this.m_R.Set(this.m_rotation);
-  this._position.SetV(position);
+  this.m_position.SetV(position);
 
-  this._position0.SetV(this._position);
+  this.m_position0.SetV(this.m_position);
   this.m_rotation0 = this.m_rotation;
 
   for (var s = this.m_shapeList; s != null; s = s.m_next) {
-    s.Synchronize(this._position, this.m_R, this._position, this.m_R);
+    s.Synchronize(this.m_position, this.m_R, this.m_position, this.m_R);
   }
 
   this.m_world.m_broadPhase.Commit();
@@ -235,7 +235,7 @@ box2d.Body.prototype.SetCenterPosition = function(position, rotation) {
 // does not necessarily coincide with the body's origin. It depends on how the
 // shapes are created.
 box2d.Body.prototype.GetCenterPosition = function() {
-  return this._position;
+  return this.m_position;
 };
 
 // Get the rotation in radians.
@@ -263,7 +263,7 @@ box2d.Body.prototype.GetAngularVelocity = function() {
 box2d.Body.prototype.ApplyForce = function(force, point) {
   if (this.IsSleeping() == false) {
     this.m_force.add(force);
-    this.m_torque += box2d.Vec2.cross(box2d.Vec2.subtract(point, this._position), force);
+    this.m_torque += box2d.Vec2.cross(box2d.Vec2.subtract(point, this.m_position), force);
   }
 };
 
@@ -278,7 +278,7 @@ box2d.Body.prototype.ApplyTorque = function(torque) {
 box2d.Body.prototype.ApplyImpulse = function(impulse, point) {
   if (this.IsSleeping() == false) {
     this.m_linearVelocity.add(box2d.Vec2.multiplyScalar(this.m_invMass, impulse));
-    this.m_angularVelocity += (this.m_invI * box2d.Vec2.cross(box2d.Vec2.subtract(point, this._position), impulse));
+    this.m_angularVelocity += (this.m_invI * box2d.Vec2.cross(box2d.Vec2.subtract(point, this.m_position), impulse));
   }
 };
 
@@ -293,7 +293,7 @@ box2d.Body.prototype.GetInertia = function() {
 // Get the world coordinates of a point give the local coordinates
 // relative to the body's center of mass.
 box2d.Body.prototype.GetWorldPoint = function(localPoint) {
-  return box2d.Vec2.add(this._position, box2d.Math.b2MulMV(this.m_R, localPoint));
+  return box2d.Vec2.add(this.m_position, box2d.Math.b2MulMV(this.m_R, localPoint));
 };
 
 // Get the world coordinates of a vector given the local coordinates.
@@ -303,7 +303,7 @@ box2d.Body.prototype.GetWorldVector = function(localVector) {
 
 // Returns a local point relative to the center of mass given a world point.
 box2d.Body.prototype.GetLocalPoint = function(worldPoint) {
-  return box2d.Math.b2MulTMV(this.m_R, box2d.Vec2.subtract(worldPoint, this._position));
+  return box2d.Math.b2MulTMV(this.m_R, box2d.Vec2.subtract(worldPoint, this.m_position));
 };
 
 // Returns a local vector given a world vector.
@@ -389,13 +389,13 @@ box2d.Body.prototype.SynchronizeShapes = function() {
   //b2Mat22 R0(this.m_rotation0);
   this.sMat0.Set(this.m_rotation0);
   for (var s = this.m_shapeList; s != null; s = s.m_next) {
-    s.Synchronize(this._position0, this.sMat0, this._position, this.m_R);
+    s.Synchronize(this.m_position0, this.sMat0, this.m_position, this.m_R);
   }
 };
 
 box2d.Body.prototype.QuickSyncShapes = function() {
   for (var s = this.m_shapeList; s != null; s = s.m_next) {
-    s.QuickSync(this._position, this.m_R);
+    s.QuickSync(this.m_position, this.m_R);
   }
 };
 
@@ -436,14 +436,14 @@ box2d.Body.prototype.GetLinearVelocity = function() {
  * @return {!box2d.Vec2}
  */
 box2d.Body.prototype.getPosition = function() {
-  return this._position.Copy();
+  return this.m_position.Copy();
 };
 
 /**
  * @param {!goog.math.Coordinate} p
  */
 box2d.Body.prototype.setPosition = function(p) {
-  this._position.SetV(p);
+  this.m_position.SetV(p);
 };
 
 /**

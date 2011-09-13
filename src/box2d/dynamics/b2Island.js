@@ -148,7 +148,7 @@ box2d.Island.prototype.Solve = function(step, gravity) {
     b.m_angularVelocity *= b.m_angularDamping;
 
     // Store positions for conservative advancement.
-    b.setPosition(b._position);
+    b.setPosition(b.m_position);
     b.m_rotation0 = b.m_rotation;
   }
 
@@ -177,7 +177,7 @@ box2d.Island.prototype.Solve = function(step, gravity) {
     if (b.m_invMass == 0.0) continue;
 
     //b.m_position.Add( box2d.Vec2.multiplyScalar (step.dt, b.m_linearVelocity) );
-    b._position.add(b.m_linearVelocity.clone().scale(step.dt));
+    b.m_position.add(b.m_linearVelocity.clone().scale(step.dt));
 
     b.m_R.Set(b.m_rotation);
   }
