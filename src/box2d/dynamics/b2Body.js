@@ -435,14 +435,14 @@ box2d.Body.prototype.GetLinearVelocity = function() {
 /**
  * @return {!box2d.Vec2}
  */
-box2d.Body.prototype.getPosition = function(){
+box2d.Body.prototype.getPosition = function() {
   return this._position.Copy();
 };
 
 /**
  * @param {!goog.math.Coordinate} p
  */
-box2d.Body.prototype.setPosition = function(p){
+box2d.Body.prototype.setPosition = function(p) {
   this._position.SetV(p);
 };
 
