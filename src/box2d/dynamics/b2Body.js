@@ -55,8 +55,9 @@ box2d.Body = function(bd, world) {
   var massData;
 
   /**
-   @private
-   @type {number}
+   * m_flags should be private, but access is needed in b2World
+   * this field should never be modified directly
+   * @type {number}
    */
   this.m_flags = 0;
   /**
