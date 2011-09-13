@@ -32,6 +32,12 @@ goog.require('box2d.Vec2');
 box2d.Shape = function(def, body) {
   // initialize instance variables for references
   this.m_R = new box2d.Mat22();
+
+  /**
+   * @protected
+   * @const
+   * @type {!box2d.Vec2}
+   */
   this.m_position = new box2d.Vec2();
   //
   this.m_userData = def.userData;
