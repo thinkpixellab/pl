@@ -18,30 +18,28 @@
 
 goog.provide('box2d.Mat22');
 
-/** @constructor
- @param {number=} angle
- @param {box2d.Vec2=} c1
- @param {box2d.Vec2=} c2 */
+/** 
+ * @constructor
+ * @param {number=} angle
+ * @param {box2d.Vec2=} c1
+ * @param {box2d.Vec2=} c2
+ */
 box2d.Mat22 = function(angle, c1, c2) {
-  if (angle == null) angle = 0;
+  if (!angle) {
+    angle = 0;
+  }
   // initialize instance variables for references
-
   /** @type {!box2d.Vec2} */
   this.col1 = new box2d.Vec2();
 
   /** @type {!box2d.Vec2} */
   this.col2 = new box2d.Vec2();
   //
-  if (c1 != null && c2 != null) {
+  if (c1 && c2) {
     this.col1.SetV(c1);
     this.col2.SetV(c2);
   } else {
-    var c = Math.cos(angle);
-    var s = Math.sin(angle);
-    this.col1.x = c;
-    this.col2.x = -s;
-    this.col1.y = s;
-    this.col2.y = c;
+    this.Set(angle);
   }
 };
 
