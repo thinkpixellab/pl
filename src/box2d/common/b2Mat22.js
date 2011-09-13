@@ -18,7 +18,7 @@
 
 goog.provide('box2d.Mat22');
 
-/** 
+/**
  * @constructor
  * @param {number=} angle
  * @param {box2d.Vec2=} c1
