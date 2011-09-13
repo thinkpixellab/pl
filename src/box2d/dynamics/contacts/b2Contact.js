@@ -22,7 +22,9 @@ goog.require('box2d.ContactNode');
 goog.require('box2d.ContactRegister');
 
 /**
- @constructor
+ * @constructor
+ * @param {box2d.Shape=} s1
+ * @param {box2d.Shape=} s2
  */
 box2d.Contact = function(s1, s2) {
   // initialize instance variables for references

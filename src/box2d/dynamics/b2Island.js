@@ -112,17 +112,18 @@ box2d.Island = function(bodyCapacity, contactCapacity, jointCapacity) {
   this.m_contactCount = 0;
   this.m_jointCount = 0;
 
-  this.m_bodies = new Array(bodyCapacity);
+  /** @type {!Array.<box2d.Body>} */
+  this.m_bodies = [bodyCapacity];
   for (i = 0; i < bodyCapacity; i++)
-    this.m_bodies[i] = null;
+  this.m_bodies[i] = null;
 
   this.m_contacts = new Array(contactCapacity);
   for (i = 0; i < contactCapacity; i++)
-    this.m_contacts[i] = null;
+  this.m_contacts[i] = null;
 
   this.m_joints = new Array(jointCapacity);
   for (i = 0; i < jointCapacity; i++)
-    this.m_joints[i] = null;
+  this.m_joints[i] = null;
 };
 
 box2d.Island.prototype.Clear = function() {
@@ -147,7 +148,7 @@ box2d.Island.prototype.Solve = function(step, gravity) {
     b.m_angularVelocity *= b.m_angularDamping;
 
     // Store positions for conservative advancement.
-    b.setPosition(b.m_position);
+    b.setPosition(b._position);
     b.m_rotation0 = b.m_rotation;
   }
 
@@ -176,9 +177,7 @@ box2d.Island.prototype.Solve = function(step, gravity) {
     if (b.m_invMass == 0.0) continue;
 
     //b.m_position.Add( box2d.Vec2.multiplyScalar (step.dt, b.m_linearVelocity) );
-    b.m_position.x += step.dt * b.m_linearVelocity.x;
-    b.m_position.y += step.dt * b.m_linearVelocity.y;
-    b.m_rotation += step.dt * b.m_angularVelocity;
+    b._position.add(b.m_linearVelocity.clone().scale(step.dt));
 
     b.m_R.Set(b.m_rotation);
   }

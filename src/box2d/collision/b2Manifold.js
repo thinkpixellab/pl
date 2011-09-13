@@ -28,6 +28,7 @@ goog.require('box2d.Vec2');
  */
 box2d.Manifold = function() {
   this.pointCount = 0;
+  /** @type {!Array.<!box2d.ContactPoint>} */
   this.points = new Array(box2d.Settings.b2_maxManifoldPoints);
   for (var i = 0; i < box2d.Settings.b2_maxManifoldPoints; i++) {
     this.points[i] = new box2d.ContactPoint();

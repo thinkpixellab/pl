@@ -21,11 +21,13 @@ goog.require('box2d.ContactConstraint');
 goog.require('box2d.Settings');
 
 /**
- @constructor
+ * @constructor
+ * @param {!Array.<box2d.Contact>} contacts
+ * @param {number} contactCount
  */
 box2d.ContactSolver = function(contacts, contactCount) {
   // initialize instance variables for references
-  this.m_constraints = new Array();
+  this.m_constraints = [];
 
   var i = 0;
   var tVec;
@@ -44,6 +46,7 @@ box2d.ContactSolver = function(contacts, contactCount) {
   var count = 0;
   for (i = 0; i < contactCount; ++i) {
     var contact = contacts[i];
+
     var b1 = contact.m_shape1.m_body;
     var b2 = contact.m_shape2.m_body;
     var manifoldCount = contact.GetManifoldCount();
@@ -89,11 +92,11 @@ box2d.ContactSolver = function(contacts, contactCount) {
         ccp.separation = cp.separation;
 
         //var r1 = box2d.Vec2.subtract( cp.position, b1.m_position );
-        var r1X = cp.position.x - b1.m_position.x;
-        var r1Y = cp.position.y - b1.m_position.y;
+        var r1X = cp.position.x - b1._position.x;
+        var r1Y = cp.position.y - b1._position.y;
         //var r2 = box2d.Vec2.subtract( cp.position, b2.m_position );
-        var r2X = cp.position.x - b2.m_position.x;
-        var r2Y = cp.position.y - b2.m_position.y;
+        var r2X = cp.position.x - b2._position.x;
+        var r2Y = cp.position.y - b2._position.y;
 
         //ccp.localAnchor1 = box2d.Math.b2MulTMV(b1.m_R, r1);
         tVec = ccp.localAnchor1;
@@ -442,12 +445,12 @@ box2d.ContactSolver.prototype = {
         var r2Y = tMat.col1.y * tVec.x + tMat.col2.y * tVec.y;
 
         //var p1 = box2d.Vec2.add(b1.m_position, r1);
-        var p1X = b1_position.x + r1X;
-        var p1Y = b1_position.y + r1Y;
+        var p1X = b1._position.x + r1X;
+        var p1Y = b1._position.y + r1Y;
 
         //var p2 = box2d.Vec2.add(b2.m_position, r2);
-        var p2X = b2_position.x + r2X;
-        var p2Y = b2_position.y + r2Y;
+        var p2X = b2._position.x + r2X;
+        var p2Y = b2._position.y + r2Y;
 
         //var dp = box2d.Vec2.subtract(p2, p1);
         var dpX = p2X - p1X;
@@ -476,15 +479,15 @@ box2d.ContactSolver.prototype = {
         var impulseY = dImpulse * normalY;
 
         //b1.m_position.subtract( box2d.Vec2.multiplyScalar( invMass1, impulse ) );
-        b1_position.x -= invMass1 * impulseX;
-        b1_position.y -= invMass1 * impulseY;
-        b1_rotation -= invI1 * (r1X * impulseY - r1Y * impulseX);
+        b1._position.x -= invMass1 * impulseX;
+        b1._position.y -= invMass1 * impulseY;
+        b1._rotation -= invI1 * (r1X * impulseY - r1Y * impulseX);
         b1.m_R.Set(b1_rotation);
 
         //b2.m_position.Add( box2d.Vec2.multiplyScalar( invMass2, impulse ) );
-        b2_position.x += invMass2 * impulseX;
-        b2_position.y += invMass2 * impulseY;
-        b2_rotation += invI2 * (r2X * impulseY - r2Y * impulseX);
+        b2._position.x += invMass2 * impulseX;
+        b2._position.y += invMass2 * impulseY;
+        b2._rotation += invI2 * (r2X * impulseY - r2Y * impulseX);
         b2.m_R.Set(b2_rotation);
       }
       // Update body rotations

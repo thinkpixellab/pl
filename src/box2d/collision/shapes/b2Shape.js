@@ -39,11 +39,12 @@ box2d.Shape = function(def, body) {
    * @type {!box2d.Vec2}
    */
   this.m_position = new box2d.Vec2();
-  //
+
   this.m_userData = def.userData;
 
   this.m_friction = def.friction;
   this.m_restitution = def.restitution;
+
   this.m_body = body;
 
   this.m_proxyId = box2d.Pair.b2_nullProxy;

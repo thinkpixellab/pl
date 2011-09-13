@@ -22,12 +22,10 @@ goog.require('box2d.Contact');
 goog.require('box2d.ContactNode');
 
 /**
- @extends {box2d.Contact}
- @constructor
- @param {Object=} s1
- @param {Object=} s2
+ * @extends {box2d.Contact}
+ * @constructor
  */
-box2d.NullContact = function(s1, s2) {
+box2d.NullContact = function() {
   // The constructor for box2d.Contact
   // initialize instance variables for references
   this.m_node1 = new box2d.ContactNode();
@@ -35,33 +33,8 @@ box2d.NullContact = function(s1, s2) {
   //
   this.m_flags = 0;
 
-  if (!s1 || !s2) {
-    this.m_shape1 = null;
-    this.m_shape2 = null;
-    return;
-  }
-
-  this.m_shape1 = s1;
-  this.m_shape2 = s2;
-
-  this.m_manifoldCount = 0;
-
-  this.m_friction = Math.sqrt(this.m_shape1.m_friction * this.m_shape2.m_friction);
-  this.m_restitution = Math.max(this.m_shape1.m_restitution, this.m_shape2.m_restitution);
-
-  this.m_prev = null;
-  this.m_next = null;
-
-  this.m_node1.contact = null;
-  this.m_node1.prev = null;
-  this.m_node1.next = null;
-  this.m_node1.other = null;
-
-  this.m_node2.contact = null;
-  this.m_node2.prev = null;
-  this.m_node2.next = null;
-  this.m_node2.other = null;
-  //
+  this.m_shape1 = null;
+  this.m_shape2 = null;
 };
 goog.inherits(box2d.NullContact, box2d.Contact);
 
