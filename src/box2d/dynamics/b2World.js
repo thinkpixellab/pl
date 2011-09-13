@@ -69,7 +69,6 @@ box2d.World = function(worldAABB, gravity, doSleep) {
 
   this.m_gravity = gravity;
 
-  this.m_contactManager.m_world = this;
   this.m_broadPhase = new box2d.BroadPhase(worldAABB, this.m_contactManager);
 
   var bd = new box2d.BodyDef();

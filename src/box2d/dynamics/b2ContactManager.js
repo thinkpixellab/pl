@@ -29,14 +29,12 @@ goog.require('box2d.PairCallback');
  @param {!box2d.World} world
  */
 box2d.ContactManager = function(world) {
-  // The constructor for box2d.PairCallback
-  //
   // initialize instance variables for references
   this.m_nullContact = new box2d.NullContact();
-  //
+
   /**
-   @private
-   @type {!box2d.World}
+   * @private
+   * @type {!box2d.World}
    */
   this.m_world = world;
   this.m_destroyImmediate = false;
