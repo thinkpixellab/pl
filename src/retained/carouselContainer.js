@@ -4,15 +4,15 @@ goog.require('goog.array');
 goog.require('goog.graphics.AffineTransform');
 goog.require('goog.math.Coordinate');
 goog.require('goog.math.Size');
-goog.require('pl.retained.Container');
 goog.require('pl.retained.Element');
+goog.require('pl.retained.Panel');
 
 /**
  * @constructor
  * @param {number} width
  * @param {number} height
  * @param {boolean=} opt_enableCache
- * @extends {pl.retained.Container}
+ * @extends {pl.retained.Panel}
  */
 pl.retained.CarouselContainer = function(width, height, opt_enableCache) {
   goog.base(this, width, height, opt_enableCache);
@@ -22,7 +22,7 @@ pl.retained.CarouselContainer = function(width, height, opt_enableCache) {
   this._radius = new goog.math.Size(this.width / 4, this.height / 8);
   this._backScale = 0.5;
 };
-goog.inherits(pl.retained.CarouselContainer, pl.retained.Container);
+goog.inherits(pl.retained.CarouselContainer, pl.retained.Panel);
 
 /**
  * @param {number=} opt_radian

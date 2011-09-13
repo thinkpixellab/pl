@@ -3,7 +3,7 @@ goog.provide('demos.Swap');
 goog.require('goog.math.Size');
 goog.require('pl.ex');
 goog.require('pl.retained.Animation');
-goog.require('pl.retained.Container');
+goog.require('pl.retained.Panel');
 goog.require('pl.retained.Shape');
 goog.require('pl.retained.Stage');
 
@@ -12,7 +12,7 @@ goog.require('pl.retained.Stage');
  */
 demos.Swap = function(canvas) {
   this._size = new goog.math.Size(canvas.width, canvas.height);
-  var container = new pl.retained.Container(canvas.width, canvas.height);
+  var container = new pl.retained.Panel(canvas.width, canvas.height);
   this._stage = new pl.retained.Stage(canvas, container);
   this._count = 0;
 };

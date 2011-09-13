@@ -1,4 +1,4 @@
-goog.provide('pl.retained.Container');
+goog.provide('pl.retained.Panel');
 
 goog.require('goog.array');
 goog.require('goog.asserts');
@@ -13,18 +13,18 @@ goog.require('pl.retained.ElementParent');
  * @implements {pl.retained.ElementParent}
  * @extends {pl.retained.Element}
  */
-pl.retained.Container = function(width, height, opt_enableCache) {
+pl.retained.Panel = function(width, height, opt_enableCache) {
   goog.base(this, width, height, opt_enableCache);
 
   /** @type {!Array.<!pl.retained.Element>} */
   this._children = [];
 };
-goog.inherits(pl.retained.Container, pl.retained.Element);
+goog.inherits(pl.retained.Panel, pl.retained.Element);
 
 /**
  * @param {!pl.retained.Element} element
  **/
-pl.retained.Container.prototype.addElement = function(element) {
+pl.retained.Panel.prototype.addElement = function(element) {
   this.insertAt(element, this._children.length);
 };
 
@@ -33,11 +33,11 @@ pl.retained.Container.prototype.addElement = function(element) {
  * @param {number=} opt_i The index at which to insert the object. If omitted,
  *      treated as 0. A negative index is counted from the end of the array.
  **/
-pl.retained.Container.prototype.insertAt = function(element, opt_i) {
+pl.retained.Panel.prototype.insertAt = function(element, opt_i) {
   goog.array.insertAt(this._children, element, opt_i);
   element.claim(this);
-  goog.asserts.assert(!pl.retained.Container._containerTransformProperty.isSet(element), 'No container transform should be set...yet');
-  pl.retained.Container._containerTransformProperty.set(element, element.addTransform());
+  goog.asserts.assert(!pl.retained.Panel._containerTransformProperty.isSet(element), 'No container transform should be set...yet');
+  pl.retained.Panel._containerTransformProperty.set(element, element.addTransform());
   this.onChildrenChanged();
 };
 
@@ -45,12 +45,12 @@ pl.retained.Container.prototype.insertAt = function(element, opt_i) {
  * @param {!pl.retained.Element} element
  * @return {boolean} true if the item was removed, otherwise, false.
  */
-pl.retained.Container.prototype.remove = function(element) {
+pl.retained.Panel.prototype.remove = function(element) {
   if (goog.array.remove(this._children, element)) {
     element.disown(this);
-    var tx = pl.retained.Container._containerTransformProperty.get(element);
+    var tx = pl.retained.Panel._containerTransformProperty.get(element);
     goog.asserts.assert(!!tx, 'A container transform should exist');
-    pl.retained.Container._containerTransformProperty.clear(element);
+    pl.retained.Panel._containerTransformProperty.clear(element);
     element.removeTransform(tx);
     this.onChildrenChanged();
     return true;
@@ -63,9 +63,9 @@ pl.retained.Container.prototype.remove = function(element) {
  * @param {!pl.retained.Element} child
  * @return {!goog.graphics.AffineTransform}
  */
-pl.retained.Container.prototype.getChildTransform = function(child) {
+pl.retained.Panel.prototype.getChildTransform = function(child) {
   goog.asserts.assert(goog.array.contains(this._children, child), 'Should be a child that this container actually owns');
-  var tx = pl.retained.Container._containerTransformProperty.get(child);
+  var tx = pl.retained.Panel._containerTransformProperty.get(child);
   goog.asserts.assert(!!tx, 'A container transform should exist');
   return tx;
 };
@@ -74,7 +74,7 @@ pl.retained.Container.prototype.getChildTransform = function(child) {
  * @param {boolean=} opt_frontToBack
  * @return {!Array.<!pl.retained.Element>}
  */
-pl.retained.Container.prototype.getVisualChildren = function(opt_frontToBack) {
+pl.retained.Panel.prototype.getVisualChildren = function(opt_frontToBack) {
   if (opt_frontToBack) {
     var value = new Array(this._children.length);
     for (var i = 0; i < this._children.length; i++) {
@@ -86,14 +86,14 @@ pl.retained.Container.prototype.getVisualChildren = function(opt_frontToBack) {
   }
 };
 
-pl.retained.Container.prototype.onChildrenChanged = function() {
+pl.retained.Panel.prototype.onChildrenChanged = function() {
   this.invalidateDraw();
 };
 
 /**
  * returns {?math.google.Rect}
  */
-pl.retained.Container.prototype.getChildBounds = function() {
+pl.retained.Panel.prototype.getChildBounds = function() {
   var bounds = null;
   if (this._children.length) {
     bounds = pl.retained.helper.getBounds(this._children[0]);
@@ -109,7 +109,7 @@ pl.retained.Container.prototype.getChildBounds = function() {
 /**
  * @override
  **/
-pl.retained.Container.prototype.update = function() {
+pl.retained.Panel.prototype.update = function() {
   goog.array.forEach(this._children, function(element) {
     element.update();
   },
@@ -121,7 +121,7 @@ pl.retained.Container.prototype.update = function() {
  * @override
  * @param {!CanvasRenderingContext2D} ctx
  **/
-pl.retained.Container.prototype.drawOverride = function(ctx) {
+pl.retained.Panel.prototype.drawOverride = function(ctx) {
   goog.array.forEach(this._children, function(element) {
     element._drawInternal(ctx);
   },
@@ -131,9 +131,9 @@ pl.retained.Container.prototype.drawOverride = function(ctx) {
 /**
  * @param {!pl.retained.Element} child
  */
-pl.retained.Container.prototype.childInvalidated = function(child) {
+pl.retained.Panel.prototype.childInvalidated = function(child) {
   goog.asserts.assert(goog.array.contains(this._children, child), 'Must be the containers child');
   this.invalidateDraw();
 };
 
-pl.retained.Container._containerTransformProperty = new pl.Property('containerTransfrom');
+pl.retained.Panel._containerTransformProperty = new pl.Property('containerTransfrom');

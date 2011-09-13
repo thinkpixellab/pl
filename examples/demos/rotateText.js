@@ -1,6 +1,6 @@
 goog.provide('demos.RotateText');
 
-goog.require('pl.retained.Container');
+goog.require('pl.retained.Panel');
 goog.require('pl.retained.Stage');
 goog.require('pl.retained.Text');
 
@@ -12,7 +12,7 @@ demos.RotateText = function(canvas) {
   text.fillStyle = 'blue';
   text.multiLine = true;
 
-  var container = new pl.retained.Container(400, 400);
+  var container = new pl.retained.Panel(400, 400);
   container.addElement(text);
 
   this._stage = new pl.retained.Stage(canvas, container);

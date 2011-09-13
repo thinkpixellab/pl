@@ -1,7 +1,7 @@
 goog.provide('demos.Tile');
 
 goog.require('goog.math.Vec2');
-goog.require('pl.retained.Container');
+goog.require('pl.retained.Panel');
 goog.require('pl.retained.Stage');
 goog.require('pl.retained.TileLayer');
 
@@ -18,7 +18,7 @@ demos.Tile = function(canvas) {
     'height': '687'
   }));
 
-  var container = new pl.retained.Container(500, 500);
+  var container = new pl.retained.Panel(500, 500);
 
   this._tiles = [];
 

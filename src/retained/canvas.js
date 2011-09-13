@@ -2,15 +2,15 @@ goog.provide('pl.retained.Canvas');
 
 goog.require('goog.graphics.AffineTransform');
 goog.require('goog.math.Coordinate');
-goog.require('pl.retained.Container');
 goog.require('pl.retained.Element');
+goog.require('pl.retained.Panel');
 
 /**
  * @constructor
  * @param {number} width
  * @param {number} height
  * @param {boolean=} opt_enableCache
- * @extends {pl.retained.Container}
+ * @extends {pl.retained.Panel}
  */
 pl.retained.Canvas = function(width, height, opt_enableCache) {
   goog.base(this, width, height, opt_enableCache);
@@ -20,7 +20,7 @@ pl.retained.Canvas = function(width, height, opt_enableCache) {
   this._radius = new goog.math.Size(this.width / 4, this.height / 8);
   this._backScale = 0.5;
 };
-goog.inherits(pl.retained.Canvas, pl.retained.Container);
+goog.inherits(pl.retained.Canvas, pl.retained.Panel);
 
 /**
  * @param {!goog.math.Coordinate=} opt_value
