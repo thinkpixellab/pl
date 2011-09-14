@@ -14,11 +14,6 @@ goog.require('pl.retained.Panel');
  */
 pl.retained.Canvas = function(width, height, opt_enableCache) {
   goog.base(this, width, height, opt_enableCache);
-
-  this._angle = 0;
-  this._locationsDirty = true;
-  this._radius = new goog.math.Size(this.width / 4, this.height / 8);
-  this._backScale = 0.5;
 };
 goog.inherits(pl.retained.Canvas, pl.retained.Panel);
 
