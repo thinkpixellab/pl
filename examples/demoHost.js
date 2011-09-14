@@ -12,7 +12,6 @@ goog.require('goog.style');
 goog.require('goog.ui.Component.EventType');
 goog.require('goog.ui.MenuItem');
 goog.require('goog.ui.Select');
-goog.require('goog.ui.Slider');
 goog.require('pl.DebugDiv');
 goog.require('pl.FpsLogger');
 goog.require('pl.ex');
@@ -27,28 +26,6 @@ DemoHost = function() {
 
   this._logger = goog.debug.LogManager.getRoot();
   this._fpsLogger = new pl.FpsLogger();
-
-  //
-  // Frame rate controls
-  //
-  var el = document.getElementById('frameRateSlider');
-  this._slider = new goog.ui.Slider();
-  this._slider.setMoveToPointEnabled(true);
-  this._slider.setMinimum(0);
-  this._slider.setMaximum(1000);
-  this._slider.decorate(el);
-  this._slider.addEventListener(goog.ui.Component.EventType.CHANGE, function() {
-    this._setFrame(this._slider.getValue());
-  },
-  false, this);
-
-  this._setFrame(this._frameMs);
-
-  var frameButton = document.getElementById('frameButton');
-  goog.events.listen(frameButton, goog.events.EventType.CLICK, function() {
-    this._setFrame(null);
-  },
-  false, this);
 
   //
   // Demo Selector
@@ -112,17 +89,6 @@ DemoHost.prototype._navigate = function(e) {
   var i = goog.array.indexOf(demos.all, demo);
   this._selectControl.setSelectedIndex(i);
   this._loadDemo(demo);
-};
-
-DemoHost.prototype._setFrame = function(ms) {
-  if (ms) {
-    this._logger.info('Requesting at frame length of ' + ms + 'ms');
-    this._frameMs = ms;
-  } else {
-    this._logger.info('Requesting native frame speed');
-    this._frameMs = 0;
-  }
-  this._slider.setValue(this._frameMs);
 };
 
 DemoHost.prototype._loadDemo = function(demoCtr) {
