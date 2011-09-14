@@ -84,7 +84,8 @@ DemoHost = function() {
 
 DemoHost.load = function() {
   DemoHost.images = new pl.images({
-    'stars': 'resources/stars.png'
+    'stars': 'resources/stars.png',
+    'pixellab': 'resources/pixellab.png'
   });
   DemoHost.images.load(function(p) {},
   function() {
