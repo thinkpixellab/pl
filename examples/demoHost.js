@@ -97,6 +97,7 @@ DemoHost.prototype._loadDemo = function(demoCtr) {
     'width': 500,
     'height': 500
   });
+  goog.style.setStyle(newCanvas, 'background', 'black');
   goog.dom.replaceNode(newCanvas, document.getElementById('content'));
 
   this._demo = new demoCtr(newCanvas);
