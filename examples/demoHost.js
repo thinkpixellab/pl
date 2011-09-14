@@ -16,6 +16,7 @@ goog.require('goog.ui.Slider');
 goog.require('pl.DebugDiv');
 goog.require('pl.FpsLogger');
 goog.require('pl.ex');
+goog.require('pl.images');
 
 /**
  * @constructor
@@ -80,6 +81,18 @@ DemoHost = function() {
   this._drawFrame();
   this._updateHUD();
 };
+
+DemoHost.load = function() {
+  DemoHost.images = new pl.images({
+    'stars': 'resources/stars.png'
+  });
+  DemoHost.images.load(function(p) {},
+  function() {
+    goog.global['$demoHost'] = new DemoHost();
+  });
+};
+
+DemoHost.images = null;
 
 DemoHost.prototype._frameMs = 0;
 

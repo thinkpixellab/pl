@@ -10,13 +10,7 @@ goog.require('pl.retained.TileLayer');
  * @constructor
  */
 demos.Tile = function(canvas) {
-  var image =
-  /** @type {!HTMLImageElement} */
-  (goog.dom.createDom(goog.dom.TagName.IMG, {
-    'src': 'stars.png',
-    'width': '1024',
-    'height': '687'
-  }));
+  var image = DemoHost.images.get('stars');
 
   var container = new pl.retained.Panel(500, 500);
 
