@@ -1,0 +1,72 @@
+!!! 5
+%html
+  %head
+    %meta{:charset => "utf-8"}
+      %title thinkpixellab/pl @ GitHub
+      :css
+        body {
+          margin-top: 1.0em;
+          background-color: white;
+          font-family: Helvetica, Arial, FreeSans, san-serif;
+          color: #000000;
+        }
+        #container {
+          margin: 0 auto;
+          width: 700px;
+        }
+        h1 { font-size: 3.8em; color: gray; margin-bottom: 3px; }
+        h1 .small { font-size: 0.4em; }
+        h1 a { text-decoration: none }
+        h2 { font-size: 1.5em; color: gray; }
+        h3 { text-align: center; color: gray; }
+        a { color: gray; }
+        .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
+        .download { float: right; }
+        pre { background: #000; color: #fff; padding: 15px;}
+        hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
+        .footer { text-align:center; padding-top:30px; font-style: italic; }
+    %body
+    %a{:href => "http://github.com/thinkpixellab/pl"}
+      %img{:alt => "Fork me on GitHub", :src => "http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png", :style => "position: absolute; top: 0; right: 0; border: 0;"}/
+    #container
+      .download
+        %a{:href => "http://github.com/thinkpixellab/pl/zipball/master"}<
+          %img{:border => "0", :src => "http://github.com/images/modules/download/zip.png", :width => "90"}/
+        %a{:href => "http://github.com/thinkpixellab/pl/tarball/master"}<
+          %img{:border => "0", :src => "http://github.com/images/modules/download/tar.png", :width => "90"}/
+      %h1
+        %a{:href => "http://github.com/thinkpixellab/pl"} pl
+        %span.small
+          by
+          %a{:href => "http://github.com/thinkpixellab"} thinkpixellab
+      .description
+        A collection of javascript helpers
+      %h2 Authors
+      %p 
+        Kevin Moore - 
+        %a{:href => 'http://twitter.com/kevmoo' } @kevmoo
+        -
+        %a{:href => 'https://github.com/kevmoo' } github.com/kevmoo
+      %h2 Download
+      %p
+        You can download this project in either
+        %a{:href => "http://github.com/thinkpixellab/pl/zipball/master"} zip
+        or
+        %a{:href => "http://github.com/thinkpixellab/pl/tarball/master"} tar
+        formats.
+      %p
+        You can also clone the project with
+        %a{:href => "http://git-scm.com"} Git
+        by running:
+        %pre $ git clone git://github.com/thinkpixellab/pl
+      .footer
+        get the source code on GitHub :
+        %a{:href => "http://github.com/thinkpixellab/pl"} thinkpixellab/pl
+    :javascript
+      var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+      document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    :javascript
+      try {
+      var pageTracker = _gat._getTracker("UA-13190322-3");
+      pageTracker._trackPageview();
+      } catch(err) {}
