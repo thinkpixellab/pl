@@ -99,7 +99,7 @@ goog.addDependency("../../../pl/src/retained/eventType.js", ['pl.retained.EventT
 goog.addDependency("../../../pl/src/retained/helper.js", ['pl.retained.helper'], ['goog.array', 'goog.math.Coordinate', 'goog.math.Size', 'pl.ex', 'pl.gfx', 'pl.retained.Element', 'pl.retained.mouse']);
 goog.addDependency("../../../pl/src/retained/image.js", ['pl.retained.Image'], ['pl.gfx', 'pl.retained.Element']);
 goog.addDependency("../../../pl/src/retained/mouse.js", ['pl.retained.mouse'], ['goog.array', 'goog.math.Coordinate', 'pl.Property', 'pl.retained.Stage']);
-goog.addDependency("../../../pl/src/retained/panel.js", ['pl.retained.Panel'], ['goog.array', 'goog.asserts', 'pl.retained.Element', 'pl.retained.ElementParent']);
+goog.addDependency("../../../pl/src/retained/panel.js", ['pl.retained.Panel'], ['goog.array', 'goog.asserts', 'pl.Property', 'pl.retained.Element', 'pl.retained.ElementParent', 'pl.retained.helper']);
 goog.addDependency("../../../pl/src/retained/shape.js", ['pl.retained.Shape'], ['pl.gfx', 'pl.retained.Element']);
 goog.addDependency("../../../pl/src/retained/stage.js", ['pl.retained.Stage'], ['goog.events.EventTarget', 'goog.math.Coordinate', 'goog.math.Size', 'pl.ex', 'pl.retained.Element', 'pl.retained.ElementParent', 'pl.retained.EventType']);
 goog.addDependency("../../../pl/src/retained/text.js", ['pl.retained.Text'], ['pl.gfx', 'pl.retained.Element']);
