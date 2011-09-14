@@ -2,8 +2,10 @@ goog.provide('pl.retained.Panel');
 
 goog.require('goog.array');
 goog.require('goog.asserts');
+goog.require('pl.Property');
 goog.require('pl.retained.Element');
 goog.require('pl.retained.ElementParent');
+goog.require('pl.retained.helper');
 
 /**
  * @constructor
