@@ -17,8 +17,6 @@ demos.Swap = function(canvas) {
   this._count = 0;
 };
 
-demos.Swap.description = 'Swap';
-
 demos.Swap.prototype.frame = function() {
   this._stage.draw();
 

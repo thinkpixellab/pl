@@ -3,10 +3,10 @@ goog.provide('DemoHost');
 goog.require('demos');
 goog.require('goog.History');
 goog.require('goog.Timer');
-goog.require('goog.array');
 goog.require('goog.asserts');
 goog.require('goog.debug.LogManager');
 goog.require('goog.dom');
+goog.require('goog.object');
 goog.require('goog.string');
 goog.require('goog.style');
 goog.require('goog.ui.Component.EventType');
@@ -31,9 +31,10 @@ DemoHost = function() {
   // Demo Selector
   //
   this._selectControl = new goog.ui.Select('Pick a demo...');
-  goog.array.forEach(demos.all, function(d) {
-    this._selectControl.addItem(new goog.ui.MenuItem(d.description));
-  }, this);
+  goog.object.forEach(demos.all, function(e, k, o) {
+    this._selectControl.addItem(new goog.ui.MenuItem(k));
+  },
+  this);
   this._selectControl.render(goog.dom.getElement('DemoSelect'));
 
   goog.events.listen(this._selectControl, goog.ui.Component.EventType.ACTION, function(e) {
@@ -75,19 +76,15 @@ DemoHost.images = null;
 DemoHost.prototype._frameMs = 0;
 
 DemoHost.prototype._navigate = function(e) {
-  var demo;
+  var demoName;
   if (e.token.length === 0) {
-    demo = demos.all[0];
+    demoName = goog.object.getAnyKey(demos.all);
+  } else {
+    demoName = goog.string.urlDecode(e.token);
   }
-  else {
-    var value = goog.string.urlDecode(e.token);
-    demo = goog.array.find(demos.all, function(d) {
-      return d.description === value;
-    }, this);
-    goog.asserts.assert(demo, 'should have a valid demo here!');
-  }
-  var i = goog.array.indexOf(demos.all, demo);
-  this._selectControl.setSelectedIndex(i);
+  var demo = demos.all[demoName];
+  goog.asserts.assert(demo, 'should have a valid demo here!');
+  this._selectControl.setValue(demoName);
   this._loadDemo(demo);
 };
 

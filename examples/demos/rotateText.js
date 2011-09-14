@@ -20,8 +20,6 @@ demos.RotateText = function(canvas) {
   this._tx = container.addTransform();
 };
 
-demos.RotateText.description = 'Rotate Text';
-
 demos.RotateText.prototype.frame = function() {
   this._tx.rotate(Math.PI * 0.001, 200, 200);
 

@@ -29,8 +29,6 @@ demos.Tile = function(canvas) {
   this._stage = new pl.retained.Stage(canvas, container);
 };
 
-demos.Tile.description = 'Tile';
-
 demos.Tile.prototype.frame = function() {
   this._offset.x -= 10;
   for (var i = 0; i < this._tiles.length; i++) {
