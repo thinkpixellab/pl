@@ -17,6 +17,8 @@ demos.RotateText = function(canvas) {
 
   this._stage = new pl.retained.Stage(canvas, container);
 
+  container.addTransform().translate(50, 50);
+
   this._tx = container.addTransform();
 };
 
