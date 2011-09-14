@@ -60,6 +60,9 @@ DemoHost = function() {
   this._updateHUD();
 };
 
+/**
+ * @export
+ */
 DemoHost.load = function() {
   DemoHost.images = new pl.images({
     'stars': 'resources/stars.png',
