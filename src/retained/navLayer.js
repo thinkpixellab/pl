@@ -64,6 +64,7 @@ pl.retained.NavLayer.prototype.forward = function(element, tx) {
     ghostChild._drawCore(tempCtx);
 
     this._txPanel = new pl.retained._NavLayerTxPanel(this.width, this.height, tempCanvas, element, tx, existingTx);
+    this._txPanel.claim(this);
   }
 
   goog.asserts.assert(this._child === null);
@@ -115,6 +116,7 @@ pl.retained.NavLayer.prototype.update = function() {
     goog.asserts.assert(this._child);
     this._txPanel.update();
     if (this._txPanel.isDone()) {
+      this._txPanel.disown(this);
       this._txPanel.dispose();
       this._txPanel = null;
       this._claimChild();
