@@ -173,7 +173,7 @@ pl.retained.Element.prototype.update = function() {
 
 /**
  * @protected
- * @type {!boolean}
+ * @type {boolean}
  * Should this element clip its content. Default: true
  */
 pl.retained.Element.prototype.clip = true;
