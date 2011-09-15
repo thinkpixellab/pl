@@ -1,5 +1,6 @@
 goog.provide('pl.gfx');
 
+goog.require('goog.asserts');
 goog.require('goog.graphics.AffineTransform');
 goog.require('goog.math.Size');
 
@@ -164,4 +165,22 @@ pl.gfx.lerpTx = function(source, target, lerp) {
   var m12 = goog.math.lerp(source.getTranslateY(), target.getTranslateY(), lerp);
 
   return new goog.graphics.AffineTransform(m00, m10, m01, m11, m02, m12);
+};
+
+/**
+ * Given an item of `itemSize` provide the transform needed to make it fit into
+ * `targetRect`
+ * @param {!goog.math.Size} itemSize
+ * @param {!goog.math.Rect} targetRect
+ * @return {!goog.graphics.AffineTransform}
+ */
+pl.gfx.getTransitionTx = function(itemSize, targetRect) {
+  goog.asserts.assert(itemSize.width > 0);
+  goog.asserts.assert(itemSize.height > 0);
+
+  var tx = goog.graphics.AffineTransform.getTranslateInstance(targetRect.left, targetRect.top);
+  var scaleX = targetRect.width / itemSize.width;
+  var scaleY = targetRect.height / itemSize.height;
+  tx.scale(scaleX, scaleY);
+  return tx;
 };
