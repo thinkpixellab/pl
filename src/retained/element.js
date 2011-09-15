@@ -117,9 +117,8 @@ pl.retained.Element.prototype.invalidateDraw = function() {
  * @private
  */
 pl.retained.Element.prototype._invalidateParent = function() {
-  if (this._parent) {
-    this._parent.childInvalidated(this);
-  }
+  goog.asserts.assert(this._parent);
+  this._parent.childInvalidated(this);
 };
 
 /**
