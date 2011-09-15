@@ -31,6 +31,13 @@ pl.retained.NavLayer = function(width, height, opt_enableCache) {
 goog.inherits(pl.retained.NavLayer, pl.retained.Element);
 
 /**
+ * @return {boolean}
+ */
+pl.retained.NavLayer.prototype.canForward = function() {
+  return !this._txPanel;
+};
+
+/**
  * @param {!pl.retained.Element} element
  * @param {!goog.graphics.AffineTransform} tx
  */
