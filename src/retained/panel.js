@@ -137,4 +137,9 @@ pl.retained.Panel.prototype.childInvalidated = function(child) {
   this.invalidateDraw();
 };
 
-pl.retained.Panel._containerTransformProperty = new pl.Property('containerTransfrom');
+/**
+ * @private
+ * @const
+ * @type {!pl.Property}
+ */
+pl.retained.Panel._containerTransformProperty = new pl.Property('panelTransfrom');
