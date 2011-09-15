@@ -1,6 +1,7 @@
 goog.provide('demos');
 
 goog.require('demos.CarouselDemo');
+goog.require('demos.NavLayerDemo');
 goog.require('demos.RotateText');
 goog.require('demos.ScaleDemo');
 goog.require('demos.Swap');
@@ -11,5 +12,6 @@ demos.all = {
   'Scale': demos.ScaleDemo,
   'Swap': demos.Swap,
   'Tile': demos.Tile,
-  'Rotate': demos.RotateText
+  'Rotate': demos.RotateText,
+  'Nav Layer': demos.NavLayerDemo
 };
