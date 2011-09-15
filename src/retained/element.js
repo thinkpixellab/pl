@@ -173,7 +173,7 @@ pl.retained.Element.prototype.update = function() {
 };
 
 /**
- * @private
+ * @protected
  * @param {!CanvasRenderingContext2D} ctx
  **/
 pl.retained.Element.prototype._drawCore = function(ctx) {
