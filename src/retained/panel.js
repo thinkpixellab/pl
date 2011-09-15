@@ -45,19 +45,18 @@ pl.retained.Panel.prototype.insertAt = function(element, opt_i) {
 
 /**
  * @param {!pl.retained.Element} element
- * @return {boolean} true if the item was removed, otherwise, false.
  */
 pl.retained.Panel.prototype.remove = function(element) {
   if (goog.array.remove(this._children, element)) {
     element.disown(this);
     var tx = pl.retained.Panel._containerTransformProperty.get(element);
-    goog.asserts.assert(!!tx, 'A container transform should exist');
+    goog.asserts.assert(!! tx, 'A container transform should exist');
     pl.retained.Panel._containerTransformProperty.clear(element);
     element.removeTransform(tx);
     this.onChildrenChanged();
-    return true;
+  } else {
+    throw Error('element is not a child');
   }
-  return false;
 };
 
 /**
@@ -68,7 +67,7 @@ pl.retained.Panel.prototype.remove = function(element) {
 pl.retained.Panel.prototype.getChildTransform = function(child) {
   goog.asserts.assert(goog.array.contains(this._children, child), 'Should be a child that this container actually owns');
   var tx = pl.retained.Panel._containerTransformProperty.get(child);
-  goog.asserts.assert(!!tx, 'A container transform should exist');
+  goog.asserts.assert(!! tx, 'A container transform should exist');
   return tx;
 };
 
