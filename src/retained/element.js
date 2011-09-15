@@ -174,6 +174,13 @@ pl.retained.Element.prototype.update = function() {
 
 /**
  * @protected
+ * @type {!boolean}
+ * Should this element clip its content. Default: true
+ */
+pl.retained.Element.prototype.clip = true;
+
+/**
+ * @protected
  * @param {!CanvasRenderingContext2D} ctx
  **/
 pl.retained.Element.prototype._drawCore = function(ctx) {
@@ -197,9 +204,11 @@ pl.retained.Element.prototype._drawNormal = function(ctx) {
   pl.gfx.transform(ctx, this.getTransform());
 
   // clip to the bounds of the object
-  ctx.beginPath();
-  ctx.rect(0, 0, this.width, this.height);
-  ctx.clip();
+  if (this.clip) {
+    ctx.beginPath();
+    ctx.rect(0, 0, this.width, this.height);
+    ctx.clip();
+  }
 
   this._drawCore(ctx);
   ctx.restore();
