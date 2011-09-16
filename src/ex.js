@@ -125,6 +125,25 @@ pl.ex.getRandom = function(arr, opt_randFn) {
 };
 
 /**
+ * Search an array for the first element that satisfies a given condition and
+ * return that element.
+ * @param {goog.array.ArrayLike} arr The array to search.
+ * @param {Function} f The function to call for every element. This function
+ *     takes 3 arguments (the element, the index and the array) and should
+ *     return a boolean.
+ * @param {Object=} opt_obj An optional "this" context for the function.
+ * @return {*} The first array element that passes the test. If none -> an Error.
+ */
+pl.ex.first = function(arr, f, opt_obj) {
+  var i = goog.array.findIndex(arr, f, opt_obj);
+  if (i < 0) {
+    throw Error('Not found');
+  } else {
+    return goog.isString(arr) ? arr.charAt(i) : arr[i];
+  }
+};
+
+/**
  * @const
  * @type Array.<string>
  **/
