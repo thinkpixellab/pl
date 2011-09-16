@@ -11,7 +11,7 @@ goog.require('pl.retained.Element');
  * @param {number} height
  */
 pl.retained.Image = function(value, width, height) {
-  goog.base(this, width, height, true);
+  goog.base(this, width, height, false);
   this._value = value;
 };
 goog.inherits(pl.retained.Image, pl.retained.Element);
