@@ -67,11 +67,16 @@ pl.retained._NavLayerTxPanel.prototype.update = function() {
     this._lastImage.alpha = 1 - ratio;
     this._lastImage.invalidateDraw();
 
+    this._newChild.alpha = ratio;
+    this._newChild.invalidateDraw();
+
     goog.base(this, 'update');
     this.invalidateDraw();
     this._i++;
   } else {
     goog.asserts.assert(this.isDone());
+    goog.asserts.assert(this._newChild.alpha === 1);
+    goog.asserts.assert(this._lastImage.alpha === 0);
   }
 };
 
