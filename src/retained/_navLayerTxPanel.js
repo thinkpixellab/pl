@@ -10,10 +10,17 @@ goog.require('goog.asserts');
  the new child to the old child.
  * @param {!goog.graphics.AffineTransform} ghostTx describes the relationship of the last child to the
  Container.
+ * @param {number} frameCount
  */
-pl.retained._NavLayerTxPanel = function(width, height, lastCanvas, newChild, startTx, ghostTx) {
+pl.retained._NavLayerTxPanel = function(width, height, lastCanvas, newChild, startTx, ghostTx, frameCount) {
   goog.base(this, width, height);
   this.clip = false;
+
+  /**
+   * @private
+   * @type {number}
+   **/
+  this._frames = frameCount;
 
   this._lastImage = new pl.retained.Image(lastCanvas, lastCanvas.width, lastCanvas.height);
   this._newChild = newChild;
@@ -46,8 +53,10 @@ pl.retained._NavLayerTxPanel = function(width, height, lastCanvas, newChild, sta
 goog.inherits(pl.retained._NavLayerTxPanel, pl.retained.Panel);
 
 pl.retained._NavLayerTxPanel.prototype.isDone = function() {
-  goog.asserts.assert(this._i >= 0 && this._i <= pl.retained._NavLayerTxPanel._frames);
-  return this._i === pl.retained._NavLayerTxPanel._frames;
+  goog.asserts.assert(goog.math.isInt(this._frames));
+  goog.asserts.assert(this._frames >= 0);
+  goog.asserts.assert(this._i >= 0);
+  return this._i >= this._frames;
 };
 
 pl.retained._NavLayerTxPanel.prototype.dispose = function() {
@@ -58,9 +67,11 @@ pl.retained._NavLayerTxPanel.prototype.dispose = function() {
  * @override
  **/
 pl.retained._NavLayerTxPanel.prototype.update = function() {
-  if (this._i < pl.retained._NavLayerTxPanel._frames) {
+  goog.asserts.assert(goog.math.isInt(this._frames));
+  goog.asserts.assert(this._frames >= 0);
+  if (this._i < this._frames) {
     goog.asserts.assert(!this.isDone());
-    var ratio = this._i / (pl.retained._NavLayerTxPanel._frames - 1);
+    var ratio = this._i / (this._frames - 1);
     var newTx = pl.gfx.lerpTx(this._startTx, this._goalTx, ratio);
     this._myTx.copyFrom(newTx);
 
@@ -79,10 +90,3 @@ pl.retained._NavLayerTxPanel.prototype.update = function() {
     goog.asserts.assert(this._lastImage.alpha === 0);
   }
 };
-
-/**
- * @private
- * @const
- * @type {number}
- **/
-pl.retained._NavLayerTxPanel._frames = 30;

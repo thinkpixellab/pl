@@ -40,8 +40,10 @@ pl.retained.NavLayer.prototype.canForward = function() {
 /**
  * @param {!pl.retained.Element} element
  * @param {!goog.graphics.AffineTransform} tx
+ * @param {number=} opt_frameCount
  */
-pl.retained.NavLayer.prototype.forward = function(element, tx) {
+pl.retained.NavLayer.prototype.forward = function(element, tx,  opt_frameCount) {
+  var frameCount = opt_frameCount || 30;
   if (this._txPanel) {
     throw Error('cannot move forward while animating...yet');
   }
@@ -70,7 +72,7 @@ pl.retained.NavLayer.prototype.forward = function(element, tx) {
     tempCanvas.getContext('2d');
     ghostChild._drawCore(tempCtx);
 
-    this._txPanel = new pl.retained._NavLayerTxPanel(this.width, this.height, tempCanvas, element, tx, existingTx);
+    this._txPanel = new pl.retained._NavLayerTxPanel(this.width, this.height, tempCanvas, element, tx, existingTx, frameCount);
     this._txPanel.claim(this);
   }
 
