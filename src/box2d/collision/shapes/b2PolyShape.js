@@ -18,6 +18,7 @@
 
 goog.provide('box2d.PolyShape');
 
+goog.require('box2d.AABB');
 goog.require('box2d.BoxDef');
 goog.require('box2d.Mat22');
 goog.require('box2d.OBB');
