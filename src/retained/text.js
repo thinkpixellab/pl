@@ -41,7 +41,7 @@ pl.retained.Text.prototype.drawOverride = function(ctx) {
   }
 
   var xStart = 0;
-  if(this.isCentered){
+  if (this.isCentered) {
     ctx.textAlign = 'center';
     xStart = this.width / 2;
   }

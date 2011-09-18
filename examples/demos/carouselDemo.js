@@ -26,9 +26,10 @@ demos.CarouselDemo = function(canvas) {
   var image = new pl.retained.Image(img, img.width, img.height);
   container.middleElement(image);
 
-    var text = new pl.retained.Text('Dude - ' + i, 150, 30);
+    var text = new pl.retained.Text(String(i + 1), 150, 30);
     text.fillStyle = i % 2 ? '#BBB' : '#DDD';
     text.textFillStyle = 'black';
+    text.isCentered = true;
     container.addElement(text);
   }
 
