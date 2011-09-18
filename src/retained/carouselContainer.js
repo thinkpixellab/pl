@@ -51,6 +51,7 @@ pl.retained.CarouselContainer.prototype.angle = function(opt_radian) {
   if (goog.isDef(opt_radian)) {
     this._angle = Number(opt_radian) || 0;
     this._locationsDirty = true;
+    this.invalidateDraw();
   }
   return this._angle;
 };
