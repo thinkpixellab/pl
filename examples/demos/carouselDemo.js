@@ -19,12 +19,15 @@ demos.CarouselDemo = function(canvas) {
   goog.events.listen(canvas, goog.events.EventType.MOUSEMOVE, this._onMouseMove, false, this);
 
   var container = new pl.retained.CarouselContainer(500, 500);
-  container.radius(new goog.math.Size(190, 20));
+  container.radius(new goog.math.Size(190, 40));
 
-  for (var i = 0; i < 10; i++) {
+  for (var i = 0; i < 4; i++) {
+  var img = DemoHost.images.get('pixellab_transparent');
+  var image = new pl.retained.Image(img, img.width, img.height);
+  container.middleElement(image);
 
     var text = new pl.retained.Text('Dude - ' + i, 150, 30);
-    text.fillStyle = i % 2 ? '#FFF' : '#DDD';
+    text.fillStyle = i % 2 ? '#BBB' : '#DDD';
     text.textFillStyle = 'black';
     container.addElement(text);
   }
