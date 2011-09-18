@@ -3,6 +3,13 @@
   <head>
     <meta charset='utf-8' />
     <title>thinkpixellab/pl @ GitHub</title>
+    <link href='resources/demo.css' rel='stylesheet' />
+    <link href='resources/menubutton.css' rel='stylesheet' />
+    <link href='resources/menu.css' rel='stylesheet' />
+    <link href='resources/menuitem.css' rel='stylesheet' />
+    <link href='resources/menuseparator.css' rel='stylesheet' />
+    <link href='resources/flatmenubutton.css' rel='stylesheet' />
+    <script src='compiled.js'></script>
     <style type='text/css'>
       /*<![CDATA[*/
         body {
@@ -29,7 +36,7 @@
       /*]]>*/
     </style>
   </head>
-  <body>
+  <body onload='DemoHost.load();'>
     <a href='http://github.com/thinkpixellab/pl'>
       <img alt='Fork me on GitHub' src='http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png' style='position: absolute; top: 0; right: 0; border: 0;' />
     </a>
@@ -49,9 +56,10 @@
         A collection of javascript helpers
       </div>
       <h2>Examples</h2>
-      <p>
-        <a href='examples'>Check out the examples</a>
-      </p>
+      <div style='margin: 20px auto; width: 500px;'>
+        <div class='goog-select' id='DemoSelect' style='float: right;'></div>
+        <canvas height='500' id='content' width='500'></canvas>
+      </div>
       <h2>Authors</h2>
       <p>
         Kevin Moore -
@@ -77,6 +85,7 @@
         <a href='http://github.com/thinkpixellab/pl'>thinkpixellab/pl</a>
       </div>
     </div>
+    <input id='history_state' name='history_state0' style='display:none' type='text' />
     <script type='text/javascript'>
       //<![CDATA[
         var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
