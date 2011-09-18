@@ -123,7 +123,7 @@ pl.retained.Panel.prototype.update = function() {
  * @param {!CanvasRenderingContext2D} ctx
  **/
 pl.retained.Panel.prototype.drawOverride = function(ctx) {
-  goog.array.forEach(this._children, function(element) {
+  goog.array.forEach(this.getVisualChildren(), function(element) {
     element._drawInternal(ctx);
   },
   this);
