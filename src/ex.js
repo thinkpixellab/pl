@@ -30,7 +30,7 @@ pl.ex.setStyle = function(element, style, value) {
 
 /**
  * @param {HTMLCanvasElement} canvasElement
- * @return {goog.math.Size}
+ * @return {!goog.math.Size}
  */
 pl.ex.getCanvasSize = function(canvasElement) {
   return new goog.math.Size(canvasElement.width, canvasElement.height);
