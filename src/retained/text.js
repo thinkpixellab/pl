@@ -24,6 +24,8 @@ pl.retained.Text.prototype.lineHeight = 25;
 
 pl.retained.Text.prototype.multiLine = false;
 
+pl.retained.Text.prototype.isCentered = false;
+
 /**
  * @type {?(string|CanvasGradient|CanvasPattern)}
  */
@@ -38,12 +40,18 @@ pl.retained.Text.prototype.drawOverride = function(ctx) {
     ctx.fillRect(0, 0, this.width, this.height);
   }
 
+  var xStart = 0;
+  if(this.isCentered){
+    ctx.textAlign = 'center';
+    xStart = this.width / 2;
+  }
+
   ctx.font = this.font;
   ctx.textBaseline = 'top';
   ctx.fillStyle = this.textFillStyle;
   if (this.multiLine) {
-    pl.gfx.multiFillText(ctx, this._value, 0, 0, this.lineHeight, this.width);
+    pl.gfx.multiFillText(ctx, this._value, xStart, 0, this.lineHeight, this.width);
   } else {
-    ctx.fillText(this._value, 0, 0);
+    ctx.fillText(this._value, xStart, 0);
   }
 };
