@@ -24,11 +24,18 @@ pl.retained.Stage = function(canvas, rootElement) {
 goog.inherits(pl.retained.Stage, goog.events.EventTarget);
 
 /**
+ * @return {!goog.math.Size}
+ */
+pl.retained.Stage.prototype.getSize = function() {
+  return pl.ex.getCanvasSize(this._canvas);
+};
+
+/**
  * @param {goog.math.Size} size
  * @return {boolean}
  */
 pl.retained.Stage.prototype.setSize = function(size) {
-  if (!goog.math.Size.equals(pl.ex.getCanvasSize(this._canvas), size)) {
+  if (!goog.math.Size.equals(this.getSize(), size)) {
     this._canvas.width = size.width;
     this._canvas.height = size.height;
     this._ctx = null;
