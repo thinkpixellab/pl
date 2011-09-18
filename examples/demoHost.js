@@ -43,6 +43,8 @@ DemoHost = function() {
   },
   false, this);
 
+  this._frameFunc = goog.bind(this._drawFrame, this);
+
   //
   // History!
   //
@@ -53,8 +55,6 @@ DemoHost = function() {
   this._history = new goog.History(false, undefined, historyElement);
   this._history.addEventListener(goog.history.EventType.NAVIGATE, this._navigate, false, this);
   this._history.setEnabled(true);
-
-  this._frameFunc = goog.bind(this._drawFrame, this);
 
   this._drawFrame();
   this._updateHUD();
@@ -105,6 +105,7 @@ DemoHost.prototype._loadDemo = function(demoCtr) {
   goog.dom.replaceNode(newCanvas, document.getElementById('content'));
 
   this._demo = new demoCtr(newCanvas);
+  this._requestFrame();
 };
 
 DemoHost.prototype._drawFrame = function() {
