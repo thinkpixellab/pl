@@ -1,4 +1,4 @@
-goog.provide('demos.Swap');
+goog.provide('demos.SwapDemo');
 
 goog.require('goog.math.Size');
 goog.require('pl.ex');
@@ -11,28 +11,28 @@ goog.require('pl.retained.Stage');
  * @constructor
  * @implements {demos.Demo}
  */
-demos.Swap = function(canvas) {
+demos.SwapDemo = function(canvas) {
   this._size = new goog.math.Size(canvas.width, canvas.height);
   var container = new pl.retained.Panel(canvas.width, canvas.height);
   this._stage = new pl.retained.Stage(canvas, container);
   this._count = 0;
 };
 
-demos.Swap.prototype.frame = function() {
+demos.SwapDemo.prototype.frame = function() {
   var updated = this._stage.draw();
 
   if (this._count <= 0) {
     this._count = 50;
-    var shape = demos.Swap.createShape(this._size.width, this._size.height);
+    var shape = demos.SwapDemo.createShape(this._size.width, this._size.height);
     this._stage._element.insertAt(shape);
   }
   this._count--;
   return updated;
 };
 
-demos.Swap.createShape = function(w, h) {
+demos.SwapDemo.createShape = function(w, h) {
   var shape = new pl.retained.Shape(w, h);
-  shape.fillStyle = pl.ex.getRandom(demos.Swap._fills);
+  shape.fillStyle = pl.ex.getRandom(demos.SwapDemo._fills);
   var tx = shape.addTransform();
 
   var frameCount = 200;
@@ -49,4 +49,4 @@ demos.Swap.createShape = function(w, h) {
   return shape;
 };
 
-demos.Swap._fills = ['red', 'green', 'blue', 'yellow'];
+demos.SwapDemo._fills = ['red', 'green', 'blue', 'yellow'];

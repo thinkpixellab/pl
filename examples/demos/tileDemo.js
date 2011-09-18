@@ -1,4 +1,4 @@
-goog.provide('demos.Tile');
+goog.provide('demos.TileDemo');
 
 goog.require('goog.math.Vec2');
 goog.require('pl.retained.Panel');
@@ -10,7 +10,7 @@ goog.require('pl.retained.TileLayer');
  * @constructor
  * @implements {demos.Demo}
  */
-demos.Tile = function(canvas) {
+demos.TileDemo = function(canvas) {
   var image = DemoHost.images.get('stars');
 
   var container = new pl.retained.Panel(500, 500);
@@ -30,7 +30,7 @@ demos.Tile = function(canvas) {
   this._stage = new pl.retained.Stage(canvas, container);
 };
 
-demos.Tile.prototype.frame = function() {
+demos.TileDemo.prototype.frame = function() {
   this._offset.x -= 10;
   for (var i = 0; i < this._tiles.length; i++) {
     var t = this._tiles[i];
