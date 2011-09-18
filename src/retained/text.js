@@ -26,6 +26,9 @@ pl.retained.Text.prototype.multiLine = false;
 
 pl.retained.Text.prototype.isCentered = false;
 
+pl.retained.Text.prototype.shadowColor = undefined;
+pl.retained.Text.prototype.shadowBlur = 4;
+
 /**
  * @type {?(string|CanvasGradient|CanvasPattern)}
  */
@@ -44,6 +47,11 @@ pl.retained.Text.prototype.drawOverride = function(ctx) {
   if (this.isCentered) {
     ctx.textAlign = 'center';
     xStart = this.width / 2;
+  }
+
+  if (this.shadowColor) {
+    ctx.shadowColor = this.shadowColor;
+    ctx.shadowBlur = this.shadowBlur;
   }
 
   ctx.font = this.font;
