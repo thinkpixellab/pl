@@ -6,20 +6,22 @@ goog.require('pl.retained.Animation');
 goog.require('pl.retained.Panel');
 goog.require('pl.retained.Shape');
 goog.require('pl.retained.Stage');
+goog.require('demos.Demo');
 
 /**
  * @constructor
- * @implements {demos.Demo}
+ * @extends {demos.Demo}
  */
 demos.SwapDemo = function(canvas) {
   this._size = new goog.math.Size(canvas.width, canvas.height);
   var container = new pl.retained.Panel(canvas.width, canvas.height);
-  this._stage = new pl.retained.Stage(canvas, container);
+  goog.base(this, canvas, container);
   this._count = 0;
 };
+goog.inherits(demos.SwapDemo, demos.Demo);
 
 demos.SwapDemo.prototype.frame = function() {
-  var updated = this._stage.draw();
+  var updated = goog.base(this, 'frame');
 
   if (this._count <= 0) {
     this._count = 50;

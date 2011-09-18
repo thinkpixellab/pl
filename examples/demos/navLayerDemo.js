@@ -12,21 +12,18 @@ goog.require('pl.retained.mouse');
 
 /**
  * @constructor
- * @implements {demos.Demo}
+ * @extends {demos.Demo}
  */
 demos.NavLayerDemo = function(canvas) {
   this._nav = new pl.retained.NavLayer(canvas.width, canvas.height);
 
-  this._stage = new pl.retained.Stage(canvas, this._nav);
+  goog.base(this, canvas, this._nav);
 
   goog.events.listen(canvas, goog.events.EventType.MOUSEDOWN, this._onMouseDown, false, this);
   this._count = 0;
   this._forward(new goog.graphics.AffineTransform());
 };
-
-demos.NavLayerDemo.prototype.frame = function() {
-  return this._stage.draw();
-};
+goog.inherits(demos.NavLayerDemo, demos.Demo);
 
 demos.NavLayerDemo.prototype._forward = function(tx) {
   var demoElement = demos.NavLayerDemo._getX(++this._count);

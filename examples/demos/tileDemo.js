@@ -4,11 +4,11 @@ goog.require('goog.math.Vec2');
 goog.require('pl.retained.Panel');
 goog.require('pl.retained.Stage');
 goog.require('pl.retained.TileLayer');
-
+goog.require('demos.Demo');
 
 /**
  * @constructor
- * @implements {demos.Demo}
+ * @extends {demos.Demo}
  */
 demos.TileDemo = function(canvas) {
   var image = DemoHost.images.get('stars');
@@ -27,8 +27,9 @@ demos.TileDemo = function(canvas) {
 
   this._offset = new goog.math.Vec2(0, 0);
 
-  this._stage = new pl.retained.Stage(canvas, container);
+  goog.base(this, canvas, container);
 };
+goog.inherits(demos.TileDemo, demos.Demo);
 
 demos.TileDemo.prototype.frame = function() {
   this._offset.x -= 10;
@@ -38,6 +39,6 @@ demos.TileDemo.prototype.frame = function() {
     t.setOffset(o);
   }
 
-  this._stage.draw();
+  goog.base(this, 'frame');
   return true;
 };

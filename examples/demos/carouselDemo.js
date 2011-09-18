@@ -1,5 +1,6 @@
 goog.provide('demos.CarouselDemo');
 
+goog.require('demos.Demo');
 goog.require('goog.events');
 goog.require('goog.events.EventType');
 goog.require('pl.retained.Animation');
@@ -11,7 +12,7 @@ goog.require('pl.retained.helper');
 
 /**
  * @constructor
- * @implements {demos.Demo}
+ * @extends {demos.Demo}
  */
 demos.CarouselDemo = function(canvas) {
   this._mouse = null;
@@ -34,16 +35,20 @@ demos.CarouselDemo = function(canvas) {
     container.addElement(text);
   }
 
-  this._stage = new pl.retained.Stage(canvas, container);
+  goog.base(this, canvas, container);
 
   var frameCount = 200;
   var animation = new pl.retained.Animation(container, frameCount, function(i, element) {
     element.angle(i * Math.PI * 2 / frameCount);
   });
 };
+goog.inherits(demos.CarouselDemo, demos.Demo);
 
+/**
+ * @override
+ */
 demos.CarouselDemo.prototype.frame = function() {
-  var updated = this._stage.draw();
+  var updated = goog.base(this, 'frame');
 
   if (this._mouse) {
     var ctx = this._stage.getContext();

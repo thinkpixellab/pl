@@ -8,7 +8,7 @@ goog.require('pl.retained.Stage');
 
 /**
  * @constructor
- * @implements {demos.Demo}
+ * @extends {demos.Demo}
  */
 demos.ScaleDemo = function(canvas) {
   var img = DemoHost.images.get('pixellab');
@@ -19,7 +19,7 @@ demos.ScaleDemo = function(canvas) {
   vec.scale(0.5);
   var tx = image.addTransform().setToTranslation(vec.x, vec.y);
 
-  this._stage = new pl.retained.Stage(canvas, image);
+  goog.base(this, canvas, image);
 
   var frames = 50;
 
@@ -30,7 +30,4 @@ demos.ScaleDemo = function(canvas) {
     element.invalidateDraw();
   });
 };
-
-demos.ScaleDemo.prototype.frame = function() {
-  return this._stage.draw();
-};
+goog.inherits(demos.ScaleDemo, demos.Demo);
