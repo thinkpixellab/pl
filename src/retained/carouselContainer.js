@@ -21,8 +21,27 @@ pl.retained.CarouselContainer = function(width, height, opt_enableCache) {
   this._locationsDirty = true;
   this._radius = new goog.math.Size(this.width / 4, this.height / 8);
   this._backScale = 0.5;
+  this._middleElement = null;
 };
 goog.inherits(pl.retained.CarouselContainer, pl.retained.Panel);
+
+/**
+ * @param {pl.retained.Element=} opt_element
+ * @return {pl.retained.Element}
+ */
+pl.retained.CarouselContainer.prototype.middleElement = function(opt_element) {
+  if (goog.isDef(opt_element)) {
+    if (this._middleElement) {
+      this.remove(this._middleElement);
+      this._middleElement = null;
+    }
+    if (opt_element !== null) {
+      this.addElement(opt_element);
+      this._middleElement = opt_element;
+    }
+  }
+  return this._middleElement;
+};
 
 /**
  * @param {number=} opt_radian
@@ -94,13 +113,22 @@ pl.retained.CarouselContainer.prototype.update = function() {
 
 /**
  * @override
- * @param {!CanvasRenderingContext2D} ctx
+ * @param {!pl.retained.Element} element
+ * @param {number=} opt_i The index at which to insert the object. If omitted,
+ *      treated as 0. A negative index is counted from the end of the array.
  **/
-pl.retained.CarouselContainer.prototype.drawOverride = function(ctx) {
-  goog.array.forEach(this._sortedChildren, function(element) {
-    element._drawInternal(ctx);
-  },
-  this);
+pl.retained.CarouselContainer.prototype.insertAt = function(element, opt_i) {
+  goog.base(this, 'insertAt', element, opt_i);
+  pl.retained.CarouselContainer._centerProperty.set(element, new goog.math.Coordinate());
+};
+
+/**
+ * @override
+ * @param {!pl.retained.Element} element
+ */
+pl.retained.CarouselContainer.prototype.remove = function(element) {
+  goog.base(this, 'remove', element);
+  pl.retained.CarouselContainer._centerProperty.clear(element);
 };
 
 pl.retained.CarouselContainer.prototype._updateLocations = function() {
@@ -108,38 +136,55 @@ pl.retained.CarouselContainer.prototype._updateLocations = function() {
     this.invalidateDraw();
     this._locationsDirty = false;
     var i = 0;
-    var radiansPer = Math.PI * 2 / this._children.length;
-    var topLeft = new goog.math.Coordinate(0, 0);
+    var spinningKidCount = (this._middleElement === null) ? this._children.length : this._children.length - 1;
+    var radiansPer = Math.PI * 2 / spinningKidCount;
+    var topLeft = new goog.math.Coordinate();
     goog.array.forEach(this._children, function(element) {
       var tx = this.getChildTransform(element);
-
-      // location
-      topLeft.x = this.width / 2 + this._radius.width * Math.cos(this._angle + radiansPer * i) - element.width / 2;
-      var sin = Math.sin(this._angle + radiansPer * i);
-      topLeft.y = this.height / 2 + this._radius.height * sin - element.height / 2;
-
-      // scale
-      if (this._backScale === 1) {
-        // just set it
+      if (element === this._middleElement) {
+        topLeft.x = this.width / 2 - element.width / 2;
+        topLeft.y = this.height / 2 - element.height / 2;
         tx.setToTranslation(topLeft.x, topLeft.y);
       } else {
 
-        var scale = (sin + 1) / 2;
-        scale = this._backScale + scale * (1 - this._backScale);
-        pl.gfx.affineOffsetScale(tx, scale, scale, element.width / 2, element.height / 2);
-        tx.preConcatenate(goog.graphics.AffineTransform.getTranslateInstance(topLeft.x, topLeft.y));
-      }
+        // location
+        topLeft.x = this.width / 2 + this._radius.width * Math.cos(this._angle + radiansPer * i) - element.width / 2;
+        var sin = Math.sin(this._angle + radiansPer * i);
+        topLeft.y = this.height / 2 + this._radius.height * sin - element.height / 2;
 
-      i++;
+        // scale
+        if (this._backScale === 1) {
+          // just set it
+          tx.setToTranslation(topLeft.x, topLeft.y);
+        } else {
+
+          var scale = (sin + 1) / 2;
+          scale = this._backScale + scale * (1 - this._backScale);
+          pl.gfx.affineOffsetScale(tx, scale, scale, element.width / 2, element.height / 2);
+          tx.preConcatenate(goog.graphics.AffineTransform.getTranslateInstance(topLeft.x, topLeft.y));
+        }
+
+        i++;
+      }
+      var center = pl.retained.CarouselContainer._centerProperty.get(element);
+      center.x = topLeft.x + element.width / 2;
+      center.y = topLeft.y + element.height / 2;
     },
     this);
     this._sortedChildren = this._sortedChildren || goog.array.clone(this._children);
 
     var _this = this;
     goog.array.sort(this._sortedChildren, function(a, b) {
-      var ax = _this.getChildTransform(a);
-      var bx = _this.getChildTransform(b);
-      return goog.array.defaultCompare(ax.getTranslateY(), bx.getTranslateY());
+      var ay = pl.retained.CarouselContainer._centerProperty.get(a).y;
+      var by = pl.retained.CarouselContainer._centerProperty.get(b).y;
+      return goog.array.defaultCompare(ay, by);
     });
   }
 };
+
+/**
+ * @private
+ * @const
+ * @type {!pl.Property}
+ */
+pl.retained.CarouselContainer._centerProperty = new pl.Property('carouselCenter');
