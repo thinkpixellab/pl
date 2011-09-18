@@ -63,7 +63,8 @@ demos.NavLayerDemo._getX = function(count) {
   back.alpha = 0.5;
   container.addElement(back);
 
-  var text = new pl.retained.Text('Dude ' + count, 100, 100);
+  var text = new pl.retained.Text(String(count), 100, 100);
+  text.isCentered = true;
   text.fillStyle = 'white';
   text.textFillStyle = 'black';
 
