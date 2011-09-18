@@ -8,6 +8,7 @@ goog.require('pl.retained.TileLayer');
 
 /**
  * @constructor
+ * @implements {demos.Demo}
  */
 demos.Tile = function(canvas) {
   var image = DemoHost.images.get('stars');
@@ -38,4 +39,5 @@ demos.Tile.prototype.frame = function() {
   }
 
   this._stage.draw();
+  return true;
 };

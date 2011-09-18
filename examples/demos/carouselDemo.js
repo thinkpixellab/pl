@@ -11,6 +11,7 @@ goog.require('pl.retained.helper');
 
 /**
  * @constructor
+ * @implements {demos.Demo}
  */
 demos.CarouselDemo = function(canvas) {
   this._mouse = null;
@@ -42,12 +43,13 @@ demos.CarouselDemo = function(canvas) {
 };
 
 demos.CarouselDemo.prototype.frame = function() {
-  this._stage.draw();
+  var updated = this._stage.draw();
 
   if (this._mouse) {
     var ctx = this._stage.getContext();
     pl.retained.helper.borderHitTest(this._stage, this._mouse.x, this._mouse.y);
   }
+  return updated;
 };
 
 demos.CarouselDemo.prototype._onMouseMove = function(e) {

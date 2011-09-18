@@ -9,6 +9,7 @@ goog.require('pl.retained.Stage');
 
 /**
  * @constructor
+ * @implements {demos.Demo}
  */
 demos.Swap = function(canvas) {
   this._size = new goog.math.Size(canvas.width, canvas.height);
@@ -18,7 +19,7 @@ demos.Swap = function(canvas) {
 };
 
 demos.Swap.prototype.frame = function() {
-  this._stage.draw();
+  var updated = this._stage.draw();
 
   if (this._count <= 0) {
     this._count = 50;
@@ -26,6 +27,7 @@ demos.Swap.prototype.frame = function() {
     this._stage._element.insertAt(shape);
   }
   this._count--;
+  return updated;
 };
 
 demos.Swap.createShape = function(w, h) {

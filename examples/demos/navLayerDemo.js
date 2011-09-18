@@ -12,6 +12,7 @@ goog.require('pl.retained.mouse');
 
 /**
  * @constructor
+ * @implements {demos.Demo}
  */
 demos.NavLayerDemo = function(canvas) {
   this._nav = new pl.retained.NavLayer(canvas.width, canvas.height);
@@ -24,7 +25,7 @@ demos.NavLayerDemo = function(canvas) {
 };
 
 demos.NavLayerDemo.prototype.frame = function() {
-  this._stage.draw();
+  return this._stage.draw();
 };
 
 demos.NavLayerDemo.prototype._forward = function(tx) {

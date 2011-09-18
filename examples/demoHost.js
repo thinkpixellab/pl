@@ -111,10 +111,10 @@ DemoHost.prototype._drawFrame = function() {
   this._fpsLogger.AddInterval();
 
   if (this._demo) {
-    this._demo.frame();
+    if (this._demo.frame()) {
+      this._requestFrame();
+    }
   }
-
-  this._requestFrame();
 };
 
 DemoHost.prototype._requestFrame = function() {

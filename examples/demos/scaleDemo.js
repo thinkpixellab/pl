@@ -8,6 +8,7 @@ goog.require('pl.retained.Stage');
 
 /**
  * @constructor
+ * @implements {demos.Demo}
  */
 demos.ScaleDemo = function(canvas) {
   var img = DemoHost.images.get('pixellab');
@@ -31,5 +32,5 @@ demos.ScaleDemo = function(canvas) {
 };
 
 demos.ScaleDemo.prototype.frame = function() {
-  this._stage.draw();
+  return this._stage.draw();
 };
