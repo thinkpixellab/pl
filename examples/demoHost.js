@@ -82,7 +82,7 @@ DemoHost.prototype._frameMs = 0;
 DemoHost.prototype._navigate = function(e) {
   var demoName;
   if (e.token.length === 0) {
-    demoName = goog.object.getAnyKey(demos.all);
+    demoName = /** @type {string} */ (goog.object.getAnyKey(demos.all));
   } else {
     demoName = goog.string.urlDecode(e.token);
   }
@@ -92,12 +92,15 @@ DemoHost.prototype._navigate = function(e) {
   this._loadDemo(demo);
 };
 
+/**
+ * @param {function(new:demos.Demo, !HTMLCanvasElement)} demoCtr
+ */
 DemoHost.prototype._loadDemo = function(demoCtr) {
-  var newCanvas = goog.dom.createDom('canvas', {
+  var newCanvas = /** @type {!HTMLCanvasElement} */ (goog.dom.createDom('canvas', {
     'id': 'content',
     'width': 500,
     'height': 500
-  });
+  }));
   goog.style.setStyle(newCanvas, 'background', 'black');
   goog.dom.replaceNode(newCanvas, document.getElementById('content'));
 
