@@ -24,6 +24,8 @@ DemoHost = function() {
   pl.DebugDiv.enable();
   goog.style.setUnselectable(document.body, true);
 
+  this._frameRequested = false;
+
   this._logger = goog.debug.LogManager.getRoot();
   this._fpsLogger = new pl.FpsLogger();
 
@@ -56,7 +58,7 @@ DemoHost = function() {
   this._history.addEventListener(goog.history.EventType.NAVIGATE, this._navigate, false, this);
   this._history.setEnabled(true);
 
-  this._drawFrame();
+  this._requestFrame();
   this._updateHUD();
 };
 
@@ -109,6 +111,7 @@ DemoHost.prototype._loadDemo = function(demoCtr) {
 };
 
 DemoHost.prototype._drawFrame = function() {
+  this._frameRequested = false;
   this._fpsLogger.AddInterval();
 
   if (this._demo) {
@@ -119,10 +122,13 @@ DemoHost.prototype._drawFrame = function() {
 };
 
 DemoHost.prototype._requestFrame = function() {
-  if (this._frameMs) {
-    goog.Timer.callOnce(this._frameFunc, this._frameMs);
-  } else {
-    pl.ex.requestAnimationFrame(this._frameFunc);
+  if (!this._frameRequested) {
+    this._frameRequested = true;
+    if (this._frameMs) {
+      goog.Timer.callOnce(this._frameFunc, this._frameMs);
+    } else {
+      pl.ex.requestAnimationFrame(this._frameFunc);
+    }
   }
 };
 
