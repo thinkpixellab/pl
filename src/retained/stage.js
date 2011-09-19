@@ -16,7 +16,7 @@ goog.require('pl.retained.EventType');
  * @param {!pl.retained.Element} rootElement
  */
 pl.retained.Stage = function(canvas, rootElement) {
-  goog.events.EventTarget.call(this);
+  goog.base(this);
   this._canvas = canvas;
   this._element = rootElement;
   this._element.claim(this);
