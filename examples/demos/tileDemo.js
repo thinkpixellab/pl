@@ -1,10 +1,10 @@
 goog.provide('demos.TileDemo');
 
+goog.require('demos.Demo');
 goog.require('goog.math.Vec2');
 goog.require('pl.retained.Panel');
 goog.require('pl.retained.Stage');
 goog.require('pl.retained.TileLayer');
-goog.require('demos.Demo');
 
 /**
  * @constructor

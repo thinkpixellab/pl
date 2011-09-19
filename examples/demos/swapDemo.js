@@ -1,12 +1,12 @@
 goog.provide('demos.SwapDemo');
 
+goog.require('demos.Demo');
 goog.require('goog.math.Size');
 goog.require('pl.ex');
 goog.require('pl.retained.Animation');
 goog.require('pl.retained.Panel');
 goog.require('pl.retained.Shape');
 goog.require('pl.retained.Stage');
-goog.require('demos.Demo');
 
 /**
  * @constructor

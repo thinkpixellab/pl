@@ -5,8 +5,8 @@ goog.addDependency("../../../pl/examples/demos/demos.js", ['demos'], ['demos.Car
 goog.addDependency("../../../pl/examples/demos/navLayerDemo.js", ['demos.NavLayerDemo'], ['goog.events', 'goog.events.EventType', 'goog.math.Coordinate', 'pl.retained.Canvas', 'pl.retained.NavLayer', 'pl.retained.Shape', 'pl.retained.Stage', 'pl.retained.Text', 'pl.retained.mouse']);
 goog.addDependency("../../../pl/examples/demos/rotateTextDemo.js", ['demos.RotateTextDemo'], ['demos.Demo', 'pl.retained.Panel', 'pl.retained.Stage', 'pl.retained.Text']);
 goog.addDependency("../../../pl/examples/demos/scaleDemo.js", ['demos.ScaleDemo'], ['goog.math.Vec2', 'pl.gfx', 'pl.retained.Animation', 'pl.retained.Image', 'pl.retained.Stage']);
-goog.addDependency("../../../pl/examples/demos/swapDemo.js", ['demos.SwapDemo'], ['goog.math.Size', 'pl.ex', 'pl.retained.Animation', 'pl.retained.Panel', 'pl.retained.Shape', 'pl.retained.Stage']);
-goog.addDependency("../../../pl/examples/demos/tileDemo.js", ['demos.TileDemo'], ['goog.math.Vec2', 'pl.retained.Panel', 'pl.retained.Stage', 'pl.retained.TileLayer']);
+goog.addDependency("../../../pl/examples/demos/swapDemo.js", ['demos.SwapDemo'], ['demos.Demo', 'goog.math.Size', 'pl.ex', 'pl.retained.Animation', 'pl.retained.Panel', 'pl.retained.Shape', 'pl.retained.Stage']);
+goog.addDependency("../../../pl/examples/demos/tileDemo.js", ['demos.TileDemo'], ['demos.Demo', 'goog.math.Vec2', 'pl.retained.Panel', 'pl.retained.Stage', 'pl.retained.TileLayer']);
 goog.addDependency("../../../pl/src/behavior.js", ['pl.Behavior'], ['goog.array', 'goog.asserts', 'pl.Property']);
 goog.addDependency("../../../pl/src/debugDiv.js", ['pl.DebugDiv'], ['goog.asserts', 'goog.debug.LogManager', 'goog.dom', 'goog.style']);
 goog.addDependency("../../../pl/src/ex.js", ['pl.ex'], ['goog.array', 'goog.asserts', 'goog.math.Size', 'goog.string', 'goog.style']);
