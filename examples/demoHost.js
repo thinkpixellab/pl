@@ -16,6 +16,7 @@ goog.require('pl.DebugDiv');
 goog.require('pl.FpsLogger');
 goog.require('pl.ex');
 goog.require('pl.images');
+goog.require('pl.retained.EventType');
 
 /**
  * @constructor
@@ -106,7 +107,17 @@ DemoHost.prototype._loadDemo = function(demoCtr) {
   goog.style.setStyle(newCanvas, 'background', 'black');
   goog.dom.replaceNode(newCanvas, document.getElementById('content'));
 
+  if (this._demo) {
+    this._demo.dispose();
+    this._demo = null;
+  }
+
   this._demo = new demoCtr(newCanvas);
+  this._demo.addEventListener(pl.retained.EventType.UPDATE, function(e) {
+    this._requestFrame();
+  },
+  false, this);
+
   this._requestFrame();
 };
 
