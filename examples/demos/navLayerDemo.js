@@ -47,7 +47,7 @@ demos.NavLayerDemo.prototype._onMouseDown = function(e) {
     var x = lastTx.getTranslateX();
     var y = lastTx.getTranslateY();
 
-    var tx = (new goog.graphics.AffineTransform()).translate(x, y).scale(widthRatio, heightRatio);
+    var tx = goog.graphics.AffineTransform.getTranslateInstance(x, y).scale(widthRatio, heightRatio);
 
     this._forward(tx);
   }
