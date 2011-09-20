@@ -68,10 +68,11 @@ demos.NavLayerDemo._getX = function(count) {
   back.alpha = 0.5;
   container.addElement(back);
 
-  var text = new pl.retained.Text(String(count), 100, 100);
+  var text = new pl.retained.Text('Click here\n\n' + count, 100, 100);
   text.isCentered = true;
   text.fillStyle = 'white';
   text.textFillStyle = 'black';
+  text.multiLine = true;
 
   container.addElement(text);
   container.topLeft(text, new goog.math.Coordinate(100, 100));
