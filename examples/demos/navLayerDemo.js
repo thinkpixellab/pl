@@ -39,18 +39,25 @@ demos.NavLayerDemo.prototype._onMouseDown = function(e) {
 
   if (hits && hits.length) {
     var last = hits[hits.length - 1];
+    this._itemClick(last);
+  }
+};
 
-    var widthRatio = last.width / 300;
-    var heightRatio = last.height / 300;
+demos.NavLayerDemo.prototype._itemClick = function(element) {
+  var tx = new goog.graphics.AffineTransform();
+  if (element == this._nav || element.width === 300) {
+    tx = goog.graphics.AffineTransform.getTranslateInstance(100, 100).scale(1 / 3, 1 / 3).createInverse();
+  } else {
+    var widthRatio = element.width / 300;
+    var heightRatio = element.height / 300;
 
-    var lastTx = last.getTransform();
+    var lastTx = element.getTransform();
     var x = lastTx.getTranslateX();
     var y = lastTx.getTranslateY();
 
-    var tx = goog.graphics.AffineTransform.getTranslateInstance(x, y).scale(widthRatio, heightRatio);
-
-    this._forward(tx);
+    tx = goog.graphics.AffineTransform.getTranslateInstance(x, y).scale(widthRatio, heightRatio);
   }
+  this._forward(tx);
 };
 
 demos.NavLayerDemo._getX = function(count) {
