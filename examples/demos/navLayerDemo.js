@@ -26,9 +26,10 @@ demos.NavLayerDemo = function(canvas) {
 goog.inherits(demos.NavLayerDemo, demos.Demo);
 
 demos.NavLayerDemo.prototype._forward = function(tx) {
-  var demoElement = demos.NavLayerDemo._getX(++this._count);
-
-  this._nav.forward(demoElement, tx);
+  if (this._nav.canForward()) {
+    var demoElement = demos.NavLayerDemo._getX(++this._count);
+    this._nav.forward(demoElement, tx);
+  }
 };
 
 demos.NavLayerDemo.prototype._onMouseDown = function(e) {
