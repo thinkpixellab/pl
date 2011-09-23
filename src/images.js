@@ -42,6 +42,16 @@ pl.images.prototype.load = function(progress, complete) {
 };
 
 /**
+ * @param {!string} key
+ * @param {!string} path
+ **/
+pl.images.prototype.add = function(key, path) {
+  goog.asserts.assert(!goog.object.containsKey(this._source, key));
+  goog.object.set(this._source, key, path);
+};
+
+/**
+ * @private
  * @type {Object.<string, !HTMLImageElement>}
  */
 pl.images.prototype._images = {};
