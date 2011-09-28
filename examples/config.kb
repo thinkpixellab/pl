@@ -1,9 +1,8 @@
-base_path: ../../closure/closure/
+closure_path: ../../closure
 inputs:
   - demoHost.js
 js_paths:
-  - demos
-  - ../../closure/closure/goog
+  - .
   - ../src
 deps_path: deps.js
 compile_path: compiled.js
