@@ -5,6 +5,7 @@ goog.require('goog.asserts');
 goog.require('goog.color.alpha');
 goog.require('goog.events.EventTarget');
 goog.require('goog.graphics.AffineTransform');
+goog.require('goog.math.Box');
 goog.require('goog.math.Coordinate');
 goog.require('goog.math.Rect');
 goog.require('goog.math.Size');
@@ -197,10 +198,15 @@ pl.retained.Element.prototype._invalidateParent = function() {
  * @param {!CanvasRenderingContext2D} ctx
  **/
 pl.retained.Element.prototype._drawNormal = function(ctx) {
+  var tx = this.getTransform();
+  if (this._isClipped(tx, ctx)) {
+    return;
+  }
+
   ctx.save();
 
   // Translate to the starting position
-  pl.gfx.transform(ctx, this.getTransform());
+  pl.gfx.transform(ctx, tx);
 
   // clip to the bounds of the object
   if (this.clip) {
@@ -224,6 +230,13 @@ pl.retained.Element.prototype._drawInternal = pl.retained.Element.prototype._dra
  * @param {!CanvasRenderingContext2D} ctx
  **/
 pl.retained.Element.prototype._drawCached = function(ctx) {
+  goog.asserts.assert(this.clip, 'draw cached is always clipped. So clip should never be false here.');
+
+  var tx = this.getTransform();
+  if (this._isClipped(tx, ctx)) {
+    return;
+  }
+
   if (!this._cacheCanvas || !goog.math.Size.equals(pl.ex.getCanvasSize(this._cacheCanvas), this._lastDrawSize)) {
     if (!this._cacheCanvas) {
       this._cacheCanvas =
@@ -241,8 +254,22 @@ pl.retained.Element.prototype._drawCached = function(ctx) {
   }
 
   ctx.save();
-  pl.gfx.transform(ctx, this.getTransform());
+  pl.gfx.transform(ctx, tx);
 
   ctx.drawImage(this._cacheCanvas, 0, 0);
   ctx.restore();
+};
+
+pl.retained.Element.prototype._isClipped = function(tx, ctx) {
+  if (this.clip) {
+    var myRect = new goog.math.Rect(0, 0, this.width, this.height);
+    var myPoints = pl.ex.getPoints(myRect);
+    pl.ex.transformCoordinates(tx, myPoints);
+    var box = goog.math.Box.boundingBox.apply(null, myPoints);
+    myRect = goog.math.Rect.createFromBox(box);
+    var ctxRect = new goog.math.Rect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    var clipped = !goog.math.Rect.intersects(myRect, ctxRect);
+    return clipped;
+  }
+  return false;
 };
