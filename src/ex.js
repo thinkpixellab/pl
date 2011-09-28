@@ -2,6 +2,7 @@ goog.provide('pl.ex');
 
 goog.require('goog.array');
 goog.require('goog.asserts');
+goog.require('goog.math.Rect');
 goog.require('goog.math.Size');
 goog.require('goog.string');
 goog.require('goog.style');
@@ -154,3 +155,12 @@ pl.ex.prefixes = 'webkit moz o ms khtml'.split(' ');
  * @type {number}
  **/
 pl.ex.fallbackFrameTimeout = 17; // ms -> ~1000 / 60 -> 60fps;
+
+pl.ex.getPoints = function(rect) {
+  return [
+    new goog.math.Coordinate(rect.top, rect.left),
+    new goog.math.Coordinate(rect.top, rect.left + rect.width),
+    new goog.math.Coordinate(rect.top + rect.height, rect.left + rect.width),
+    new goog.math.Coordinate(rect.top + rect.height, rect.left)
+  ];
+};
