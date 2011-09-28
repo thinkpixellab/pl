@@ -70,7 +70,7 @@ pl.retained.NavLayer.prototype.forward = function(element, tx,  opt_frameCount) 
     var tempCtx =
     /** @type {!CanvasRenderingContext2D} */
     tempCanvas.getContext('2d');
-    ghostChild._drawCore(tempCtx);
+    ghostChild.drawCore(tempCtx);
 
     this._txPanel = new pl.retained._NavLayerTxPanel(this.width, this.height, tempCanvas, element, tx, existingTx, frameCount);
     this._txPanel.claim(this);

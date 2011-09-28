@@ -31,6 +31,18 @@ pl.retained.Element = function(width, height, opt_enableCache) {
 goog.inherits(pl.retained.Element, goog.events.EventTarget);
 
 /**
+ * @type {?number}
+ */
+pl.retained.Element.prototype.alpha = null;
+
+/**
+ * @protected
+ * @type {boolean}
+ * Should this element clip its content. Default: true
+ */
+pl.retained.Element.prototype.clip = true;
+
+/**
  * @private
  * @type {?goog.math.Size}
  */
@@ -41,11 +53,6 @@ pl.retained.Element.prototype._lastDrawSize = null;
  * @type {?pl.retained.ElementParent}
  */
 pl.retained.Element.prototype._parent = null;
-
-/**
- * @type {?number}
- */
-pl.retained.Element.prototype.alpha = null;
 
 /**
  * @return {!goog.graphics.AffineTransform}
@@ -114,14 +121,6 @@ pl.retained.Element.prototype.invalidateDraw = function() {
 };
 
 /**
- * @private
- */
-pl.retained.Element.prototype._invalidateParent = function() {
-  goog.asserts.assert(this._parent);
-  this._parent.childInvalidated(this);
-};
-
-/**
  * @param {boolean=} opt_frontToBack
  * @return {!Array.<!pl.retained.Element>}
  */
@@ -173,16 +172,9 @@ pl.retained.Element.prototype.update = function() {
 
 /**
  * @protected
- * @type {boolean}
- * Should this element clip its content. Default: true
- */
-pl.retained.Element.prototype.clip = true;
-
-/**
- * @protected
  * @param {!CanvasRenderingContext2D} ctx
  **/
-pl.retained.Element.prototype._drawCore = function(ctx) {
+pl.retained.Element.prototype.drawCore = function(ctx) {
   if (goog.isDefAndNotNull(this.alpha)) {
     ctx.globalAlpha = this.alpha;
   }
@@ -190,6 +182,14 @@ pl.retained.Element.prototype._drawCore = function(ctx) {
   // call the abstract draw method
   this.drawOverride(ctx);
   this._lastDrawSize = this.getSize();
+};
+
+/**
+ * @private
+ */
+pl.retained.Element.prototype._invalidateParent = function() {
+  goog.asserts.assert(this._parent);
+  this._parent.childInvalidated(this);
 };
 
 /**
@@ -209,7 +209,7 @@ pl.retained.Element.prototype._drawNormal = function(ctx) {
     ctx.clip();
   }
 
-  this._drawCore(ctx);
+  this.drawCore(ctx);
   ctx.restore();
 };
 
@@ -237,7 +237,7 @@ pl.retained.Element.prototype._drawCached = function(ctx) {
     /** @type {!CanvasRenderingContext2D} */
     this._cacheCanvas.getContext('2d');
 
-    this._drawCore(cacheCtx);
+    this.drawCore(cacheCtx);
   }
 
   ctx.save();
