@@ -11,6 +11,12 @@ goog.require('goog.object');
  */
 pl.images = function(source) {
   this._source = source;
+
+  /**
+   * @private
+   * @type {Object.<string, !HTMLImageElement>}
+   */
+  this._images = {};
 };
 
 pl.images.prototype.load = function(progress, complete) {
@@ -49,12 +55,6 @@ pl.images.prototype.add = function(key, path) {
   goog.asserts.assert(!goog.object.containsKey(this._source, key));
   goog.object.set(this._source, key, path);
 };
-
-/**
- * @private
- * @type {Object.<string, !HTMLImageElement>}
- */
-pl.images.prototype._images = {};
 
 /**
  * @param {string} key
