@@ -27,6 +27,16 @@ pl.retained.NavLayer = function(width, height, opt_enableCache) {
 
   /** @type {pl.retained._NavLayerTxPanel} */
   this._txPanel = null;
+
+  /**
+   * @type {boolean}
+   */
+  this.isChildCentered = true;
+
+  /**
+   * @type {goog.math.Vec2}
+   */
+  this.childOffset = null;
 };
 goog.inherits(pl.retained.NavLayer, pl.retained.Element);
 
@@ -42,7 +52,7 @@ pl.retained.NavLayer.prototype.canForward = function() {
  * @param {!goog.graphics.AffineTransform} tx
  * @param {number=} opt_frameCount
  */
-pl.retained.NavLayer.prototype.forward = function(element, tx,  opt_frameCount) {
+pl.retained.NavLayer.prototype.forward = function(element, tx, opt_frameCount) {
   var frameCount = opt_frameCount || 30;
   if (this._txPanel) {
     throw Error('cannot move forward while animating...yet');
@@ -72,7 +82,7 @@ pl.retained.NavLayer.prototype.forward = function(element, tx,  opt_frameCount) 
     tempCanvas.getContext('2d');
     ghostChild.drawCore(tempCtx);
 
-    this._txPanel = new pl.retained._NavLayerTxPanel(this.width, this.height, tempCanvas, element, tx, existingTx, frameCount);
+    this._txPanel = new pl.retained._NavLayerTxPanel(this.width, this.height, tempCanvas, element, tx, existingTx, frameCount, this.isChildCentered, this.childOffset || new goog.math.Vec2(0, 0));
     this._txPanel.claim(this);
   }
 
@@ -94,12 +104,7 @@ pl.retained.NavLayer.prototype.forward = function(element, tx,  opt_frameCount) 
 pl.retained.NavLayer.prototype.setSize = function(size) {
   var baseRet = goog.base(this, 'setSize', size);
   if (this._child) {
-    var tx = pl.retained.NavLayer._navLayerTransformProperty.get(this._child);
-    var parentSize = this.getSize();
-    var childSize = this._child.getSize();
-    var vec = new goog.math.Vec2(parentSize.width - childSize.width, parentSize.height - childSize.height);
-    vec.scale(0.5);
-    tx.setToTranslation(vec.x, vec.y);
+    this._updateChildLocation();
   }
   return baseRet;
 };
@@ -114,13 +119,8 @@ pl.retained.NavLayer.prototype._claimChild = function() {
 
   var elementTx = this._child.addTransform();
   pl.retained.NavLayer._navLayerTransformProperty.set(this._child, elementTx);
-
-  // an offset that defines the target location of the element
-  var targetOffset = new goog.math.Vec2(this.width - this._child.width, this.height - this._child.height);
-  targetOffset.scale(0.5);
-
   this._child.claim(this);
-  elementTx.setToTranslation(targetOffset.x, targetOffset.y);
+  this._updateChildLocation();
 };
 
 /**
@@ -175,6 +175,21 @@ pl.retained.NavLayer.prototype.drawOverride = function(ctx) {
 pl.retained.NavLayer.prototype.childInvalidated = function(child) {
   goog.asserts.assert(goog.array.contains(this.getVisualChildren(), child), 'Must be the containers child');
   this.invalidateDraw();
+};
+
+pl.retained.NavLayer.prototype._updateChildLocation = function() {
+  goog.asserts.assert(this._child);
+  var offset = this.childOffset ? this.childOffset.clone() : new goog.math.Vec2(0, 0);
+  var tx = pl.retained.NavLayer._navLayerTransformProperty.get(this._child);
+
+  if (this.isChildCentered) {
+    var parentSize = this.getSize();
+    var childSize = this._child.getSize();
+    var vec = new goog.math.Vec2(parentSize.width - childSize.width, parentSize.height - childSize.height);
+    vec.scale(0.5);
+    offset.add(vec);
+  }
+  tx.setToTranslation(offset.x, offset.y);
 };
 
 /**

@@ -11,8 +11,10 @@ goog.require('goog.asserts');
  * @param {!goog.graphics.AffineTransform} ghostTx describes the relationship of the last child to the
  Container.
  * @param {number} frameCount
+ * @param {boolean} isChildCentered
+ * @param {!goog.math.Vec2} childOffset
  */
-pl.retained._NavLayerTxPanel = function(width, height, lastCanvas, newChild, startTx, ghostTx, frameCount) {
+pl.retained._NavLayerTxPanel = function(width, height, lastCanvas, newChild, startTx, ghostTx, frameCount, isChildCentered, childOffset) {
   goog.base(this, width, height);
   this.clip = false;
 
@@ -32,12 +34,16 @@ pl.retained._NavLayerTxPanel = function(width, height, lastCanvas, newChild, sta
   var lastTx = this._lastImage.addTransform();
   lastTx.copyFrom(startTx.createInverse());
 
-  // an offset that defines the target location of the child element
-  var targetOffset = new goog.math.Vec2(this.width - newChild.width, this.height - newChild.height);
-  targetOffset.scale(0.5);
+  childOffset = childOffset.clone();
+  if (isChildCentered) {
+    var parentSize = this.getSize();
+    var childSize = newChild.getSize();
+    var vec = new goog.math.Vec2(parentSize.width - childSize.width, parentSize.height - childSize.height);
+    vec.scale(0.5);
+    childOffset.add(vec);
+  }
+  this._goalTx = goog.graphics.AffineTransform.getTranslateInstance(childOffset.x, childOffset.y);
 
-  // this is the tx that the element should end up at
-  this._goalTx = goog.graphics.AffineTransform.getTranslateInstance(targetOffset.x, targetOffset.y);
 
   this._startTx = ghostTx.clone().concatenate(startTx);
 
