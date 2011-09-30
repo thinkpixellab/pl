@@ -158,9 +158,9 @@ pl.ex.fallbackFrameTimeout = 17; // ms -> ~1000 / 60 -> 60fps;
 
 pl.ex.getPoints = function(rect) {
   return [
-    new goog.math.Coordinate(rect.top, rect.left),
-    new goog.math.Coordinate(rect.top, rect.left + rect.width),
-    new goog.math.Coordinate(rect.top + rect.height, rect.left + rect.width),
-    new goog.math.Coordinate(rect.top + rect.height, rect.left)
+    new goog.math.Coordinate(rect.left, rect.top),
+    new goog.math.Coordinate(rect.left + rect.width, rect.top),
+    new goog.math.Coordinate(rect.left + rect.width, rect.top + rect.height),
+    new goog.math.Coordinate(rect.left, rect.top + rect.height)
   ];
 };
