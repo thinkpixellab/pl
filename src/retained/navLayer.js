@@ -7,8 +7,10 @@ goog.require('goog.math.Vec2');
 goog.require('pl.Property');
 goog.require('pl.retained.Element');
 goog.require('pl.retained.ElementParent');
+goog.require('pl.retained.HorizontalAlignment');
 goog.require('pl.retained.Image');
 goog.require('pl.retained.Panel');
+goog.require('pl.retained.VerticalAlignment');
 goog.require('pl.retained._NavLayerTxPanel');
 
 /**
@@ -29,9 +31,14 @@ pl.retained.NavLayer = function(width, height, opt_enableCache) {
   this._txPanel = null;
 
   /**
-   * @type {boolean}
+   * @type {!pl.retained.HorizontalAlignment}
    */
-  this.isChildCentered = true;
+  this.horizontalChildAlignment = pl.retained.HorizontalAlignment.CENTER;
+
+  /**
+   * @type {!pl.retained.VerticalAlignment}
+   */
+  this.verticalChildAlignment = pl.retained.VerticalAlignment.CENTER;
 
   /**
    * @type {goog.math.Vec2}
@@ -82,7 +89,7 @@ pl.retained.NavLayer.prototype.forward = function(element, tx, opt_frameCount) {
     tempCanvas.getContext('2d');
     ghostChild.drawCore(tempCtx);
 
-    this._txPanel = new pl.retained._NavLayerTxPanel(this.width, this.height, tempCanvas, element, tx, existingTx, frameCount, this.isChildCentered, this.childOffset || new goog.math.Vec2(0, 0));
+    this._txPanel = new pl.retained._NavLayerTxPanel(this.width, this.height, tempCanvas, element, tx, existingTx, frameCount, this.horizontalChildAlignment, this.verticalChildAlignment, this.childOffset || new goog.math.Vec2(0, 0));
     this._txPanel.claim(this);
   }
 
@@ -179,16 +186,11 @@ pl.retained.NavLayer.prototype.childInvalidated = function(child) {
 
 pl.retained.NavLayer.prototype._updateChildLocation = function() {
   goog.asserts.assert(this._child);
-  var offset = this.childOffset ? this.childOffset.clone() : new goog.math.Vec2(0, 0);
+
   var tx = pl.retained.NavLayer._navLayerTransformProperty.get(this._child);
 
-  if (this.isChildCentered) {
-    var parentSize = this.getSize();
-    var childSize = this._child.getSize();
-    var vec = new goog.math.Vec2(parentSize.width - childSize.width, parentSize.height - childSize.height);
-    vec.scale(0.5);
-    offset.add(vec);
-  }
+  var offset = this.childOffset || new goog.math.Vec2(0, 0);
+  offset = pl.gfx.getOffsetVector(this.getSize(), this._child.getSize(), this.horizontalChildAlignment, this.verticalChildAlignment, offset);
   tx.setToTranslation(offset.x, offset.y);
 };
 

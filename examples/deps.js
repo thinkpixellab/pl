@@ -93,7 +93,7 @@ goog.addDependency('../../../pl/src/qr/qrMath.js', ['qr.Math'], []);
 goog.addDependency('../../../pl/src/qr/qrPolynomial.js', ['qr.Polynomial'], []);
 goog.addDependency('../../../pl/src/qr/qrRSBlock.js', ['qr.RSBlock'], []);
 goog.addDependency('../../../pl/src/qr/qrUtil.js', ['qr.Util'], ['qr.Math', 'qr.Polynomial']);
-goog.addDependency('../../../pl/src/retained/_navLayerTxPanel.js', ['pl.retained._NavLayerTxPanel'], ['goog.asserts']);
+goog.addDependency('../../../pl/src/retained/_navLayerTxPanel.js', ['pl.retained._NavLayerTxPanel'], ['goog.asserts', 'pl.retained.HorizontalAlignment', 'pl.retained.Panel', 'pl.retained.VerticalAlignment']);
 goog.addDependency('../../../pl/src/retained/alignment.js', ['pl.retained.HorizontalAlignment', 'pl.retained.VerticalAlignment'], []);
 goog.addDependency('../../../pl/src/retained/animation.js', ['pl.retained.Animation'], ['goog.asserts', 'pl.Behavior', 'pl.retained.EventType']);
 goog.addDependency('../../../pl/src/retained/canvas.js', ['pl.retained.Canvas'], ['goog.graphics.AffineTransform', 'goog.math.Coordinate', 'pl.retained.Element', 'pl.retained.Panel']);
@@ -104,7 +104,7 @@ goog.addDependency('../../../pl/src/retained/eventType.js', ['pl.retained.EventT
 goog.addDependency('../../../pl/src/retained/helper.js', ['pl.retained.helper'], ['goog.array', 'goog.math.Coordinate', 'goog.math.Size', 'pl.ex', 'pl.gfx', 'pl.retained.Element', 'pl.retained.mouse']);
 goog.addDependency('../../../pl/src/retained/image.js', ['pl.retained.Image'], ['pl.gfx', 'pl.retained.Element']);
 goog.addDependency('../../../pl/src/retained/mouse.js', ['pl.retained.mouse'], ['goog.array', 'goog.math.Coordinate', 'pl.Property', 'pl.retained.Stage']);
-goog.addDependency('../../../pl/src/retained/navLayer.js', ['pl.retained.NavLayer'], ['goog.array', 'goog.asserts', 'goog.graphics.AffineTransform', 'goog.math.Vec2', 'pl.Property', 'pl.retained.Element', 'pl.retained.ElementParent', 'pl.retained.Image', 'pl.retained.Panel', 'pl.retained._NavLayerTxPanel']);
+goog.addDependency('../../../pl/src/retained/navLayer.js', ['pl.retained.NavLayer'], ['goog.array', 'goog.asserts', 'goog.graphics.AffineTransform', 'goog.math.Vec2', 'pl.Property', 'pl.retained.Element', 'pl.retained.ElementParent', 'pl.retained.HorizontalAlignment', 'pl.retained.Image', 'pl.retained.Panel', 'pl.retained.VerticalAlignment', 'pl.retained._NavLayerTxPanel']);
 goog.addDependency('../../../pl/src/retained/panel.js', ['pl.retained.Panel'], ['goog.array', 'goog.asserts', 'pl.Property', 'pl.retained.Element', 'pl.retained.ElementParent', 'pl.retained.helper']);
 goog.addDependency('../../../pl/src/retained/shape.js', ['pl.retained.Shape'], ['pl.gfx', 'pl.retained.Element']);
 goog.addDependency('../../../pl/src/retained/stage.js', ['pl.retained.Stage'], ['goog.events.EventTarget', 'goog.math.Coordinate', 'goog.math.Size', 'pl.ex', 'pl.retained.Element', 'pl.retained.ElementParent', 'pl.retained.EventType']);

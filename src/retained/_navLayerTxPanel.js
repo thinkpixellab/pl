@@ -1,6 +1,9 @@
 goog.provide('pl.retained._NavLayerTxPanel');
 
 goog.require('goog.asserts');
+goog.require('pl.retained.HorizontalAlignment');
+goog.require('pl.retained.Panel');
+goog.require('pl.retained.VerticalAlignment');
 
 /**
  * @constructor
@@ -11,10 +14,11 @@ goog.require('goog.asserts');
  * @param {!goog.graphics.AffineTransform} ghostTx describes the relationship of the last child to the
  Container.
  * @param {number} frameCount
- * @param {boolean} isChildCentered
+ * @param {!pl.retained.HorizontalAlignment} horizontalAlignment
+ * @param {!pl.retained.VerticalAlignment} verticalAlignment
  * @param {!goog.math.Vec2} childOffset
  */
-pl.retained._NavLayerTxPanel = function(width, height, lastCanvas, newChild, startTx, ghostTx, frameCount, isChildCentered, childOffset) {
+pl.retained._NavLayerTxPanel = function(width, height, lastCanvas, newChild, startTx, ghostTx, frameCount, horizontalAlignment, verticalAlignment, childOffset) {
   goog.base(this, width, height);
   this.clip = false;
 
@@ -34,16 +38,8 @@ pl.retained._NavLayerTxPanel = function(width, height, lastCanvas, newChild, sta
   var lastTx = this._lastImage.addTransform();
   lastTx.copyFrom(startTx.createInverse());
 
-  childOffset = childOffset.clone();
-  if (isChildCentered) {
-    var parentSize = this.getSize();
-    var childSize = newChild.getSize();
-    var vec = new goog.math.Vec2(parentSize.width - childSize.width, parentSize.height - childSize.height);
-    vec.scale(0.5);
-    childOffset.add(vec);
-  }
+  childOffset = pl.gfx.getOffsetVector(this.getSize(), newChild.getSize(), horizontalAlignment, verticalAlignment, childOffset);
   this._goalTx = goog.graphics.AffineTransform.getTranslateInstance(childOffset.x, childOffset.y);
-
 
   this._startTx = ghostTx.clone().concatenate(startTx);
 
