@@ -94,6 +94,7 @@ goog.addDependency('../../../pl/src/qr/qrPolynomial.js', ['qr.Polynomial'], []);
 goog.addDependency('../../../pl/src/qr/qrRSBlock.js', ['qr.RSBlock'], []);
 goog.addDependency('../../../pl/src/qr/qrUtil.js', ['qr.Util'], ['qr.Math', 'qr.Polynomial']);
 goog.addDependency('../../../pl/src/retained/_navLayerTxPanel.js', ['pl.retained._NavLayerTxPanel'], ['goog.asserts']);
+goog.addDependency('../../../pl/src/retained/alignment.js', ['pl.retained.HorizontalAlignment', 'pl.retained.VerticalAlignment'], []);
 goog.addDependency('../../../pl/src/retained/animation.js', ['pl.retained.Animation'], ['goog.asserts', 'pl.Behavior', 'pl.retained.EventType']);
 goog.addDependency('../../../pl/src/retained/canvas.js', ['pl.retained.Canvas'], ['goog.graphics.AffineTransform', 'goog.math.Coordinate', 'pl.retained.Element', 'pl.retained.Panel']);
 goog.addDependency('../../../pl/src/retained/carouselContainer.js', ['pl.retained.CarouselContainer'], ['goog.array', 'goog.graphics.AffineTransform', 'goog.math.Coordinate', 'goog.math.Size', 'pl.retained.Element', 'pl.retained.Panel']);
