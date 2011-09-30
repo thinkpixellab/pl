@@ -184,3 +184,45 @@ pl.gfx.getTransitionTx = function(itemSize, targetRect) {
   tx.scale(scaleX, scaleY);
   return tx;
 };
+
+/**
+ * @param {!goog.math.Size} parentSize
+ * @param {!goog.math.Size} childSize
+ * @param {!pl.retained.HorizontalAlignment} horizontalAlignment
+ * @param {!pl.retained.VerticalAlignment} verticalAlignment
+ * @param {!goog.math.Vec2} offset
+ * @return {!goog.math.Vec2}
+ */
+pl.gfx.getOffsetVector = function(parentSize, childSize, horizontalAlignment, verticalAlignment, offset) {
+  // we'll return this value...clone it to ensure encapsulation
+  offset = offset.clone();
+  switch (horizontalAlignment) {
+  case pl.retained.HorizontalAlignment.LEFT:
+    //no-op
+    break;
+  case pl.retained.HorizontalAlignment.CENTER:
+    offset.x += (parentSize.width - childSize.width) / 2;
+    break;
+  case pl.retained.HorizontalAlignment.RIGHT:
+    offset.x += parentSize.width - childSize.width;
+    break;
+  default:
+    throw Error('horizontalAlignment value not expected ' + horizontalAlignment);
+  }
+
+  switch (verticalAlignment) {
+  case pl.retained.VerticalAlignment.TOP:
+    //no-op
+    break;
+  case pl.retained.VerticalAlignment.CENTER:
+    offset.y += (parentSize.height - childSize.height) / 2;
+    break;
+  case pl.retained.VerticalAlignment.BOTTOM:
+    offset.y += parentSize.height - childSize.height;
+    break;
+  default:
+    throw Error('verticalAlignment value not expected ' + verticalAlignment);
+  }
+
+  return offset;
+};
