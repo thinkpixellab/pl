@@ -86,6 +86,27 @@ pl.retained.NavLayer.prototype.forward = function(element, tx,  opt_frameCount) 
   this.invalidateDraw();
 };
 
+/**
+ * @override
+ * @param {goog.math.Size} size
+ * @return {boolean}
+ */
+pl.retained.NavLayer.prototype.setSize = function(size) {
+  var baseRet = goog.base(this, 'setSize', size);
+  if (this._child) {
+    var tx = pl.retained.NavLayer._navLayerTransformProperty.get(this._child);
+    var parentSize = this.getSize();
+    var childSize = this._child.getSize();
+    var vec = new goog.math.Vec2(parentSize.width - childSize.width, parentSize.height - childSize.height);
+    vec.scale(0.5);
+    tx.setToTranslation(vec.x, vec.y);
+  }
+  return baseRet;
+};
+
+/**
+ * @private
+ */
 pl.retained.NavLayer.prototype._claimChild = function() {
   goog.asserts.assert(!this._txPanel);
   goog.asserts.assert(this._child);
