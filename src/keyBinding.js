@@ -12,7 +12,7 @@ goog.require('goog.ui.KeyboardShortcutHandler.EventType');
  @param {boolean=} opt_skipStyles
  */
 pl.KeyBinding = function(opt_skipStyles) {
-  goog.events.EventTarget.call(this);
+  goog.base(this);
   this.m_shortcutHandler = new goog.ui.KeyboardShortcutHandler(document);
   this.m_map = [];
 

@@ -27,7 +27,7 @@ goog.require('box2d.Vec2');
  @extends {box2d.ShapeDef}
  */
 box2d.PolyDef = function() {
-  box2d.ShapeDef.call(this);
+  goog.base(this);
 
   //
   // initialize instance variables for references

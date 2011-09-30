@@ -26,7 +26,7 @@ goog.require('box2d.ShapeDef');
  * @extends {box2d.ShapeDef}
  */
 box2d.CircleDef = function() {
-  box2d.ShapeDef.call(this);
+  goog.base(this);
   this.type = box2d.ShapeDef.Type.circleShape;
   this.radius = 1.0;
 };

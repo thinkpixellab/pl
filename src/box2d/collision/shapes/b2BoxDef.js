@@ -27,7 +27,7 @@ goog.require('box2d.Vec2');
  @extends {box2d.ShapeDef}
  */
 box2d.BoxDef = function() {
-  box2d.ShapeDef.call(this);
+  goog.base(this);
 
   this.type = box2d.ShapeDef.Type.boxShape;
   /** @type {!box2d.Vec2} */
