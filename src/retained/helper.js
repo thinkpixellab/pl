@@ -13,11 +13,13 @@ goog.require('pl.retained.mouse');
  */
 pl.retained.helper.borderElements = function(stage) {
   var ctx = stage.getContext();
-  ctx.strokeStyle = 'blue';
-  ctx.lineWidth = 2;
+  ctx.save();
+  ctx.globalAlpha = 0.5;
+  ctx.lineWidth = 5;
   ctx.beginPath();
   pl.retained.helper._borderElement(ctx, stage.getRoot());
   ctx.stroke();
+  ctx.restore();
 };
 
 /**
@@ -27,20 +29,16 @@ pl.retained.helper.borderElements = function(stage) {
  */
 pl.retained.helper._borderElement = function(ctx, element, opt_excludeChildren) {
   pl.gfx.transform(ctx, element.getTransform());
-  ctx.strokeRect(0, 0, element.width, element.height);
   if (pl.retained.mouse.IsMouseDirectlyOverProperty.get(element)) {
-    ctx.save();
     ctx.strokeStyle = 'red';
-    ctx.strokeRect(0, 0, element.width, element.height);
-    ctx.restore();
   } else if (pl.retained.mouse.IsMouseOverProperty.get(element)) {
-    ctx.save();
     ctx.strokeStyle = 'pink';
-    ctx.strokeRect(0, 0, element.width, element.height);
-    ctx.restore();
+  } else if (element.cacheEnabled) {
+    ctx.strokeStyle = 'yellow';
   } else {
-    ctx.strokeRect(0, 0, element.width, element.height);
+    ctx.strokeStyle = 'blue';
   }
+  ctx.strokeRect(0, 0, element.width, element.height);
 
   if (!opt_excludeChildren) {
     goog.array.forEach(element.getVisualChildren(), function(e) {
@@ -103,7 +101,6 @@ pl.retained.helper.borderHitTest = function(stage, x, y) {
   var hits = pl.retained.helper.hitTest(stage, x, y);
   if (hits.length) {
     ctx.save();
-    ctx.strokeStyle = 'rgba(0,0,255,0.5)';
     ctx.lineWidth = 2;
 
     ctx.beginPath();

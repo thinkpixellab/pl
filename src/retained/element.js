@@ -25,6 +25,10 @@ pl.retained.Element = function(width, height, opt_enableCache) {
   this.width = width;
   this.height = height;
 
+  /**
+   * @type {boolean}
+   */
+  this.cacheEnabled = !!opt_enableCache;
   if (opt_enableCache) {
     this._drawInternal = pl.retained.Element.prototype._drawCached;
   }
