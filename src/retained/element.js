@@ -159,6 +159,42 @@ pl.retained.Element.prototype.draw = function(ctx) {
 };
 
 /**
+ * @param {!pl.retained.Element} ancestor
+ * @return {!goog.graphics.AffineTransform}
+ */
+pl.retained.Element.prototype.transformToAncestor = function(ancestor) {
+  goog.asserts.assert(this !== ancestor);
+  var tx;
+  var p = this;
+  do {
+    if (!p) {
+      throw Error('could not find ancestor');
+    }
+    if (tx) {
+      tx.preConcatenate(p.getTransform());
+    }
+    else {
+      tx = p.getTransform();
+    }
+    p = p._parent;
+  } while (p != ancestor);
+  return tx;
+};
+
+/**
+ * @param {!pl.retained.Element} ancestor
+ * @return {!goog.math.Rect}
+ */
+pl.retained.Element.prototype.boundsToAncestor = function(ancestor) {
+  var tx = this.transformToAncestor(ancestor);
+  var myRect = new goog.math.Rect(0, 0, this.width, this.height);
+  var myPoints = pl.ex.getPoints(myRect);
+  pl.ex.transformCoordinates(tx, myPoints);
+  var box = goog.math.Box.boundingBox.apply(this, myPoints);
+  return goog.math.Rect.createFromBox(box);
+};
+
+/**
  * @protected
  * @param {!CanvasRenderingContext2D} ctx
  */
