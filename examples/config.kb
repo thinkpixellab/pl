@@ -1,6 +1,7 @@
 closure_path: ../../closure
 inputs:
   - demoHost.js
+  - perfHost.js
 js_paths:
   - .
   - ../src

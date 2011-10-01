@@ -10,6 +10,7 @@ goog.addDependency('../../../pl/examples/demos/scaleDemo.js', ['demos.ScaleDemo'
 goog.addDependency('../../../pl/examples/demos/squares.js', ['demos.Squares'], ['demos.Demo', 'goog.math.Box', 'goog.math.Coordinate', 'goog.math.Size', 'pl.ex', 'pl.retained.Animation', 'pl.retained.Panel', 'pl.retained.Shape', 'pl.retained.Stage']);
 goog.addDependency('../../../pl/examples/demos/swapDemo.js', ['demos.SwapDemo'], ['demos.Demo', 'goog.math.Size', 'pl.ex', 'pl.retained.Animation', 'pl.retained.Panel', 'pl.retained.Shape', 'pl.retained.Stage']);
 goog.addDependency('../../../pl/examples/demos/tileDemo.js', ['demos.TileDemo'], ['demos.Demo', 'goog.math.Vec2', 'pl.retained.Panel', 'pl.retained.Stage', 'pl.retained.TileLayer']);
+goog.addDependency('../../../pl/examples/perfHost.js', ['PerfHost'], ['demos', 'goog.Timer', 'goog.asserts', 'goog.debug.LogManager', 'goog.dom', 'goog.object', 'goog.string', 'pl.DebugDiv', 'pl.FpsLogger', 'pl.ex', 'pl.retained.EventType']);
 goog.addDependency('../../../pl/src/behavior.js', ['pl.Behavior'], ['goog.array', 'goog.asserts', 'pl.Property']);
 goog.addDependency('../../../pl/src/box2d/collision/ClipVertex.js', ['box2d.ClipVertex'], ['box2d.ContactID', 'box2d.Vec2']);
 goog.addDependency('../../../pl/src/box2d/collision/Features.js', ['box2d.Features'], []);
