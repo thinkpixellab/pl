@@ -2,6 +2,7 @@ goog.provide('pl.ex');
 
 goog.require('goog.array');
 goog.require('goog.asserts');
+goog.require('goog.iter');
 goog.require('goog.math.Rect');
 goog.require('goog.math.Size');
 goog.require('goog.string');
@@ -163,4 +164,55 @@ pl.ex.getPoints = function(rect) {
     new goog.math.Coordinate(rect.left + rect.width, rect.top + rect.height),
     new goog.math.Coordinate(rect.left, rect.top + rect.height)
   ];
+};
+
+/**
+ * @param {!goog.iter.Iterable} iterable
+ * @param {function(*):goog.iter.Iterable} f
+ * @return {!goog.iter.Iterator}
+ */
+pl.ex.selectMany = function(iterable, f) {
+  iterable = goog.iter.toIterator(iterable);
+
+  var value;
+  var innerIterator = null;
+
+  var newIter = new goog.iter.Iterator;
+  newIter.next = function() {
+    while (true) {
+      if (!innerIterator) {
+        value = iterable.next();
+        innerIterator = goog.iter.toIterator(f(value));
+      }
+      try {
+        return [value, innerIterator.next()];
+      } catch (ex) {
+        if (ex !== goog.iter.StopIteration) {
+          throw ex;
+        } else {
+          innerIterator = null;
+        }
+      }
+    }
+  };
+  return newIter;
+};
+
+/**
+ * @param {!goog.iter.Iterable} iterable
+ * @return {number}
+ */
+pl.ex.count = function(iterable, opt_function) {
+  // TODO: ponder ArrayLike...use length?
+  var count = 0;
+  goog.iter.forEach(iterable, function(n) {
+    if (opt_function) {
+      if (opt_function(n)) {
+        count++;
+      }
+    } else {
+      count++;
+    }
+  });
+  return count;
 };

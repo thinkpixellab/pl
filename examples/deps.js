@@ -79,7 +79,7 @@ goog.addDependency('../../../pl/src/box2d/dynamics/joints/b2PulleyJointDef.js', 
 goog.addDependency('../../../pl/src/box2d/dynamics/joints/b2RevoluteJoint.js', ['box2d.RevoluteJoint'], ['box2d.Joint', 'box2d.RevoluteJointDef']);
 goog.addDependency('../../../pl/src/box2d/dynamics/joints/b2RevoluteJointDef.js', ['box2d.RevoluteJointDef'], ['box2d.Joint', 'box2d.JointDef', 'box2d.Vec2']);
 goog.addDependency('../../../pl/src/debugDiv.js', ['pl.DebugDiv'], ['goog.asserts', 'goog.debug.LogManager', 'goog.dom', 'goog.style']);
-goog.addDependency('../../../pl/src/ex.js', ['pl.ex'], ['goog.array', 'goog.asserts', 'goog.math.Rect', 'goog.math.Size', 'goog.string', 'goog.style']);
+goog.addDependency('../../../pl/src/ex.js', ['pl.ex'], ['goog.array', 'goog.asserts', 'goog.iter', 'goog.math.Rect', 'goog.math.Size', 'goog.string', 'goog.style']);
 goog.addDependency('../../../pl/src/fpsLogger.js', ['pl.FpsLogger'], []);
 goog.addDependency('../../../pl/src/gfx.js', ['pl.gfx'], ['goog.asserts', 'goog.graphics.AffineTransform', 'goog.math.Size']);
 goog.addDependency('../../../pl/src/images.js', ['pl.images'], ['goog.asserts', 'goog.net.EventType', 'goog.net.ImageLoader', 'goog.object']);

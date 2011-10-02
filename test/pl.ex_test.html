@@ -60,6 +60,17 @@ function testTransformCoordinate() {
   }
 }
 
+function testSelectMany() {
+  var values = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]];
+
+  var iter = pl.ex.selectMany(values, function(a) { return a; });
+
+  var array = goog.iter.toArray(iter);
+  assertEquals(9, array.length);
+};
 
 
 function randomizePoint(pt) {
