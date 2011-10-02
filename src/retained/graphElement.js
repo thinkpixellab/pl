@@ -75,8 +75,7 @@ pl.retained.GraphElement.prototype.update = function() {
   this._centerForce = this._centerForceFromBox(box);
   if (this._centerForce.magnitude() < pl.retained.GraphElement._significantMagnitude) {
     pl.ex.clearVec(this._centerForce);
-  }
-  else {
+  } else {
     updated = true;
   }
 
@@ -131,16 +130,16 @@ pl.retained.GraphElement.prototype._calcForces = function(node1, node2) {
   //
   // Mild, constant attraction
   //
-  var f = delta.clone().normalize();
+  var f = delta.clone().normalize().scale(0.005);
 
   //
-  // repultion
+  // global repulsion 1/(d^2)
   //
-  f.add(delta.clone().invert().normalize().scale(100 / dmag));
+  f.add(delta.clone().invert().normalize().scale(100 / (dmag * dmag)));
 
   // connected attraction
   if (this._graph.containsEdge(node1, node2)) {
-    f.add(delta.clone().scale(0.05));
+    f.add(delta.clone().scale(dmag / 500));
   }
 
   d1.force.add(f);
@@ -156,7 +155,7 @@ pl.retained.GraphElement.prototype._centerForceFromBox = function(box) {
   if (box) {
     var myCenter = new goog.math.Vec2(this.width / 2, this.height / 2);
     var boxCenter = new goog.math.Vec2((box.left + box.right) / 2, (box.top + box.bottom) / 2);
-    return goog.math.Vec2.difference(myCenter, boxCenter).scale(0.005);
+    return goog.math.Vec2.difference(myCenter, boxCenter).scale(0.0005);
   } else {
     return new goog.math.Vec2(0, 0);
   }
