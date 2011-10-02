@@ -84,5 +84,6 @@ pl.retained.Stage.prototype.getRoot = function() {
  * @param {!pl.retained.Element} child
  */
 pl.retained.Stage.prototype.childInvalidated = function(child) {
+  goog.asserts.assert(this._element == child);
   this.dispatchEvent(pl.retained.EventType.UPDATE);
 };
