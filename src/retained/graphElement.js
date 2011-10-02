@@ -169,7 +169,7 @@ pl.retained.GraphElement.prototype._centerForceFromBox = function(box) {
  * @return {!goog.math.Box}
  */
 pl.retained.GraphElement._boxIncludeCoordinate = function(coordinate, box) {
-  var b = new goog.math.Box(coordinate.y, coordinate.x, coordinate.y, coordinate.y);
+  var b = new goog.math.Box(coordinate.y, coordinate.x, coordinate.y, coordinate.x);
   if (!box) {
     box = b;
   } else {
