@@ -169,7 +169,10 @@ pl.ex.getPoints = function(rect) {
 /**
  * @param {!goog.iter.Iterable} iterable
  * @param {function(*):goog.iter.Iterable} f
- * @return {!goog.iter.Iterator}
+ * @return {!goog.iter.Iterator} each element is an array with 2 values
+ *        item '0' in the item from the source iterable
+ *        item '1' in the item from executing the function
+ *        "Weird, I know...but what I needed for what I was building." - Kevin.
  */
 pl.ex.selectMany = function(iterable, f) {
   iterable = goog.iter.toIterator(iterable);
@@ -200,6 +203,7 @@ pl.ex.selectMany = function(iterable, f) {
 
 /**
  * @param {!goog.iter.Iterable} iterable
+ * @param {function(*): boolean=} opt_function
  * @return {number}
  */
 pl.ex.count = function(iterable, opt_function) {
