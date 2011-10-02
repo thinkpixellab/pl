@@ -220,3 +220,25 @@ pl.ex.count = function(iterable, opt_function) {
   });
   return count;
 };
+
+/**
+ * @param {!goog.math.Vec2} vec
+ * @param {number} x
+ * @param {number} y
+ * @return {!goog.math.Vec2}
+ */
+pl.ex.setVec = function(vec, x, y) {
+  vec.x = x;
+  vec.y = y;
+  return vec;
+};
+
+/**
+ * @param {!goog.math.Vec2} vec
+ * @return {!goog.math.Vec2}
+ */
+pl.ex.clearVec = function(vec) {
+  vec.x = 0;
+  vec.y = 0;
+  return vec;
+};
