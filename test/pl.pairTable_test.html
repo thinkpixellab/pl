@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>PL Tests - pl.PairTable</title>
+<script src="../../closure/closure/goog/base.js"></script>
+<script src="../examples/deps.js"></script>
+<script>
+  goog.require('goog.testing.jsunit');
+  goog.require('pl.PairTable');
+  goog.require('goog.math.Vec2');
+</script>
+</head>
+<body>
+<script>
+function testPairTable() {
+  var numbers = [];
+  for(var i=0;i<10;i++){
+    numbers.push(getTestObject(i));
+  }
+  
+  var p = new pl.PairTable(function() {
+    return new goog.math.Vec2(0, 0);
+  });
+
+  var value = p.get(numbers[0], numbers[1]);
+  assertEquals(0, value.x);
+  assertEquals(0, value.y);
+  value.x = 10;
+  value.y = 20;
+
+  var value = p.get(numbers[0], numbers[1]);
+  assertEquals(10, value.x);
+  assertEquals(20, value.y);
+
+  var value = p.get(numbers[1], numbers[0]);
+  assertEquals(10, value.x);
+  assertEquals(20, value.y);
+}
+
+function testErrors(){
+  var numbers = [];
+  for(var i=0;i<10;i++){
+    numbers.push(getTestObject(i));
+  }
+  
+  var p = new pl.PairTable(function() {
+    return new goog.math.Vec2(0, 0);
+  });
+
+  assertThrows(function() {
+    p.get(numbers[0], numbers[0]);
+  });
+
+  assertThrows(function() {
+    p.get(0, numbers[0]);
+  });
+}
+
+function getTestObject(number) {
+  return new NumberObject(number);
+}
+
+var NumberObject = function(value) {
+  this.value = value;
+};
+
+NumberObject.prototype = {
+  toString: function() {
+    return String(this.value);
+  }
+};
+
+var numbers = [];
+for (var i = 0; i < 100; i++) {
+  numbers.push(new NumberObject(i));
+}
+
+</script>
+</body>
+</html>

@@ -84,6 +84,7 @@ goog.addDependency('../../../pl/src/fpsLogger.js', ['pl.FpsLogger'], []);
 goog.addDependency('../../../pl/src/gfx.js', ['pl.gfx'], ['goog.asserts', 'goog.graphics.AffineTransform', 'goog.math.Size']);
 goog.addDependency('../../../pl/src/images.js', ['pl.images'], ['goog.asserts', 'goog.net.EventType', 'goog.net.ImageLoader', 'goog.object']);
 goog.addDependency('../../../pl/src/keyBinding.js', ['pl.KeyBinding', 'pl.KeyBindingEvent'], ['goog.events.Event', 'goog.events.EventTarget', 'goog.ui.KeyboardShortcutHandler', 'goog.ui.KeyboardShortcutHandler.EventType']);
+goog.addDependency('../../../pl/src/pairTable.js', ['pl.PairTable'], ['goog.asserts', 'goog.structs.Map']);
 goog.addDependency('../../../pl/src/property.js', ['pl.Property'], ['goog.array', 'goog.math.Coordinate', 'goog.math.Size']);
 goog.addDependency('../../../pl/src/qr/qr8BitByte.js', ['qr.EightBitByte'], []);
 goog.addDependency('../../../pl/src/qr/qrBitBuffer.js', ['qr.BitBuffer'], []);
