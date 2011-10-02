@@ -60,19 +60,29 @@ pl.retained.GraphElement.prototype.update = function() {
   },
   this);
 
+  var updated = false;
+
   var box = null;
   // now go every node and do the velocity and location math
   goog.iter.forEach(this._graph.getNodes(), function(node) {
     var d = this._property.get(node);
     d.force.add(this._centerForce);
-    d.update();
+    updated = d.update() || updated;
     box = pl.retained.GraphElement._boxIncludeCoordinate(d.position, box);
   },
   this);
 
   this._centerForce = this._centerForceFromBox(box);
+  if (this._centerForce.magnitude() < pl.retained.GraphElement._significantMagnitude) {
+    pl.ex.clearVec(this._centerForce);
+  }
+  else {
+    updated = true;
+  }
 
-  this.invalidateDraw();
+  if (updated) {
+    this.invalidateDraw();
+  }
   goog.base(this, 'update');
 };
 
@@ -147,8 +157,7 @@ pl.retained.GraphElement.prototype._centerForceFromBox = function(box) {
     var myCenter = new goog.math.Vec2(this.width / 2, this.height / 2);
     var boxCenter = new goog.math.Vec2((box.left + box.right) / 2, (box.top + box.bottom) / 2);
     return goog.math.Vec2.difference(myCenter, boxCenter).scale(0.005);
-  }
-  else {
+  } else {
     return new goog.math.Vec2(0, 0);
   }
 };
@@ -177,6 +186,13 @@ pl.retained.GraphElement._boxIncludeCoordinate = function(coordinate, box) {
 pl.retained.GraphElement._termVelocity = 10;
 
 /**
+ * @private
+ * @const
+ * @type {number}
+ */
+pl.retained.GraphElement._significantMagnitude = 0.01;
+
+/**
  * @constructor
  * @param {!Object} node
  * @param {number} width
@@ -190,7 +206,9 @@ pl.retained.GraphElement._NodeData = function(node, width, height) {
   this._version = undefined;
 };
 
-// TODO: return 'false' if things are stable?
+/**
+ * @return {boolean}
+ */
 pl.retained.GraphElement._NodeData.prototype.update = function() {
   // apply drag
   this.velocity.scale(0.9);
@@ -198,13 +216,22 @@ pl.retained.GraphElement._NodeData.prototype.update = function() {
   // apply force
   this.velocity.add(this.force);
 
+  var velocityMag = this.velocity.magnitude();
+
   // terminal velocity
-  if (this.velocity.magnitude() > pl.retained.GraphElement._termVelocity) {
-    this.velocity.normalize().scale(pl.retained.GraphElement._termVelocity);
+  if (velocityMag > pl.retained.GraphElement._termVelocity) {
+    this.velocity.scale(pl.retained.GraphElement._termVelocity / velocityMag);
+    velocityMag = pl.retained.GraphElement._termVelocity;
   }
 
-  // update position
-  this.position = goog.math.Coordinate.sum(this.position, this.velocity);
+  if (velocityMag < pl.retained.GraphElement._significantMagnitude && this.force.magnitude() < pl.retained.GraphElement._significantMagnitude) {
+    pl.ex.clearVec(this.velocity);
+    pl.ex.clearVec(this.force);
+    return false;
+  } else {
+    this.position = goog.math.Coordinate.sum(this.position, this.velocity);
+    return true;
+  }
 };
 
 /**
