@@ -33,7 +33,7 @@ goog.addDependency('../../../pl/src/box2d/collision/shapes/b2CircleDef.js', ['bo
 goog.addDependency('../../../pl/src/box2d/collision/shapes/b2CircleShape.js', ['box2d.CircleShape'], ['box2d.AABB', 'box2d.CircleDef', 'box2d.Mat22', 'box2d.Vec2']);
 goog.addDependency('../../../pl/src/box2d/collision/shapes/b2MassData.js', ['box2d.MassData'], ['box2d.Vec2']);
 goog.addDependency('../../../pl/src/box2d/collision/shapes/b2PolyDef.js', ['box2d.PolyDef'], ['box2d.Shape', 'box2d.ShapeDef', 'box2d.Vec2']);
-goog.addDependency('../../../pl/src/box2d/collision/shapes/b2PolyShape.js', ['box2d.PolyShape'], ['box2d.BoxDef', 'box2d.Mat22', 'box2d.OBB', 'box2d.PolyDef', 'box2d.Settings', 'box2d.Shape', 'box2d.Vec2']);
+goog.addDependency('../../../pl/src/box2d/collision/shapes/b2PolyShape.js', ['box2d.PolyShape'], ['box2d.AABB', 'box2d.BoxDef', 'box2d.Mat22', 'box2d.OBB', 'box2d.PolyDef', 'box2d.Settings', 'box2d.Shape', 'box2d.Vec2']);
 goog.addDependency('../../../pl/src/box2d/collision/shapes/b2Shape.js', ['box2d.Shape'], ['box2d.Mat22', 'box2d.ShapeDef', 'box2d.Vec2']);
 goog.addDependency('../../../pl/src/box2d/collision/shapes/b2ShapeDef.js', ['box2d.ShapeDef'], ['box2d.Vec2']);
 goog.addDependency('../../../pl/src/box2d/collision/shapes/b2ShapeFactory.js', ['box2d.ShapeFactory'], ['box2d.BoxDef', 'box2d.CircleDef', 'box2d.CircleShape', 'box2d.PolyDef', 'box2d.PolyShape', 'box2d.ShapeDef']);
