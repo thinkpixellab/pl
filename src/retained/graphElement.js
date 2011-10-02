@@ -27,17 +27,22 @@ pl.retained.GraphElement = function(graph, width, height, opt_enableCache) {
    */
   this._property = new pl.Property('nodedate');
 
+  var box = null;
   goog.iter.forEach(this._graph.getNodes(), function(node) {
     var d = new pl.retained.GraphElement._NodeData(node, width, height);
     this._property.set(node, d);
+    box = pl.retained.GraphElement._boxIncludeCoordinate(d.position, box);
   },
   this);
+
+  this._centerForce = this._centerForceFromBox(box);
 
   /**
    * @private
    * @type {number}
    */
   this._version = 0;
+
 };
 goog.inherits(pl.retained.GraphElement, pl.retained.Element);
 
@@ -55,12 +60,17 @@ pl.retained.GraphElement.prototype.update = function() {
   },
   this);
 
+  var box = null;
   // now go every node and do the velocity and location math
   goog.iter.forEach(this._graph.getNodes(), function(node) {
     var d = this._property.get(node);
+    d.force.add(this._centerForce);
     d.update();
+    box = pl.retained.GraphElement._boxIncludeCoordinate(d.position, box);
   },
   this);
+
+  this._centerForce = this._centerForceFromBox(box);
 
   this.invalidateDraw();
   goog.base(this, 'update');
@@ -125,6 +135,38 @@ pl.retained.GraphElement.prototype._calcForces = function(node1, node2) {
 
   d1.force.add(f);
   d2.force.subtract(f);
+};
+
+/**
+ * @private
+ * @param {goog.math.Box} box
+ * @return {!goog.math.Vec2}
+ */
+pl.retained.GraphElement.prototype._centerForceFromBox = function(box) {
+  if (box) {
+    var myCenter = new goog.math.Vec2(this.width / 2, this.height / 2);
+    var boxCenter = new goog.math.Vec2((box.left + box.right) / 2, (box.top + box.bottom) / 2);
+    return goog.math.Vec2.difference(myCenter, boxCenter).scale(0.005);
+  }
+  else {
+    return new goog.math.Vec2(0, 0);
+  }
+};
+
+/**
+ * @private
+ * @param {!goog.math.Coordinate} coordinate
+ * @param {goog.math.Box} box
+ * @return {!goog.math.Box}
+ */
+pl.retained.GraphElement._boxIncludeCoordinate = function(coordinate, box) {
+  var b = new goog.math.Box(coordinate.y, coordinate.x, coordinate.y, coordinate.y);
+  if (!box) {
+    box = b;
+  } else {
+    box.expandToInclude(b);
+  }
+  return box;
 };
 
 /**
