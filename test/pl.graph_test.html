@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>PL Tests - pl.Graph</title>
+<script src="../../closure/closure/goog/base.js"></script>
+<script src="../examples/deps.js"></script>
+<script>
+  goog.require('goog.testing.jsunit');
+  goog.require('pl.Graph');
+</script>
+</head>
+<body>
+<script>
+function testEmpty() {
+  new pl.Graph();
+}
+
+function testSimple() {
+  var g = new pl.Graph();
+  var n1 = new NumberObject(1);
+  var n2 = new NumberObject(2);
+  g.addNode(n1, [n2]);
+
+  assertThrows(function() {
+    g.addNode(n1, [n1]);
+  });
+}
+
+function testContainsNode() {
+  assert(numbers.length == 100);
+  var g = getNumberGraph();
+  assert(g.containsNode(numbers[42]));
+
+  node = new NumberObject(-42);
+  assert(!g.containsNode(node));
+}
+
+function testContainsEdge(){
+  assert(numbers.length == 100);
+  var g = getNumberGraph();
+  assert(g.containsEdge(numbers[2], numbers[8]));
+  assert(g.containsEdge(numbers[8], numbers[2]));
+
+  assert(g.containsEdge(numbers[3], numbers[21]));
+  assert(g.containsEdge(numbers[21], numbers[3]));
+
+  assert(!g.containsEdge(numbers[3], numbers[20]));
+  assert(!g.containsEdge(numbers[7], numbers[6]));
+  assert(!g.containsEdge(numbers[7], numbers[7]));
+}
+
+function testGetAdjacents(){
+  assert(numbers.length == 100);
+  var g = getNumberGraph();
+  var adjacent = g.getAdjacents(numbers[30]);
+  var nums = goog.iter.map(adjacent, function(no){ return no.value; });
+  var numArray = goog.iter.toArray(nums);
+
+  assert(goog.array.equals(numArray, [1, 2, 3, 5, 6, 10, 15, 60, 90]));
+
+  var adjacent = g.getAdjacents(numbers[1]);
+  var nums = goog.iter.map(adjacent, function(no){ return no.value; });
+  var numArray = goog.iter.toArray(nums);
+
+  // doesn't include 0 or 1 -> so 98
+  assertEquals(98, numArray.length);
+}
+
+function testCounts() {
+  var g = new pl.Graph();
+
+  var n = 10 + goog.math.randomInt(20);
+
+  var nodes = [];
+  for (var i = 0; i < n; i++) {
+    nodes.push(new NumberObject(i));
+  }
+  for (var i = 0; i < nodes.length; i++) {
+    for (var j = 0; j < nodes.length; j++) {
+      if (i != j) g.addNode(nodes[i], [nodes[j]]);
+    }
+  }
+
+  var count = (n * n - n) / 2;
+  assertEquals(count, g.getEdgeCount());
+
+  var pairCount = pl.ex.count(g.getPairs());
+  // since the graph is fully connected...
+  //    pairCount == edgeCount
+  assertEquals(count, pairCount);
+
+  var ringGraph = new pl.Graph();
+  for (var i = 0; i < n; i++) {
+    var j = (i + 1) % nodes.length;
+    ringGraph.addNode(nodes[i], [nodes[j]])
+  }
+
+  assertEquals(n, ringGraph.getEdgeCount());
+
+  pairCount = pl.ex.count(ringGraph.getPairs());
+  assertEquals(count, pairCount);
+}
+
+function testNumberCounts(){
+  assert(numbers.length == 100);
+  var g = getNumberGraph();
+
+  assertEquals(100, g.getNodeCount());
+
+  // this is a magic number at the moment
+  // sorry...at least it shouldn't change
+  assertEquals(374, g.getEdgeCount());
+}
+
+function getNumberGraph(){
+  var g = new pl.Graph();
+  goog.array.forEach(numbers, function(n){
+    var adj = [];
+    for (var j = 1; j < n.value; j++) {
+      if (n.value % j == 0) {
+        adj.push(numbers[j]);
+      }
+    }
+    g.addNode(n, adj);
+  });
+  return g;
+}
+
+function getTestObject(number) {
+  return new NumberObject(number);
+}
+
+var NumberObject = function(value) {
+  this.value = value;
+};
+
+NumberObject.prototype = {
+  toString: function() {
+    return String(this.value);
+  }
+};
+
+var numbers = [];
+for (var i = 0; i < 100; i++) {
+  numbers.push(new NumberObject(i));
+}
+
+</script>
+</body>
+</html>
