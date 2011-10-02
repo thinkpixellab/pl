@@ -148,5 +148,5 @@ DemoHost.prototype._updateHUD = function() {
   this._logger.info(String(this._fpsLogger.fps));
 
   var func = goog.bind(this._updateHUD, this);
-  goog.Timer.callOnce(func, 2000);
+  goog.Timer.callOnce(func, 500);
 };
