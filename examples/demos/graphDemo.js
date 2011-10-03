@@ -14,16 +14,19 @@ goog.require('pl.retained.GraphElement');
 demos.GraphDemo = function(canvas) {
   var g = new pl.Graph();
 
-  var n = 10;
-  var i;
-
-  var nodes = [];
-  for (i = 0; i < n; i++) {
-    nodes.push(new demos.GraphDemo.Node(i));
-  }
-  for (i = 0; i < nodes.length; i++) {
-    var j = (i + 1) % nodes.length;
-    g.addNode(nodes[i], [nodes[j]]);
+  for (var j = 0; j < 5; j++) {
+    var n = 5 + goog.math.randomInt(10);
+    var nodes = [];
+    for (var i = 0; i < n; i++) {
+      nodes.push(new demos.GraphDemo.Node(i));
+    }
+    for (var i = 0; i < nodes.length; i++) {
+      var adjacent = [new demos.GraphDemo.Node(i * i)];
+      if ((i + 1) < nodes.length) {
+        adjacent.push(nodes[i + 1]);
+      }
+      g.addNode(nodes[i], adjacent);
+    }
   }
 
   var graphElement = new pl.retained.GraphElement(g, 500, 500);
