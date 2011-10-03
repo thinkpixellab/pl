@@ -18,8 +18,8 @@ pl.retained.Canvas = function(width, height, opt_enableCache) {
 goog.inherits(pl.retained.Canvas, pl.retained.Panel);
 
 /**
- * @param {!goog.math.Coordinate=} opt_value
  * @param {!pl.retained.Element} element
+ * @param {!goog.math.Coordinate=} opt_value
  * @return {!goog.math.Coordinate}
  */
 pl.retained.Canvas.prototype.topLeft = function(element, opt_value) {
@@ -31,8 +31,8 @@ pl.retained.Canvas.prototype.topLeft = function(element, opt_value) {
 };
 
 /**
- * @param {!goog.math.Coordinate=} opt_value
  * @param {!pl.retained.Element} element
+ * @param {!goog.math.Coordinate=} opt_value
  * @return {!goog.math.Coordinate}
  */
 pl.retained.Canvas.prototype.center = function(element, opt_value) {

@@ -55,10 +55,10 @@ pl.SoundEffect.prototype.play = function() {
 };
 
 /**
- @param {!Array.<!Array.<string>>} data
- @param {string} name of the audio being added.
- @return {Element}
-*/
+ * @param {string} name of the audio being added.
+ * @param {!Array.<!Array.<string>>} data
+ * @return {Element}
+ */
 pl.SoundEffect.create = function(name, data) {
   var holder = document.getElementById(pl.SoundEffect.s_audioHolderId);
   if (holder === undefined || holder == null) {
