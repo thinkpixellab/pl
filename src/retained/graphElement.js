@@ -26,7 +26,7 @@ pl.retained.GraphElement = function(graph, width, height, opt_enableCache) {
    * @const
    * @private
    */
-  this._nodeDataProprety = new pl.Property('nodedate');
+  this._nodeDataProprety = new pl.Property('node_data_property');
 
   var box = null;
   goog.iter.forEach(this._graph.getNodes(), function(node) {
