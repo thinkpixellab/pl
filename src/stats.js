@@ -15,10 +15,11 @@ pl.Stats.addGoogleAnalytics = function(account_key) {
  * @param {Array.<Object>|function()} commandArray
  */
 pl.Stats.gaqPush = function(commandArray) {
-  if (window['_gaq'] === undefined) {
-    window['_gaq'] = [];
+  var gaq = goog.object.get(goog.global, '_gaq', null);
+  if (!gaq) {
+      goog.object.add(goog.global, '_gaq', gaq = []);
   }
-  window['_gaq'].push(commandArray);
+  gaq.push(commandArray);
 };
 
 /**
@@ -56,15 +57,15 @@ pl.Stats._addScript = function(script_uri) {
 
   var heads = document.getElementsByTagName('head');
   if (heads.length != 1) {
-    throw Error("Couldn't find a single head tag.");
+      throw Error("Couldn't find a single head tag.");
   }
 
   var head = heads[0];
 
   var headScripts = head.getElementsByTagName('script');
   if (headScripts.length == 0) {
-    goog.dom.appendChild(head, script);
+      goog.dom.appendChild(head, script);
   } else {
-    goog.dom.insertSiblingBefore(script, headScripts[0]);
+      goog.dom.insertSiblingBefore(script, headScripts[0]);
   }
 };
