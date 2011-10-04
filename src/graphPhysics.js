@@ -70,7 +70,7 @@ goog.scope(function() {
    */
   p._updateNode = function(node) {
     // apply drag
-    node.velocity.scale(0.9);
+    node.velocity.scale(p.Inertia);
 
     // apply force
     node.velocity.add(node.force);
@@ -173,4 +173,9 @@ goog.scope(function() {
    */
   p.SignificantMagnitude = 0.01;
 
+  /**
+   * @const
+   * @type {number}
+   */
+  p.Inertia = 0.9;
 });
