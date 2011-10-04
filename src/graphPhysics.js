@@ -1,4 +1,4 @@
-goog.provide('pl.graphPhysics');
+goog.provide('pl.GraphPhysics');
 
 goog.require('goog.math.Box');
 goog.require('goog.math.Size');
@@ -6,56 +6,70 @@ goog.require('goog.math.Vec2');
 goog.require('pl.Graph');
 goog.require('pl.GraphNode');
 
+/**
+ * @constructor
+ * @param {!pl.Graph} graph
+ * @param {!goog.math.Size} stageSize
+ */
+pl.GraphPhysics = function(graph, stageSize) {
+  this._graph = graph;
+  this._stageSize = stageSize;
+  this._nodeDataProprety = new pl.Property('node_data_property');
+
+  var box = null;
+  goog.iter.forEach(graph.getNodes(), function(node) {
+    var d = new pl.GraphNode(node, stageSize.width, stageSize.height);
+    this._nodeDataProprety.set(node, d);
+    box = pl.GraphPhysics._boxIncludeCoordinate(d.position, box);
+  },
+  this);
+
+  this._centerForce = pl.GraphPhysics._centerForceFromBox(box, stageSize);
+  this._version = 0;
+};
+
 goog.scope(function() {
-  var p = pl.graphPhysics;
+  var p = pl.GraphPhysics;
 
   /**
-   * @param {!pl.Graph} graph
-   * @param {!function(*,!pl.GraphNode)} setter
-   * @param {!goog.math.Size} stageSize
-   * @return {!goog.math.Vec2}
+   * @param {!Object} node
+   * @return {!pl.GraphNode}
    */
-  p.initializeGraph = function(graph, setter, stageSize) {
-    var box = null;
-    goog.iter.forEach(graph.getNodes(), function(node) {
-      var d = new pl.GraphNode(node, stageSize.width, stageSize.height);
-      setter(node, d);
-      box = p._boxIncludeCoordinate(d.position, box);
-    });
-
-    return p._centerForceFromBox(box, stageSize);
+  p.prototype.getData = function(node) {
+    return this._nodeDataProprety.get(node);
   };
 
   /**
-   * @param {!pl.Graph} graph
-   * @param {!goog.math.Vec2} centerForce
-   * @param {number} version
-   * @param {!function(*):!pl.GraphNode} mapper
-   * @param {!goog.math.Size} stageSize
    * @return {boolean}
    */
-  p.calculateGraph = function(graph, centerForce, version, mapper, stageSize) {
+  p.prototype.calculateGraph = function() {
+    this._version++;
+
     // go over every pair of nodes and calculate the pair forces
-    goog.iter.forEach(graph.getPairs(), function(pair) {
-      p._calculateForces(graph, mapper(pair[0]), mapper(pair[1]), version);
-    });
+    goog.iter.forEach(this._graph.getPairs(), function(pair) {
+      var d1 = this.getData(pair[0]);
+      var d2 = this.getData(pair[1]);
+      this._calculateForces(d1, d2);
+    },
+    this);
 
     var updated = false;
 
     var box = null;
     // now go every node and do the velocity and location math
-    goog.iter.forEach(graph.getNodes(), function(node) {
-      var d = mapper(node);
-      d.force.add(centerForce);
+    goog.iter.forEach(this._graph.getNodes(), function(node) {
+      var d = this.getData(node);
+      d.force.add(this._centerForce);
       updated = p._updateNode(d) || updated;
       box = p._boxIncludeCoordinate(d.position, box);
-    });
+    },
+    this);
 
-    var newForce = p._centerForceFromBox(box, stageSize);
-    pl.ex.setVec(centerForce, newForce.x, newForce.y);
+    var newForce = p._centerForceFromBox(box, this._stageSize);
+    pl.ex.setVec(this._centerForce, newForce.x, newForce.y);
 
-    if (centerForce.magnitude() < p.SignificantMagnitude) {
-      pl.ex.clearVec(centerForce);
+    if (this._centerForce.magnitude() < p.SignificantMagnitude) {
+      pl.ex.clearVec(this._centerForce);
     } else {
       updated = true;
     }
@@ -95,14 +109,12 @@ goog.scope(function() {
 
   /**
    * @private
-   * @param {!pl.Graph} graph
    * @param {!pl.GraphNode} d1
    * @param {!pl.GraphNode} d2
-   * @param {number} version
    */
-  p._calculateForces = function(graph, d1, d2, version) {
-    d1.ensureVersion(version);
-    d2.ensureVersion(version);
+  p.prototype._calculateForces = function(d1, d2) {
+    d1.ensureVersion(this._version);
+    d2.ensureVersion(this._version);
 
     // f will be the force between node1 and node2
     // it will be the force applied to node1
@@ -121,7 +133,7 @@ goog.scope(function() {
     f.add(delta.clone().invert().normalize().scale(100 / (dmag * dmag)));
 
     // connected attraction
-    if (graph.containsEdge(d1.node, d2.node)) {
+    if (this._graph.containsEdge(d1.node, d2.node)) {
       f.add(delta.clone().scale(dmag / 500));
     }
 

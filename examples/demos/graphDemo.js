@@ -20,7 +20,7 @@ demos.GraphDemo = function(canvas) {
 goog.inherits(demos.GraphDemo, demos.Demo);
 
 
-demos.GraphDemo._createGraph = function(){
+demos.GraphDemo._createGraph = function() {
   var g = new pl.Graph();
 
   for (var j = 0; j < 5; j++) {
