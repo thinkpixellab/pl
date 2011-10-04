@@ -8,13 +8,30 @@ goog.require('pl.GraphNode');
 
 /**
  * @param {!pl.Graph} graph
+ * @param {!function(*,!pl.GraphNode)} setter
+ * @param {!goog.math.Size} stageSize
+ * @return {!goog.math.Vec2}
+ */
+pl.graphPhysics.initializeGraph = function(graph, setter, stageSize) {
+  var box = null;
+  goog.iter.forEach(graph.getNodes(), function(node) {
+    var d = new pl.GraphNode(node, stageSize.width, stageSize.height);
+    setter(node, d);
+    box = pl.graphPhysics._boxIncludeCoordinate(d.position, box);
+  });
+
+  return pl.graphPhysics._centerForceFromBox(box, stageSize);
+};
+
+/**
+ * @param {!pl.Graph} graph
  * @param {!goog.math.Vec2} centerForce
  * @param {number} version
  * @param {!function(*):!pl.GraphNode} mapper
  * @param {!goog.math.Size} stageSize
  * @return {boolean}
  */
-pl.graphPhysics.CalculateGraph = function(graph, centerForce, version, mapper, stageSize) {
+pl.graphPhysics.calculateGraph = function(graph, centerForce, version, mapper, stageSize) {
   // go over every pair of nodes and calculate the pair forces
   goog.iter.forEach(graph.getPairs(), function(pair) {
     pl.graphPhysics._calculateForces(graph, mapper(pair[0]), mapper(pair[1]), version);
@@ -28,10 +45,10 @@ pl.graphPhysics.CalculateGraph = function(graph, centerForce, version, mapper, s
     var d = mapper(node);
     d.force.add(centerForce);
     updated = pl.graphPhysics._updateNode(d) || updated;
-    box = pl.graphPhysics.BoxIncludeCoordinate(d.position, box);
+    box = pl.graphPhysics._boxIncludeCoordinate(d.position, box);
   });
 
-  var newForce = pl.graphPhysics.CenterForceFromBox(box, stageSize);
+  var newForce = pl.graphPhysics._centerForceFromBox(box, stageSize);
   pl.ex.setVec(centerForce, newForce.x, newForce.y);
 
   if (centerForce.magnitude() < pl.graphPhysics.SignificantMagnitude) {
@@ -110,11 +127,12 @@ pl.graphPhysics._calculateForces = function(graph, d1, d2, version) {
 };
 
 /**
+ * @private
  * @param {goog.math.Box} box
  * @param {!goog.math.Size} otherSize
  * @return {!goog.math.Vec2}
  */
-pl.graphPhysics.CenterForceFromBox = function(box, otherSize) {
+pl.graphPhysics._centerForceFromBox = function(box, otherSize) {
   if (box) {
     var myCenter = new goog.math.Vec2(otherSize.width / 2, otherSize.height / 2);
     var boxCenter = new goog.math.Vec2((box.left + box.right) / 2, (box.top + box.bottom) / 2);
@@ -125,11 +143,12 @@ pl.graphPhysics.CenterForceFromBox = function(box, otherSize) {
 };
 
 /**
+ * @private
  * @param {!goog.math.Coordinate} coordinate
  * @param {goog.math.Box} box
  * @return {!goog.math.Box}
  */
-pl.graphPhysics.BoxIncludeCoordinate = function(coordinate, box) {
+pl.graphPhysics._boxIncludeCoordinate = function(coordinate, box) {
   var b = new goog.math.Box(coordinate.y, coordinate.x, coordinate.y, coordinate.x);
   if (!box) {
     box = b;

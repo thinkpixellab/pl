@@ -28,15 +28,9 @@ pl.retained.GraphElement = function(graph, width, height, opt_enableCache) {
    */
   this._nodeDataProprety = new pl.Property('node_data_property');
 
-  var box = null;
-  goog.iter.forEach(this._graph.getNodes(), function(node) {
-    var d = new pl.GraphNode(node, width, height);
-    this._nodeDataProprety.set(node, d);
-    box = pl.graphPhysics.BoxIncludeCoordinate(d.position, box);
-  },
-  this);
+  var setter = goog.bind(pl.Property.prototype.set, this._nodeDataProprety);
 
-  this._centerForce = pl.graphPhysics.CenterForceFromBox(box, this.getSize());
+  this._centerForce = pl.graphPhysics.initializeGraph(this._graph, setter, this.getSize());
 
   /**
    * @private
@@ -57,7 +51,7 @@ pl.retained.GraphElement.prototype.update = function() {
 
   var mapper = goog.bind(pl.Property.prototype.get, this._nodeDataProprety);
 
-  var updated = pl.graphPhysics.CalculateGraph(this._graph, this._centerForce, this._version, mapper, this.getSize());
+  var updated = pl.graphPhysics.calculateGraph(this._graph, this._centerForce, this._version, mapper, this.getSize());
 
   if (updated) {
     this.invalidateDraw();
