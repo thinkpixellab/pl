@@ -5,7 +5,7 @@ goog.require('goog.graphics.AffineTransform');
 goog.require('goog.math.Size');
 
 /**
- * @param {CanvasRenderingContext2D} ctx
+ * @param {!CanvasRenderingContext2D} ctx
  * @param {number} x
  * @param {number} y
  * @param {number} radius
@@ -27,8 +27,8 @@ pl.gfx.fillCircle = function(ctx, x, y, radius, fill) {
 // Created by: http://stackoverflow.com/users/791890/jeffchan
 // Copied from: http://jsfiddle.net/jeffchan/WHgaY/76/
 /**
- * @param {CanvasRenderingContext2D} ctx
- * @param {string} text
+ * @param {!CanvasRenderingContext2D} ctx
+ * @param {!string} text
  * @param {number} x
  * @param {number} y
  * @param {number} lineHeight
@@ -225,4 +225,34 @@ pl.gfx.getOffsetVector = function(parentSize, childSize, horizontalAlignment, ve
   }
 
   return offset;
+};
+
+/**
+ * @param {!CanvasRenderingContext2D} ctx
+ * @param {!goog.math.Coordinate} p1
+ * @param {!goog.math.Coordinate} p2
+ */
+pl.gfx.lineish = function(ctx, p1, p2) {
+  var distance = goog.math.Coordinate.distance(p1, p2);
+  var r = 6;
+
+  var points = [];
+  points.push(new goog.math.Coordinate(p1.x, p1.y - r));
+  points.push(new goog.math.Coordinate(p1.x + distance, p1.y - r / 2));
+  points.push(new goog.math.Coordinate(p1.x + distance, p1.y + r / 2));
+  points.push(new goog.math.Coordinate(p1.x, p1.y + r));
+
+  var ad = goog.math.angle(p1.x, p1.y, p2.x, p2.y);
+  var ar = goog.math.toRadians(ad);
+  var tx = goog.graphics.AffineTransform.getRotateInstance(ar, p1.x, p1.y);
+
+  pl.ex.transformCoordinates(tx, points);
+
+  ctx.beginPath();
+  ctx.moveTo(points[0].x, points[0].y);
+  for (var i = 1; i < points.length; i++) {
+    ctx.lineTo(points[i].x, points[i].y);
+  }
+  ctx.closePath();
+  ctx.fill();
 };
