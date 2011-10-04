@@ -64,24 +64,24 @@ pl.retained.GraphElement.prototype.update = function() {
  * @param {!CanvasRenderingContext2D} ctx
  **/
 pl.retained.GraphElement.prototype.drawOverride = function(ctx) {
-  ctx.save();
-  ctx.strokeStyle = 'red';
-  ctx.lineWidth = 2;
+  ctx.fillStyle = '#222';
+  ctx.shadowColor = 'black';
+  ctx.shadowBlur = 1;
 
-  ctx.beginPath();
   goog.iter.forEach(this._graph.getEdges(), function(pair) {
     var c1 = this._nodeDataProprety.get(pair[0]).position;
     var c2 = this._nodeDataProprety.get(pair[1]).position;
-    ctx.moveTo(c1.x, c1.y);
-    ctx.lineTo(c2.x, c2.y);
+    pl.gfx.lineish(ctx, c2, c1);
   },
   this);
-  ctx.stroke();
-  ctx.restore();
 
+  ctx.font = '11px Helvetica, Arial, sans-serif';
+  ctx.textAlign = 'center';
   goog.iter.forEach(this._graph.getNodes(), function(node) {
     var p = this._nodeDataProprety.get(node).position;
-    pl.gfx.fillCircle(ctx, p.x, p.y, 5, 'white');
+    pl.gfx.fillCircle(ctx, p.x, p.y, 10, '#333');
+    ctx.fillStyle = 'white';
+    ctx.fillText(String(node), p.x, p.y + 3);
   },
   this);
 };
