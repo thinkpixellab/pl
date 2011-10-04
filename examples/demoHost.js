@@ -99,13 +99,14 @@ DemoHost.prototype._navigate = function(e) {
  * @param {function(new:demos.Demo, !HTMLCanvasElement)} demoCtr
  */
 DemoHost.prototype._loadDemo = function(demoCtr) {
+  var oldCanvas = document.getElementById('content');
   var newCanvas = /** @type {!HTMLCanvasElement} */ (goog.dom.createDom('canvas', {
     'id': 'content',
-    'width': 800,
-    'height': 600
+    'width': oldCanvas.width,
+    'height': oldCanvas.height
   }));
   goog.style.setStyle(newCanvas, 'background', 'black');
-  goog.dom.replaceNode(newCanvas, document.getElementById('content'));
+  goog.dom.replaceNode(newCanvas, oldCanvas);
 
   if (this._demo) {
     this._demo.dispose();
