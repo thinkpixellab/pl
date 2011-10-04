@@ -13,14 +13,14 @@ goog.require('pl.retained.TileLayer');
 demos.TileDemo = function(canvas) {
   var image = DemoHost.images.get('stars');
 
-  var container = new pl.retained.Panel(500, 500);
+  var container = new pl.retained.Panel(canvas.width, canvas.height);
 
   this._tiles = [];
 
   var size = new goog.math.Size(image.width, image.height);
   for (var i = 0; i < 3; i++) {
     var tileSize = size.clone().scale(Math.pow(2, -i));
-    var t = new pl.retained.TileLayer(500, 500, image, tileSize);
+    var t = new pl.retained.TileLayer(canvas.width, canvas.height, image, tileSize);
     this._tiles.push(t);
     container.addElement(t);
   }

@@ -29,7 +29,7 @@ demos.GraphDemo = function(canvas) {
     }
   }
 
-  var graphElement = new pl.retained.GraphElement(g, 500, 500);
+  var graphElement = new pl.retained.GraphElement(g, canvas.width, canvas.height);
 
   goog.base(this, canvas, graphElement);
 };

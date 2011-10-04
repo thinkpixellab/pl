@@ -19,7 +19,7 @@ demos.RotateTextDemo = function(canvas) {
 
   goog.base(this, canvas, container);
 
-  container.addTransform().translate(50, 50);
+  container.addTransform().translate((canvas.width - container.width) / 2, (canvas.height - container.height) / 2);
 
   this._tx = container.addTransform();
 };

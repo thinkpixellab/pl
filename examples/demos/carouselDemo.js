@@ -20,7 +20,7 @@ demos.CarouselDemo = function(canvas) {
   goog.events.listen(canvas, goog.events.EventType.MOUSEOUT, this._onMouseOut, false, this);
   goog.events.listen(canvas, goog.events.EventType.MOUSEMOVE, this._onMouseMove, false, this);
 
-  var container = new pl.retained.CarouselContainer(500, 500);
+  var container = new pl.retained.CarouselContainer(canvas.width, canvas.height);
   container.radius(new goog.math.Size(190, 40));
 
   for (var i = 0; i < 4; i++) {
