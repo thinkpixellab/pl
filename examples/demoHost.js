@@ -101,8 +101,8 @@ DemoHost.prototype._navigate = function(e) {
 DemoHost.prototype._loadDemo = function(demoCtr) {
   var newCanvas = /** @type {!HTMLCanvasElement} */ (goog.dom.createDom('canvas', {
     'id': 'content',
-    'width': 500,
-    'height': 500
+    'width': 800,
+    'height': 600
   }));
   goog.style.setStyle(newCanvas, 'background', 'black');
   goog.dom.replaceNode(newCanvas, document.getElementById('content'));
