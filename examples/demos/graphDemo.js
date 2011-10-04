@@ -12,6 +12,22 @@ goog.require('pl.retained.GraphElement');
  * @extends {demos.Demo}
  */
 demos.GraphDemo = function(canvas) {
+  var g = demos.GraphDemo._createGraph();
+  var graphElement = new pl.retained.GraphElement(g, canvas.width, canvas.height);
+
+  goog.base(this, canvas, graphElement);
+};
+goog.inherits(demos.GraphDemo, demos.Demo);
+
+/**
+ * @override
+ */
+demos.GraphDemo.prototype.frame = function() {
+  //console.log('tick');
+  return goog.base(this, 'frame');
+};
+
+demos.GraphDemo._createGraph = function(){
   var g = new pl.Graph();
 
   for (var j = 0; j < 5; j++) {
@@ -28,19 +44,7 @@ demos.GraphDemo = function(canvas) {
       g.addNode(nodes[i], adjacent);
     }
   }
-
-  var graphElement = new pl.retained.GraphElement(g, canvas.width, canvas.height);
-
-  goog.base(this, canvas, graphElement);
-};
-goog.inherits(demos.GraphDemo, demos.Demo);
-
-/**
- * @override
- */
-demos.GraphDemo.prototype.frame = function() {
-  //console.log('tick');
-  return goog.base(this, 'frame');
+  return g;
 };
 
 /**
