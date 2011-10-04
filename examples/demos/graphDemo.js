@@ -19,13 +19,6 @@ demos.GraphDemo = function(canvas) {
 };
 goog.inherits(demos.GraphDemo, demos.Demo);
 
-/**
- * @override
- */
-demos.GraphDemo.prototype.frame = function() {
-  //console.log('tick');
-  return goog.base(this, 'frame');
-};
 
 demos.GraphDemo._createGraph = function(){
   var g = new pl.Graph();
