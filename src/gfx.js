@@ -21,6 +21,35 @@ pl.gfx.fillCircle = function(ctx, x, y, radius, fill) {
   ctx.restore();
 };
 
+/**
+ * @param {!CanvasRenderingContext2D} ctx
+ * @param {number} x
+ * @param {number} y
+ * @param {number} width
+ * @param {number} height
+ */
+pl.gfx.ellipse = function(ctx, x, y, width, height) {
+  var hB = (width / 2) * pl.gfx.kappa,
+    vB = (height / 2) * pl.gfx.kappa,
+    eX = x + width,
+    eY = y + height,
+    mX = x + width / 2,
+    mY = y + height / 2;
+  ctx.beginPath();
+  ctx.moveTo(x, mY);
+  ctx.bezierCurveTo(x, mY - vB, mX - hB, y, mX, y);
+  ctx.bezierCurveTo(mX + hB, y, eX, mY - vB, eX, mY);
+  ctx.bezierCurveTo(eX, mY + vB, mX + hB, eY, mX, eY);
+  ctx.bezierCurveTo(mX - hB, eY, x, mY + vB, x, mY);
+  ctx.closePath();
+};
+
+/**
+ * @const
+ * @type {number}
+ */
+pl.gfx.kappa = 0.5522848; // 4 * ((√(2) - 1) / 3);
+
 // 2011-08-17
 // Discovered here: http://stackoverflow.com/questions/4478742/html5-canvas-can-i-somehow-use-linefeeds-in-filltext
 // Inspired by: http://stackoverflow.com/users/128165/gaby-aka-g-petrioli
