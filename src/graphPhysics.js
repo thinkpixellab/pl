@@ -95,16 +95,16 @@ goog.scope(function() {
     //
     // Mild, constant attraction
     //
-    var f = delta.clone().normalize().scale(0.005);
+    var f = delta.clone().normalize().scale(p.GlobalAttraction);
 
     //
     // global repulsion 1/(d^2)
     //
-    f.add(delta.clone().invert().normalize().scale(100 / (dmag * dmag)));
+    f.add(delta.clone().invert().normalize().scale(p.RepulsionFactor / (dmag * dmag)));
 
     // connected attraction
     if (this._graph.containsEdge(d1.node, d2.node)) {
-      f.add(delta.clone().scale(dmag / 500));
+      f.add(delta.clone().scale(dmag / p.ConnectionAttraction));
     }
 
     d1.force.add(f);
@@ -190,4 +190,22 @@ goog.scope(function() {
    * @type {number}
    */
   p.Inertia = 0.9;
+
+  /**
+   * @const
+   * @type {number}
+   */
+  p.GlobalAttraction = 0.005;
+
+  /**
+   * @const
+   * @type {number}
+   */
+  p.RepulsionFactor = 100;
+
+  /**
+   * @const
+   * @type {number}
+   */
+  p.ConnectionAttraction = 500;
 });
