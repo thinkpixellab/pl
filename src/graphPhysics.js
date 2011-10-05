@@ -79,36 +79,6 @@ goog.scope(function() {
 
   /**
    * @private
-   * @param {!pl.GraphNode} node
-   * @return {boolean}
-   */
-  p._updateNode = function(node) {
-    // apply drag
-    node.velocity.scale(p.Inertia);
-
-    // apply force
-    node.velocity.add(node.force);
-
-    var velocityMag = node.velocity.magnitude();
-
-    // terminal velocity
-    if (velocityMag > p.TerminalVelocity) {
-      node.velocity.scale(p.TerminalVelocity / velocityMag);
-      velocityMag = p.TerminalVelocity;
-    }
-
-    if (velocityMag < p.SignificantMagnitude && node.force.magnitude() < p.SignificantMagnitude) {
-      pl.ex.clearVec(node.velocity);
-      pl.ex.clearVec(node.force);
-      return false;
-    } else {
-      node.position = goog.math.Coordinate.sum(node.position, node.velocity);
-      return true;
-    }
-  };
-
-  /**
-   * @private
    * @param {!pl.GraphNode} d1
    * @param {!pl.GraphNode} d2
    */
@@ -139,6 +109,36 @@ goog.scope(function() {
 
     d1.force.add(f);
     d2.force.subtract(f);
+  };
+
+  /**
+   * @private
+   * @param {!pl.GraphNode} node
+   * @return {boolean}
+   */
+  p._updateNode = function(node) {
+    // apply drag
+    node.velocity.scale(p.Inertia);
+
+    // apply force
+    node.velocity.add(node.force);
+
+    var velocityMag = node.velocity.magnitude();
+
+    // terminal velocity
+    if (velocityMag > p.TerminalVelocity) {
+      node.velocity.scale(p.TerminalVelocity / velocityMag);
+      velocityMag = p.TerminalVelocity;
+    }
+
+    if (velocityMag < p.SignificantMagnitude && node.force.magnitude() < p.SignificantMagnitude) {
+      pl.ex.clearVec(node.velocity);
+      pl.ex.clearVec(node.force);
+      return false;
+    } else {
+      node.position = goog.math.Coordinate.sum(node.position, node.velocity);
+      return true;
+    }
   };
 
   /**
