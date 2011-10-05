@@ -64,3 +64,17 @@ pl.retained.GraphElement.prototype.drawOverride = function(ctx) {
   },
   this);
 };
+
+pl.retained.GraphElement.prototype.createElement = function(data) {
+  var canvas = new pl.retained.Canvas(20, 20, true);
+
+  var shape = new pl.retained.Shape(20, 20);
+  shape.fillStyle = 'gray';
+  canvas.addElement(shape);
+
+  var text = new pl.retained.Text(String(data), 20, 20);
+  text.isCentered = true;
+  canvas.addElement(text);
+
+  return canvas;
+};
