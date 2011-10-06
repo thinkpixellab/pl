@@ -135,7 +135,7 @@ pl.retained.Panel.prototype.drawOverride = function(ctx) {
  * @param {!pl.retained.Element} child
  */
 pl.retained.Panel.prototype.childInvalidated = function(child) {
-  goog.asserts.assert(this.hasVisualChild(child), 'Must be the containers child');
+  goog.asserts.assert(this.hasVisualChild(child), "Must be the container's child");
   this.invalidateDraw();
 };
 
