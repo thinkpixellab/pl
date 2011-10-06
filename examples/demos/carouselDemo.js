@@ -9,7 +9,6 @@ goog.require('pl.retained.Stage');
 goog.require('pl.retained.Text');
 goog.require('pl.retained.helper');
 
-
 /**
  * @constructor
  * @extends {demos.Demo}
@@ -24,9 +23,9 @@ demos.CarouselDemo = function(canvas) {
   container.radius(new goog.math.Size(190, 40));
 
   for (var i = 0; i < 4; i++) {
-  var img = DemoHost.images.get('pixellab_transparent');
-  var image = new pl.retained.Image(img, img.width, img.height);
-  container.middleElement(image);
+    var img = DemoHost.images.get('pixellab_transparent');
+    var image = new pl.retained.Image(img, img.width, img.height);
+    container.middleElement(image);
 
     var text = new pl.retained.Text(String(i + 1), 150, 30);
     text.fillStyle = i % 2 ? '#BBB' : '#DDD';
