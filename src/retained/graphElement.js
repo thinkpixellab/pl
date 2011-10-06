@@ -82,18 +82,6 @@ pl.retained.GraphElement.prototype.drawOverride = function(ctx) {
     var element = this.getVisualChild(i);
     element.drawInternal(ctx);
   }
-
-/*
-  ctx.font = '11px Helvetica, Arial, sans-serif';
-  ctx.textAlign = 'center';
-  goog.iter.forEach(this._graph.getNodes(), function(node) {
-    var p = this._physics.getPoint(node).position;
-    pl.gfx.fillCircle(ctx, p.x, p.y, 10, '#333');
-    ctx.fillStyle = 'white';
-    ctx.fillText(String(node), p.x, p.y + 3);
-  },
-  this);
-*/
 };
 
 /**
