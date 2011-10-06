@@ -4,7 +4,7 @@ goog.require('goog.math.Box');
 goog.require('goog.math.Size');
 goog.require('goog.math.Vec2');
 goog.require('pl.Graph');
-goog.require('pl.GraphNode');
+goog.require('pl.GraphPoint');
 
 /**
  * @constructor
@@ -18,7 +18,7 @@ pl.GraphPhysics = function(graph, stageSize) {
 
   var box = null;
   goog.iter.forEach(graph.getNodes(), function(node) {
-    var d = new pl.GraphNode(node, stageSize.width, stageSize.height);
+    var d = new pl.GraphPoint(node, stageSize.width, stageSize.height);
     this._nodeDataProprety.set(node, d);
     box = pl.GraphPhysics._boxIncludeCoordinate(d.position, box);
   },
@@ -33,9 +33,9 @@ goog.scope(function() {
 
   /**
    * @param {!Object} node
-   * @return {!pl.GraphNode}
+   * @return {!pl.GraphPoint}
    */
-  p.prototype.getData = function(node) {
+  p.prototype.getPoint = function(node) {
     return this._nodeDataProprety.get(node);
   };
 
@@ -47,8 +47,8 @@ goog.scope(function() {
 
     // go over every pair of nodes and calculate the pair forces
     goog.iter.forEach(this._graph.getPairs(), function(pair) {
-      var d1 = this.getData(pair[0]);
-      var d2 = this.getData(pair[1]);
+      var d1 = this.getPoint(pair[0]);
+      var d2 = this.getPoint(pair[1]);
       this._calculateForces(d1, d2);
     },
     this);
@@ -58,7 +58,7 @@ goog.scope(function() {
     var box = null;
     // now go every node and do the velocity and location math
     goog.iter.forEach(this._graph.getNodes(), function(node) {
-      var d = this.getData(node);
+      var d = this.getPoint(node);
       d.force.add(this._centerForce);
       updated = p._updateNode(d) || updated;
       box = p._boxIncludeCoordinate(d.position, box);
@@ -79,8 +79,8 @@ goog.scope(function() {
 
   /**
    * @private
-   * @param {!pl.GraphNode} d1
-   * @param {!pl.GraphNode} d2
+   * @param {!pl.GraphPoint} d1
+   * @param {!pl.GraphPoint} d2
    */
   p.prototype._calculateForces = function(d1, d2) {
     d1.ensureVersion(this._version);
@@ -113,7 +113,7 @@ goog.scope(function() {
 
   /**
    * @private
-   * @param {!pl.GraphNode} node
+   * @param {!pl.GraphPoint} node
    * @return {boolean}
    */
   p._updateNode = function(node) {

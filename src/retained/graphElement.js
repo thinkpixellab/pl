@@ -3,8 +3,8 @@ goog.provide('pl.retained.GraphElement');
 goog.require('goog.array');
 goog.require('goog.asserts');
 goog.require('goog.math.Vec2');
-goog.require('pl.GraphNode');
 goog.require('pl.GraphPhysics');
+goog.require('pl.GraphPoint');
 goog.require('pl.Property');
 goog.require('pl.retained.Element');
 goog.require('pl.retained.Shape');
@@ -52,7 +52,7 @@ pl.retained.GraphElement.prototype.update = function() {
       var element = this.getVisualChild(i);
       var aa = pl.retained.GraphElement._nodeProperty.get(element);
       var data = aa[0];
-      var node = this._physics.getData(data);
+      var node = this._physics.getPoint(data);
       var tx = aa[1];
 
       tx.setToTranslation(node.position.x, node.position.y);
@@ -72,8 +72,8 @@ pl.retained.GraphElement.prototype.drawOverride = function(ctx) {
   ctx.shadowBlur = 1;
 
   goog.iter.forEach(this._graph.getEdges(), function(pair) {
-    var c1 = this._physics.getData(pair[0]).position;
-    var c2 = this._physics.getData(pair[1]).position;
+    var c1 = this._physics.getPoint(pair[0]).position;
+    var c2 = this._physics.getPoint(pair[1]).position;
     pl.gfx.lineish(ctx, c2, c1);
   },
   this);
@@ -88,7 +88,7 @@ pl.retained.GraphElement.prototype.drawOverride = function(ctx) {
   ctx.font = '11px Helvetica, Arial, sans-serif';
   ctx.textAlign = 'center';
   goog.iter.forEach(this._graph.getNodes(), function(node) {
-    var p = this._physics.getData(node).position;
+    var p = this._physics.getPoint(node).position;
     pl.gfx.fillCircle(ctx, p.x, p.y, 10, '#333');
     ctx.fillStyle = 'white';
     ctx.fillText(String(node), p.x, p.y + 3);
