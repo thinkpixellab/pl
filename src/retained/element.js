@@ -30,7 +30,7 @@ pl.retained.Element = function(width, height, opt_enableCache) {
    */
   this.cacheEnabled = !!opt_enableCache;
   if (opt_enableCache) {
-    this._drawInternal = pl.retained.Element.prototype._drawCached;
+    this.drawInternal = pl.retained.Element.prototype._drawCached;
   }
 };
 goog.inherits(pl.retained.Element, goog.events.EventTarget);
@@ -179,7 +179,7 @@ pl.retained.Element.prototype.disown = function(parent) {
 pl.retained.Element.prototype.draw = function(ctx) {
   this.update();
   var dirty = Boolean(!this._lastDrawSize);
-  this._drawInternal(ctx);
+  this.drawInternal(ctx);
   return dirty;
 };
 
@@ -281,10 +281,10 @@ pl.retained.Element.prototype._drawNormal = function(ctx) {
 };
 
 /**
- * @private
+ * @protected
  * @param {!CanvasRenderingContext2D} ctx
  **/
-pl.retained.Element.prototype._drawInternal = pl.retained.Element.prototype._drawNormal;
+pl.retained.Element.prototype.drawInternal = pl.retained.Element.prototype._drawNormal;
 
 /**
  * @private

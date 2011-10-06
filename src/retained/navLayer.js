@@ -187,7 +187,7 @@ pl.retained.NavLayer.prototype.drawOverride = function(ctx) {
   var length = this.getVisualChildCount();
   for (var i = 0; i < length; i++) {
     var element = this.getVisualChild(i);
-    element._drawInternal(ctx);
+    element.drawInternal(ctx);
   }
 };
 
