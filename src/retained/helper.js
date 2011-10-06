@@ -134,19 +134,8 @@ pl.retained.helper.transformPointGlobalToLocal = function(element, point) {
  */
 pl.retained.helper.getBounds = function(element) {
   var corners = pl.retained.helper.getCorners(element);
-  var left = corners[0].x;
-  var right = corners[0].x;
-  var top = corners[0].y;
-  var bottom = corners[0].y;
-
-  for (var i = 1; i < corners.length; i++) {
-    left = Math.min(left, corners[i].x);
-    right = Math.max(right, corners[i].x);
-    top = Math.min(top, corners[i].y);
-    bottom = Math.max(bottom, corners[i].y);
-  }
-
-  return new goog.math.Rect(left, top, right - left, bottom - top);
+  var box = goog.math.Box.boundingBox.apply(null, corners);
+  return goog.math.Rect.createFromBox(box);
 };
 
 /**
