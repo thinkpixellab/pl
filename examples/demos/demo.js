@@ -14,6 +14,7 @@ goog.require('pl.retained.Stage');
  */
 demos.Demo = function(canvas, rootElement) {
   goog.base(this);
+  this._canvas = canvas;
 
   /**
    * @private
@@ -34,6 +35,14 @@ goog.inherits(demos.Demo, goog.events.EventTarget);
  */
 demos.Demo.prototype.getStage = function() {
   return this._stage;
+};
+
+/**
+ * @protected
+ * @return {!HTMLCanvasElement}
+ */
+demos.Demo.prototype.getCanvas = function() {
+  return this._canvas;
 };
 
 /**
