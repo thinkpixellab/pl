@@ -115,6 +115,13 @@ pl.retained.Element.prototype.setSize = function(size) {
 };
 
 /**
+ * @return {!goog.math.Rect}
+ */
+pl.retained.Element.prototype.getRect = function() {
+  return new goog.math.Rect(0, 0, this.width, this.height);
+};
+
+/**
  * Ensures this element is drawn the next pass
  * passes invalidation up the parent path
  */
@@ -212,7 +219,7 @@ pl.retained.Element.prototype.transformToAncestor = function(ancestor) {
  */
 pl.retained.Element.prototype.boundsToAncestor = function(ancestor) {
   var tx = this.transformToAncestor(ancestor);
-  var myRect = new goog.math.Rect(0, 0, this.width, this.height);
+  var myRect = this.getRect();
   var myPoints = pl.ex.getPoints(myRect);
   pl.ex.transformCoordinates(tx, myPoints);
   var box = goog.math.Box.boundingBox.apply(this, myPoints);
@@ -323,7 +330,7 @@ pl.retained.Element.prototype._drawCached = function(ctx) {
 
 pl.retained.Element.prototype._isClipped = function(tx, ctx) {
   if (this.clip) {
-    var myRect = new goog.math.Rect(0, 0, this.width, this.height);
+    var myRect = this.getRect();
     var myPoints = pl.ex.getPoints(myRect);
     pl.ex.transformCoordinates(tx, myPoints);
     var box = goog.math.Box.boundingBox.apply(null, myPoints);

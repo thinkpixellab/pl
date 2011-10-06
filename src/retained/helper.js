@@ -154,8 +154,8 @@ pl.retained.helper.getBounds = function(element) {
  * @return {!Array.<!goog.math.Coordinate>}
  */
 pl.retained.helper.getCorners = function(element) {
-  var points = [new goog.math.Coordinate(0, 0), new goog.math.Coordinate(element.width, 0), new goog.math.Coordinate(element.width, element.height), new goog.math.Coordinate(0, element.height)];
-
+  var rect = element.getRect();
+  var points = pl.ex.getPoints(rect);
   return goog.array.map(points, function(p) {
     return pl.retained.helper.transformPointLocalToGlobal(element, p);
   });
