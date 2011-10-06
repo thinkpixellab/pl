@@ -1,6 +1,6 @@
 goog.provide('demos.CarouselDemo');
 
-goog.require('demos.Demo');
+goog.require('demos.DemoBase');
 goog.require('goog.events');
 goog.require('goog.events.EventType');
 goog.require('pl.retained.Animation');
@@ -11,7 +11,7 @@ goog.require('pl.retained.helper');
 
 /**
  * @constructor
- * @extends {demos.Demo}
+ * @extends {demos.DemoBase}
  */
 demos.CarouselDemo = function(canvas) {
   this._mouse = null;
@@ -41,7 +41,7 @@ demos.CarouselDemo = function(canvas) {
     element.angle(i * Math.PI * 2 / frameCount);
   });
 };
-goog.inherits(demos.CarouselDemo, demos.Demo);
+goog.inherits(demos.CarouselDemo, demos.DemoBase);
 
 /**
  * @override

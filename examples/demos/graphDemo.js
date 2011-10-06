@@ -1,7 +1,7 @@
 goog.provide('demos.GraphDemo');
 goog.provide('demos.GraphDemo.Node');
 
-goog.require('demos.Demo');
+goog.require('demos.DemoBase');
 goog.require('goog.math.Vec2');
 goog.require('pl.Graph');
 goog.require('pl.gfx');
@@ -9,7 +9,7 @@ goog.require('pl.retained.GraphElement');
 
 /**
  * @constructor
- * @extends {demos.Demo}
+ * @extends {demos.DemoBase}
  */
 demos.GraphDemo = function(canvas) {
   var g = demos.GraphDemo._createGraph();
@@ -20,7 +20,7 @@ demos.GraphDemo = function(canvas) {
 
   goog.base(this, canvas, graphElement);
 };
-goog.inherits(demos.GraphDemo, demos.Demo);
+goog.inherits(demos.GraphDemo, demos.DemoBase);
 
 /**
  * @override

@@ -1,4 +1,4 @@
-goog.provide('demos.Demo');
+goog.provide('demos.DemoBase');
 
 goog.require('goog.array');
 goog.require('goog.asserts');
@@ -12,7 +12,7 @@ goog.require('pl.retained.Stage');
  * @param {!HTMLCanvasElement} canvas
  * @param {!pl.retained.Element} rootElement
  */
-demos.Demo = function(canvas, rootElement) {
+demos.DemoBase = function(canvas, rootElement) {
   goog.base(this);
   this._canvas = canvas;
 
@@ -27,13 +27,13 @@ demos.Demo = function(canvas, rootElement) {
   },
   false, this);
 };
-goog.inherits(demos.Demo, goog.events.EventTarget);
+goog.inherits(demos.DemoBase, goog.events.EventTarget);
 
 /**
  * @protected
  * @return {!pl.retained.Stage}
  */
-demos.Demo.prototype.getStage = function() {
+demos.DemoBase.prototype.getStage = function() {
   return this._stage;
 };
 
@@ -41,13 +41,13 @@ demos.Demo.prototype.getStage = function() {
  * @protected
  * @return {!HTMLCanvasElement}
  */
-demos.Demo.prototype.getCanvas = function() {
+demos.DemoBase.prototype.getCanvas = function() {
   return this._canvas;
 };
 
 /**
  * @return {boolean}
  */
-demos.Demo.prototype.frame = function() {
+demos.DemoBase.prototype.frame = function() {
   return this._stage.draw();
 };

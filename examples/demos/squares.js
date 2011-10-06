@@ -1,6 +1,6 @@
 goog.provide('demos.Squares');
 
-goog.require('demos.Demo');
+goog.require('demos.DemoBase');
 goog.require('goog.math.Box');
 goog.require('goog.math.Coordinate');
 goog.require('goog.math.Size');
@@ -12,7 +12,7 @@ goog.require('pl.retained.Stage');
 
 /**
  * @constructor
- * @extends {demos.Demo}
+ * @extends {demos.DemoBase}
  */
 demos.Squares = function(canvas) {
   this._size = new goog.math.Size(canvas.width, canvas.height);
@@ -37,7 +37,7 @@ demos.Squares = function(canvas) {
   }
   this._canvasElement = canvasElement;
 };
-goog.inherits(demos.Squares, demos.Demo);
+goog.inherits(demos.Squares, demos.DemoBase);
 
 demos.Squares.prototype.frame = function() {
   goog.base(this, 'frame');

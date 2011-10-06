@@ -96,7 +96,7 @@ DemoHost.prototype._navigate = function(e) {
 };
 
 /**
- * @param {function(new:demos.Demo, !HTMLCanvasElement)} demoCtr
+ * @param {function(new:demos.DemoBase, !HTMLCanvasElement)} demoCtr
  */
 DemoHost.prototype._loadDemo = function(demoCtr) {
   var oldCanvas = document.getElementById('content');

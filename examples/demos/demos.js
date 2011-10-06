@@ -1,7 +1,7 @@
 goog.provide('demos');
 
 goog.require('demos.CarouselDemo');
-goog.require('demos.Demo');
+goog.require('demos.DemoBase');
 goog.require('demos.GraphDemo');
 goog.require('demos.NavLayerDemo');
 goog.require('demos.RotateTextDemo');
@@ -11,7 +11,7 @@ goog.require('demos.SwapDemo');
 goog.require('demos.TileDemo');
 
 /**
- * @type {Object.<string, function(new:demos.Demo, !HTMLCanvasElement)>}
+ * @type {Object.<string, function(new:demos.DemoBase, !HTMLCanvasElement)>}
  **/
 demos.all = {
   'Graph': demos.GraphDemo,

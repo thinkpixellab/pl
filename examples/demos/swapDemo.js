@@ -1,6 +1,6 @@
 goog.provide('demos.SwapDemo');
 
-goog.require('demos.Demo');
+goog.require('demos.DemoBase');
 goog.require('goog.math.Size');
 goog.require('pl.ex');
 goog.require('pl.retained.Animation');
@@ -10,7 +10,7 @@ goog.require('pl.retained.Stage');
 
 /**
  * @constructor
- * @extends {demos.Demo}
+ * @extends {demos.DemoBase}
  */
 demos.SwapDemo = function(canvas) {
   this._size = new goog.math.Size(canvas.width, canvas.height);
@@ -18,7 +18,7 @@ demos.SwapDemo = function(canvas) {
   goog.base(this, canvas, container);
   this._count = 0;
 };
-goog.inherits(demos.SwapDemo, demos.Demo);
+goog.inherits(demos.SwapDemo, demos.DemoBase);
 
 demos.SwapDemo.prototype.frame = function() {
   var updated = goog.base(this, 'frame');

@@ -8,7 +8,7 @@ goog.require('pl.retained.Stage');
 
 /**
  * @constructor
- * @extends {demos.Demo}
+ * @extends {demos.DemoBase}
  */
 demos.ScaleDemo = function(canvas) {
   var img = DemoHost.images.get('pixellab');
@@ -30,4 +30,4 @@ demos.ScaleDemo = function(canvas) {
     element.invalidateDraw();
   });
 };
-goog.inherits(demos.ScaleDemo, demos.Demo);
+goog.inherits(demos.ScaleDemo, demos.DemoBase);

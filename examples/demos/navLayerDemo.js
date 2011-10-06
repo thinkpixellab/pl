@@ -12,7 +12,7 @@ goog.require('pl.retained.mouse');
 
 /**
  * @constructor
- * @extends {demos.Demo}
+ * @extends {demos.DemoBase}
  */
 demos.NavLayerDemo = function(canvas) {
   this._nav = new pl.retained.NavLayer(canvas.width, canvas.height);
@@ -23,7 +23,7 @@ demos.NavLayerDemo = function(canvas) {
   this._count = 0;
   this._forward(new goog.graphics.AffineTransform());
 };
-goog.inherits(demos.NavLayerDemo, demos.Demo);
+goog.inherits(demos.NavLayerDemo, demos.DemoBase);
 
 demos.NavLayerDemo.prototype._forward = function(tx) {
   if (this._nav.canForward()) {
