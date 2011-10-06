@@ -32,8 +32,8 @@ pl.retained.GraphElement = function(graph, width, height, opt_enableCache) {
     */
   this._children = [];
 
-  goog.iter.forEach(this._graph.getNodes(), function(n) {
-    var e = pl.retained.GraphElement._createElement(n);
+  goog.iter.forEach(this._physics.getPoints(), function(p) {
+    var e = pl.retained.GraphElement._createElement(p);
     e.claim(this);
     this._children.push(e);
   }, this);
@@ -51,11 +51,10 @@ pl.retained.GraphElement.prototype.update = function() {
     for (var i = 0; i < length; i++) {
       var element = this.getVisualChild(i);
       var aa = pl.retained.GraphElement._nodeProperty.get(element);
-      var data = aa[0];
-      var node = this._physics.getPoint(data);
+      var point = aa[0];
       var tx = aa[1];
 
-      tx.setToTranslation(node.position.x, node.position.y);
+      tx.setToTranslation(point.position.x, point.position.y);
     }
     this.invalidateDraw();
   }
@@ -122,7 +121,12 @@ pl.retained.GraphElement.prototype.childInvalidated = function(child) {
   this.invalidateDraw();
 };
 
-pl.retained.GraphElement._createElement = function(data) {
+/**
+ * @private
+ * @param {!pl.GraphPoint} point
+ * @return {!pl.retained.Element}
+ */
+pl.retained.GraphElement._createElement = function(point) {
   var canvas = new pl.retained.Canvas(20, 20, true);
 
   var shape = new pl.retained.Shape(20, 20);
@@ -130,7 +134,7 @@ pl.retained.GraphElement._createElement = function(data) {
   shape.type = pl.retained.ShapeType.ELLIPSE;
   canvas.addElement(shape);
 
-  var text = new pl.retained.Text(String(data), 20, 13);
+  var text = new pl.retained.Text(String(point.node), 20, 13);
   text.isCentered = true;
   text.font = '11px Helvetica, Arial, sans-serif';
   canvas.addElement(text);
@@ -140,7 +144,7 @@ pl.retained.GraphElement._createElement = function(data) {
 
   var tx = canvas.addTransform();
 
-  pl.retained.GraphElement._nodeProperty.set(canvas, [data, tx]);
+  pl.retained.GraphElement._nodeProperty.set(canvas, [point, tx]);
 
   return canvas;
 };

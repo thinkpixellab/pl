@@ -40,6 +40,13 @@ goog.scope(function() {
   };
 
   /**
+   * @return {!goog.iter.Iterable}
+   */
+  p.prototype.getPoints = function() {
+    return goog.iter.map(this._graph.getNodes(), goog.bind(this.getPoint, this));
+  };
+
+  /**
    * @return {boolean}
    */
   p.prototype.calculateGraph = function() {
