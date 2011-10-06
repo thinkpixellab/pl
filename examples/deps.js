@@ -105,7 +105,7 @@ goog.addDependency('../../../pl/src/retained/carouselPanel.js', ['pl.retained.Ca
 goog.addDependency('../../../pl/src/retained/element.js', ['pl.retained.Element'], ['goog.array', 'goog.asserts', 'goog.color.alpha', 'goog.events.EventTarget', 'goog.graphics.AffineTransform', 'goog.math.Box', 'goog.math.Coordinate', 'goog.math.Rect', 'goog.math.Size', 'pl.gfx', 'pl.retained.ElementParent', 'pl.retained.EventType']);
 goog.addDependency('../../../pl/src/retained/elementParent.js', ['pl.retained.ElementParent'], ['goog.array', 'goog.asserts']);
 goog.addDependency('../../../pl/src/retained/eventType.js', ['pl.retained.EventType'], []);
-goog.addDependency('../../../pl/src/retained/graphElement.js', ['pl.retained.GraphElement'], ['goog.array', 'goog.asserts', 'goog.math.Vec2', 'pl.GraphNode', 'pl.GraphPhysics', 'pl.Property', 'pl.retained.Element']);
+goog.addDependency('../../../pl/src/retained/graphElement.js', ['pl.retained.GraphElement'], ['goog.array', 'goog.asserts', 'goog.math.Vec2', 'pl.GraphNode', 'pl.GraphPhysics', 'pl.Property', 'pl.retained.Element', 'pl.retained.Shape', 'pl.retained.ShapeType']);
 goog.addDependency('../../../pl/src/retained/helper.js', ['pl.retained.helper'], ['goog.array', 'goog.math.Coordinate', 'goog.math.Size', 'pl.ex', 'pl.gfx', 'pl.retained.Element', 'pl.retained.mouse']);
 goog.addDependency('../../../pl/src/retained/image.js', ['pl.retained.Image'], ['pl.gfx', 'pl.retained.Element']);
 goog.addDependency('../../../pl/src/retained/mouse.js', ['pl.retained.mouse'], ['goog.array', 'goog.math.Coordinate', 'pl.Property', 'pl.retained.Stage']);
