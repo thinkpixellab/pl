@@ -1,4 +1,4 @@
-goog.provide('pl.retained.CarouselContainer');
+goog.provide('pl.retained.CarouselPanel');
 
 goog.require('goog.array');
 goog.require('goog.graphics.AffineTransform');
@@ -14,7 +14,7 @@ goog.require('pl.retained.Panel');
  * @param {boolean=} opt_enableCache
  * @extends {pl.retained.Panel}
  */
-pl.retained.CarouselContainer = function(width, height, opt_enableCache) {
+pl.retained.CarouselPanel = function(width, height, opt_enableCache) {
   goog.base(this, width, height, opt_enableCache);
 
   this._angle = 0;
@@ -23,13 +23,13 @@ pl.retained.CarouselContainer = function(width, height, opt_enableCache) {
   this._backScale = 0.5;
   this._middleElement = null;
 };
-goog.inherits(pl.retained.CarouselContainer, pl.retained.Panel);
+goog.inherits(pl.retained.CarouselPanel, pl.retained.Panel);
 
 /**
  * @param {pl.retained.Element=} opt_element
  * @return {pl.retained.Element}
  */
-pl.retained.CarouselContainer.prototype.middleElement = function(opt_element) {
+pl.retained.CarouselPanel.prototype.middleElement = function(opt_element) {
   if (goog.isDef(opt_element)) {
     if (this._middleElement) {
       this.remove(this._middleElement);
@@ -47,7 +47,7 @@ pl.retained.CarouselContainer.prototype.middleElement = function(opt_element) {
  * @param {number=} opt_radian
  * @return {number}
  */
-pl.retained.CarouselContainer.prototype.angle = function(opt_radian) {
+pl.retained.CarouselPanel.prototype.angle = function(opt_radian) {
   if (goog.isDef(opt_radian)) {
     this._angle = Number(opt_radian) || 0;
     this._locationsDirty = true;
@@ -60,7 +60,7 @@ pl.retained.CarouselContainer.prototype.angle = function(opt_radian) {
  * @param {goog.math.Size=} opt_value
  * @return {goog.math.Size}
  */
-pl.retained.CarouselContainer.prototype.radius = function(opt_value) {
+pl.retained.CarouselPanel.prototype.radius = function(opt_value) {
   if (goog.isDef(opt_value)) {
     this._radius = opt_value.clone();
     this._locationsDirty = true;
@@ -73,7 +73,7 @@ pl.retained.CarouselContainer.prototype.radius = function(opt_value) {
  * @param {number=} opt_value
  * @return {number}
  */
-pl.retained.CarouselContainer.prototype.backScale = function(opt_value) {
+pl.retained.CarouselPanel.prototype.backScale = function(opt_value) {
   if (goog.isDef(opt_value)) {
     this._backScale = opt_value;
     this._locationsDirty = true;
@@ -86,12 +86,12 @@ pl.retained.CarouselContainer.prototype.backScale = function(opt_value) {
  * @param {number} index
  * @return {!pl.retained.Element}
  */
-pl.retained.CarouselContainer.prototype.getVisualChild = function(index) {
+pl.retained.CarouselPanel.prototype.getVisualChild = function(index) {
   return this._sortedChildren[index];
 };
 
 
-pl.retained.CarouselContainer.prototype.onChildrenChanged = function() {
+pl.retained.CarouselPanel.prototype.onChildrenChanged = function() {
   this._locationsDirty = true;
   this._sortedChildren = null;
   goog.base(this, 'onChildrenChanged');
@@ -100,7 +100,7 @@ pl.retained.CarouselContainer.prototype.onChildrenChanged = function() {
 /**
  * @override
  **/
-pl.retained.CarouselContainer.prototype.update = function() {
+pl.retained.CarouselPanel.prototype.update = function() {
   this._updateLocations();
   goog.base(this, 'update');
 };
@@ -111,21 +111,21 @@ pl.retained.CarouselContainer.prototype.update = function() {
  * @param {number=} opt_i The index at which to insert the object. If omitted,
  *      treated as 0. A negative index is counted from the end of the array.
  **/
-pl.retained.CarouselContainer.prototype.insertAt = function(element, opt_i) {
+pl.retained.CarouselPanel.prototype.insertAt = function(element, opt_i) {
   goog.base(this, 'insertAt', element, opt_i);
-  pl.retained.CarouselContainer._centerProperty.set(element, new goog.math.Coordinate());
+  pl.retained.CarouselPanel._centerProperty.set(element, new goog.math.Coordinate());
 };
 
 /**
  * @override
  * @param {!pl.retained.Element} element
  */
-pl.retained.CarouselContainer.prototype.remove = function(element) {
+pl.retained.CarouselPanel.prototype.remove = function(element) {
   goog.base(this, 'remove', element);
-  pl.retained.CarouselContainer._centerProperty.clear(element);
+  pl.retained.CarouselPanel._centerProperty.clear(element);
 };
 
-pl.retained.CarouselContainer.prototype._updateLocations = function() {
+pl.retained.CarouselPanel.prototype._updateLocations = function() {
   if (this._locationsDirty) {
     this.invalidateDraw();
     this._locationsDirty = false;
@@ -160,7 +160,7 @@ pl.retained.CarouselContainer.prototype._updateLocations = function() {
 
         i++;
       }
-      var center = pl.retained.CarouselContainer._centerProperty.get(element);
+      var center = pl.retained.CarouselPanel._centerProperty.get(element);
       center.x = topLeft.x + element.width / 2;
       center.y = topLeft.y + element.height / 2;
     },
@@ -169,8 +169,8 @@ pl.retained.CarouselContainer.prototype._updateLocations = function() {
 
     var _this = this;
     goog.array.sort(this._sortedChildren, function(a, b) {
-      var ay = pl.retained.CarouselContainer._centerProperty.get(a).y;
-      var by = pl.retained.CarouselContainer._centerProperty.get(b).y;
+      var ay = pl.retained.CarouselPanel._centerProperty.get(a).y;
+      var by = pl.retained.CarouselPanel._centerProperty.get(b).y;
       return goog.array.defaultCompare(ay, by);
     });
   }
@@ -181,4 +181,4 @@ pl.retained.CarouselContainer.prototype._updateLocations = function() {
  * @const
  * @type {!pl.Property}
  */
-pl.retained.CarouselContainer._centerProperty = new pl.Property('carouselCenter');
+pl.retained.CarouselPanel._centerProperty = new pl.Property('carouselCenter');

@@ -4,7 +4,7 @@ goog.require('demos.Demo');
 goog.require('goog.events');
 goog.require('goog.events.EventType');
 goog.require('pl.retained.Animation');
-goog.require('pl.retained.CarouselContainer');
+goog.require('pl.retained.CarouselPanel');
 goog.require('pl.retained.Stage');
 goog.require('pl.retained.Text');
 goog.require('pl.retained.helper');
@@ -19,7 +19,7 @@ demos.CarouselDemo = function(canvas) {
   goog.events.listen(canvas, goog.events.EventType.MOUSEOUT, this._onMouseOut, false, this);
   goog.events.listen(canvas, goog.events.EventType.MOUSEMOVE, this._onMouseMove, false, this);
 
-  var container = new pl.retained.CarouselContainer(canvas.width, canvas.height);
+  var container = new pl.retained.CarouselPanel(canvas.width, canvas.height);
   container.radius(new goog.math.Size(190, 40));
 
   for (var i = 0; i < 4; i++) {
