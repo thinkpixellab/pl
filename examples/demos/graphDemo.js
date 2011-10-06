@@ -15,10 +15,33 @@ demos.GraphDemo = function(canvas) {
   var g = demos.GraphDemo._createGraph();
   var graphElement = new pl.retained.GraphElement(g, canvas.width, canvas.height);
 
+  goog.events.listen(canvas, goog.events.EventType.MOUSEOUT, this._onMouseOut, false, this);
+  goog.events.listen(canvas, goog.events.EventType.MOUSEMOVE, this._onMouseMove, false, this);
+
   goog.base(this, canvas, graphElement);
 };
 goog.inherits(demos.GraphDemo, demos.Demo);
 
+/**
+ * @override
+ */
+demos.GraphDemo.prototype.frame = function() {
+  var updated = goog.base(this, 'frame');
+
+  if (this._mouse) {
+    var ctx = this.getStage().getContext();
+    pl.retained.helper.borderHitTest(this.getStage(), this._mouse.x, this._mouse.y);
+  }
+  return updated;
+};
+
+demos.GraphDemo.prototype._onMouseMove = function(e) {
+  this._mouse = new goog.math.Coordinate(e.offsetX, e.offsetY);
+};
+
+demos.GraphDemo.prototype._onMouseOut = function(e) {
+  this._mouse = null;
+};
 
 demos.GraphDemo._createGraph = function() {
   var g = new pl.Graph();
