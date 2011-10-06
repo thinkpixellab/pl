@@ -110,6 +110,14 @@ pl.retained.GraphElement.prototype.childInvalidated = function(child) {
 };
 
 /**
+ * @param {!pl.retained.Element} element
+ * @return {boolean}
+ */
+pl.retained.GraphElement.isGraphElementNode = function(element) {
+  return pl.retained.GraphElement._nodeProperty.isSet(element);
+};
+
+/**
  * @private
  * @param {!pl.GraphPoint} point
  * @return {!pl.retained.Element}
