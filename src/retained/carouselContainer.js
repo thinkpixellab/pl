@@ -82,21 +82,14 @@ pl.retained.CarouselContainer.prototype.backScale = function(opt_value) {
 };
 
 /**
- * @param {boolean=} opt_frontToBack
- * @return {!Array.<!pl.retained.Element>}
+ * @override
+ * @param {number} index
+ * @return {!pl.retained.Element}
  */
-pl.retained.CarouselContainer.prototype.getVisualChildren = function(opt_frontToBack) {
-  this._updateLocations();
-  if (opt_frontToBack) {
-    var value = new Array(this._sortedChildren.length);
-    for (var i = 0; i < this._sortedChildren.length; i++) {
-      value[this._sortedChildren.length - 1 - i] = this._sortedChildren[i];
-    }
-    return value;
-  } else {
-    return goog.array.clone(this._sortedChildren);
-  }
+pl.retained.CarouselContainer.prototype.getVisualChild = function(index) {
+  return this._sortedChildren[index];
 };
+
 
 pl.retained.CarouselContainer.prototype.onChildrenChanged = function() {
   this._locationsDirty = true;

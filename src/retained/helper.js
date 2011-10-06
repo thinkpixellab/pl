@@ -41,11 +41,12 @@ pl.retained.helper._borderElement = function(ctx, element, opt_excludeChildren) 
   ctx.strokeRect(0, 0, element.width, element.height);
 
   if (!opt_excludeChildren) {
-    goog.array.forEach(element.getVisualChildren(), function(e) {
+    for (var i = 0; i < element.getVisualChildCount(); i++) {
+      var e = element.getVisualChild(i);
       ctx.save();
       pl.retained.helper._borderElement(ctx, e);
       ctx.restore();
-    });
+    }
   }
 };
 
@@ -74,10 +75,9 @@ pl.retained.helper._hitTest = function(element, x, y) {
   var hits = [];
   if (bounds.contains(c)) {
 
-    var children = element.getVisualChildren(true);
-
-    for (var i = 0; i < children.length; i++) {
-      var e = children[i];
+    var length = element.getVisualChildCount();
+    for (var i = 0; i < length; i++) {
+      var e = element.getVisualChild(length - 1 - i);
       hits = pl.retained.helper._hitTest(e, c.x, c.y);
       if (hits.length) {
         break;

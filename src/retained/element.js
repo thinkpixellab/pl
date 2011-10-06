@@ -126,11 +126,32 @@ pl.retained.Element.prototype.invalidateDraw = function() {
 };
 
 /**
- * @param {boolean=} opt_frontToBack
- * @return {!Array.<!pl.retained.Element>}
+ * @param {number} index
+ * @return {!pl.retained.Element}
  */
-pl.retained.Element.prototype.getVisualChildren = function(opt_frontToBack) {
-  return [];
+pl.retained.Element.prototype.getVisualChild = function(index) {
+  throw Error('No children for this element');
+};
+
+/**
+ * @return {number}
+ */
+pl.retained.Element.prototype.getVisualChildCount = function() {
+  return 0;
+};
+
+/**
+ * @param {!pl.retained.Element} element
+ * @return {boolean}
+ */
+pl.retained.Element.prototype.hasVisualChild = function(element) {
+  var length = this.getVisualChildCount();
+  for (var i = 0; i < length; i++) {
+    if (element === this.getVisualChild(i)) {
+      return true;
+    }
+  }
+  return false;
 };
 
 /**

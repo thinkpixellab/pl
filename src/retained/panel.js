@@ -72,19 +72,20 @@ pl.retained.Panel.prototype.getChildTransform = function(child) {
 };
 
 /**
- * @param {boolean=} opt_frontToBack
- * @return {!Array.<!pl.retained.Element>}
+ * @override
+ * @param {number} index
+ * @return {!pl.retained.Element}
  */
-pl.retained.Panel.prototype.getVisualChildren = function(opt_frontToBack) {
-  if (opt_frontToBack) {
-    var value = new Array(this._children.length);
-    for (var i = 0; i < this._children.length; i++) {
-      value[this._children.length - 1 - i] = this._children[i];
-    }
-    return value;
-  } else {
-    return goog.array.clone(this._children);
-  }
+pl.retained.Panel.prototype.getVisualChild = function(index) {
+  return this._children[index];
+};
+
+/**
+ * @override
+ * @return {number}
+ */
+pl.retained.Panel.prototype.getVisualChildCount = function() {
+  return this._children.length;
 };
 
 pl.retained.Panel.prototype.onChildrenChanged = function() {
@@ -123,17 +124,18 @@ pl.retained.Panel.prototype.update = function() {
  * @param {!CanvasRenderingContext2D} ctx
  **/
 pl.retained.Panel.prototype.drawOverride = function(ctx) {
-  goog.array.forEach(this.getVisualChildren(), function(element) {
+  var length = this.getVisualChildCount();
+  for (var i = 0; i < length; i++) {
+    var element = this.getVisualChild(i);
     element._drawInternal(ctx);
-  },
-  this);
+  }
 };
 
 /**
  * @param {!pl.retained.Element} child
  */
 pl.retained.Panel.prototype.childInvalidated = function(child) {
-  goog.asserts.assert(goog.array.contains(this._children, child), 'Must be the containers child');
+  goog.asserts.assert(this.hasVisualChild(child), 'Must be the containers child');
   this.invalidateDraw();
 };
 

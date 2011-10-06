@@ -132,16 +132,29 @@ pl.retained.NavLayer.prototype._claimChild = function() {
 
 /**
  * @override
- * @param {boolean=} opt_frontToBack
- * @return {!Array.<!pl.retained.Element>}
+ * @param {number} index
+ * @return {!pl.retained.Element}
  */
-pl.retained.NavLayer.prototype.getVisualChildren = function(opt_frontToBack) {
+pl.retained.NavLayer.prototype.getVisualChild = function(index) {
+  if (this._txPanel && index === 0) {
+    return this._txPanel;
+  } else if (this._child && index === 0) {
+    return this._child;
+  }
+  throw Error('Item not found');
+};
+
+/**
+ * @override
+ * @return {number}
+ */
+pl.retained.NavLayer.prototype.getVisualChildCount = function() {
   if (this._txPanel) {
-    return [this._txPanel];
+    return 1;
   } else if (this._child) {
-    return [this._child];
+    return 1;
   } else {
-    return [];
+    return 0;
   }
 };
 
@@ -171,16 +184,18 @@ pl.retained.NavLayer.prototype.update = function() {
  * @param {!CanvasRenderingContext2D} ctx
  **/
 pl.retained.NavLayer.prototype.drawOverride = function(ctx) {
-  goog.array.forEach(this.getVisualChildren(), function(e) {
-    e._drawInternal(ctx);
-  });
+  var length = this.getVisualChildCount();
+  for (var i = 0; i < length; i++) {
+    var element = this.getVisualChild(i);
+    element._drawInternal(ctx);
+  }
 };
 
 /**
  * @param {!pl.retained.Element} child
  */
 pl.retained.NavLayer.prototype.childInvalidated = function(child) {
-  goog.asserts.assert(goog.array.contains(this.getVisualChildren(), child), 'Must be the containers child');
+  goog.asserts.assert(this.hasVisualChild(child), 'Must be the containers child');
   this.invalidateDraw();
 };
 
