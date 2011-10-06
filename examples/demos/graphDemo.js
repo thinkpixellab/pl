@@ -30,7 +30,7 @@ demos.GraphDemo.prototype.frame = function() {
 
   if (this._mouse) {
     var ctx = this.getStage().getContext();
-    pl.retained.helper.borderHitTest(this.getStage(), this._mouse.x, this._mouse.y);
+    pl.retained.helper.borderHitTest(this.getStage(), this._mouse);
   }
   return updated;
 };

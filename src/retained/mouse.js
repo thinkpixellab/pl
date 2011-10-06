@@ -19,7 +19,7 @@ pl.retained.mouse.markMouseOver = function(stage, opt_coordinate) {
       });
     }
     if (opt_coordinate) {
-      var hits = pl.retained.helper.hitTest(stage, opt_coordinate.x, opt_coordinate.y);
+      var hits = pl.retained.helper.hitTest(stage, opt_coordinate);
       pl.retained.mouse._stageMouseCacheProperty.set(stage, hits);
       goog.array.forEach(hits, function(e) {
         pl.retained.mouse.IsMouseOverProperty.set(e, true);

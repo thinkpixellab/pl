@@ -52,33 +52,30 @@ pl.retained.helper._borderElement = function(ctx, element, opt_excludeChildren) 
 
 /**
  * @param {!pl.retained.Stage} stage
- * @param {number} x
- * @param {number} y
+ * @param {!goog.math.Coordinate} point
  * @return {!Array.<!pl.retained.Element>}
  */
-pl.retained.helper.hitTest = function(stage, x, y) {
-  return pl.retained.helper._hitTest(stage.getRoot(), x, y);
+pl.retained.helper.hitTest = function(stage, point) {
+  return pl.retained.helper._hitTest(stage.getRoot(), point);
 };
 
 /**
  * @param {!pl.retained.Element} element
- * @param {number} x
- * @param {number} y
+ * @param {!goog.math.Coordinate} point
  * @return {!Array.<!pl.retained.Element>}
  */
-pl.retained.helper._hitTest = function(element, x, y) {
-  var c = new goog.math.Coordinate(x, y);
-  pl.retained.helper.transformPointGlobalToLocal(element, c);
+pl.retained.helper._hitTest = function(element, point) {
+  point = pl.retained.helper.transformPointGlobalToLocal(element, point);
 
   var bounds = new goog.math.Rect(0, 0, element.width, element.height);
 
   var hits = [];
-  if (bounds.contains(c)) {
+  if (bounds.contains(point)) {
 
     var length = element.getVisualChildCount();
     for (var i = 0; i < length; i++) {
       var e = element.getVisualChild(length - 1 - i);
-      hits = pl.retained.helper._hitTest(e, c.x, c.y);
+      hits = pl.retained.helper._hitTest(e, point);
       if (hits.length) {
         break;
       }
@@ -92,13 +89,12 @@ pl.retained.helper._hitTest = function(element, x, y) {
 
 /**
  * @param {!pl.retained.Stage} stage
- * @param {number} x
- * @param {number} y
+ * @param {!goog.math.Coordinate} point
  */
-pl.retained.helper.borderHitTest = function(stage, x, y) {
+pl.retained.helper.borderHitTest = function(stage, point) {
   var ctx = stage.getContext();
 
-  var hits = pl.retained.helper.hitTest(stage, x, y);
+  var hits = pl.retained.helper.hitTest(stage, point);
   if (hits.length) {
     ctx.save();
     ctx.lineWidth = 2;
@@ -112,7 +108,6 @@ pl.retained.helper.borderHitTest = function(stage, x, y) {
   }
 };
 
-// modifies the provided point IN PLACE
 /**
  * @param {!pl.retained.Element} element
  * @param {!goog.math.Coordinate} point
@@ -120,11 +115,9 @@ pl.retained.helper.borderHitTest = function(stage, x, y) {
  */
 pl.retained.helper.transformPointLocalToGlobal = function(element, point) {
   var tx = element.getTransform();
-  pl.ex.transformCoordinate(tx, point);
-  return point;
+  return pl.ex.transformCoordinate(tx, point.clone());
 };
 
-// modifies the provided point IN PLACE
 /**
  * @param {!pl.retained.Element} element
  * @param {!goog.math.Coordinate} point
@@ -132,8 +125,7 @@ pl.retained.helper.transformPointLocalToGlobal = function(element, point) {
  */
 pl.retained.helper.transformPointGlobalToLocal = function(element, point) {
   var tx = element.getTransform();
-  pl.ex.transformCoordinate(tx.createInverse(), point);
-  return point;
+  return pl.ex.transformCoordinate(tx.createInverse(), point.clone());
 };
 
 /**
@@ -163,8 +155,8 @@ pl.retained.helper.getBounds = function(element) {
  */
 pl.retained.helper.getCorners = function(element) {
   var points = [new goog.math.Coordinate(0, 0), new goog.math.Coordinate(element.width, 0), new goog.math.Coordinate(element.width, element.height), new goog.math.Coordinate(0, element.height)];
-  goog.array.forEach(points, function(p) {
-    pl.retained.helper.transformPointLocalToGlobal(element, p);
+
+  return goog.array.map(points, function(p) {
+    return pl.retained.helper.transformPointLocalToGlobal(element, p);
   });
-  return points;
 };

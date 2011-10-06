@@ -50,8 +50,7 @@ demos.CarouselDemo.prototype.frame = function() {
   var updated = goog.base(this, 'frame');
 
   if (this._mouse) {
-    var ctx = this.getStage().getContext();
-    pl.retained.helper.borderHitTest(this.getStage(), this._mouse.x, this._mouse.y);
+    pl.retained.helper.borderHitTest(this.getStage(), this._mouse);
   }
   return updated;
 };
