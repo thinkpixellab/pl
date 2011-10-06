@@ -14,6 +14,11 @@ goog.require('pl.retained.Stage');
  */
 demos.Demo = function(canvas, rootElement) {
   goog.base(this);
+
+  /**
+   * @private
+   * @type {!pl.retained.Stage}
+   */
   this._stage = new pl.retained.Stage(canvas, rootElement);
 
   this._stage.addEventListener(pl.retained.EventType.UPDATE, function(e) {

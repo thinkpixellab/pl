@@ -26,7 +26,7 @@ demos.SwapDemo.prototype.frame = function() {
   if (this._count <= 0) {
     this._count = 50;
     var shape = demos.SwapDemo.createShape(this._size.width, this._size.height);
-    this._stage._element.insertAt(shape);
+    this.getStage()._element.insertAt(shape);
   }
   this._count--;
   return updated;

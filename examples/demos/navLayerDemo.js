@@ -36,7 +36,7 @@ demos.NavLayerDemo.prototype._onMouseDown = function(e) {
   e.stopPropagation();
 
   this._lastMouse = new goog.math.Coordinate(e.offsetX, e.offsetY);
-  var hits = pl.retained.mouse.markMouseOver(this._stage, this._lastMouse);
+  var hits = pl.retained.mouse.markMouseOver(this.getStage(), this._lastMouse);
 
   if (hits && hits.length) {
     var last = hits[hits.length - 1];
