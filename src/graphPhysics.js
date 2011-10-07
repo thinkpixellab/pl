@@ -67,7 +67,7 @@ goog.scope(function() {
     goog.iter.forEach(this._graph.getNodes(), function(node) {
       var d = this.getPoint(node);
       d.force.add(this._centerForce);
-      updated = p._updateNode(d) || updated;
+      updated = this._updateNode(d) || updated;
       box = p._boxIncludeCoordinate(d.position, box);
     },
     this);
@@ -75,7 +75,7 @@ goog.scope(function() {
     var newForce = p._centerForceFromBox(box, this._stageSize);
     pl.ex.setVec(this._centerForce, newForce.x, newForce.y);
 
-    if (this._centerForce.magnitude() < p.SignificantMagnitude) {
+    if (this._centerForce.magnitude() < this.SignificantMagnitude) {
       pl.ex.clearVec(this._centerForce);
     } else {
       updated = true;
@@ -102,16 +102,16 @@ goog.scope(function() {
     //
     // Mild, constant attraction
     //
-    var f = delta.clone().normalize().scale(p.GlobalAttraction);
+    var f = delta.clone().normalize().scale(this.GlobalAttraction);
 
     //
     // global repulsion 1/(d^2)
     //
-    f.add(delta.clone().invert().normalize().scale(p.RepulsionFactor / (dmag * dmag)));
+    f.add(delta.clone().invert().normalize().scale(this.RepulsionFactor / (dmag * dmag)));
 
     // connected attraction
     if (this._graph.containsEdge(d1.node, d2.node)) {
-      f.add(delta.clone().scale(dmag / p.ConnectionAttraction));
+      f.add(delta.clone().scale(dmag / this.ConnectionAttraction));
     }
 
     d1.force.add(f);
@@ -123,9 +123,9 @@ goog.scope(function() {
    * @param {!pl.GraphPoint} node
    * @return {boolean}
    */
-  p._updateNode = function(node) {
+  p.prototype._updateNode = function(node) {
     // apply drag
-    node.velocity.scale(p.Inertia);
+    node.velocity.scale(this.Inertia);
 
     // apply force
     node.velocity.add(node.force);
@@ -133,12 +133,12 @@ goog.scope(function() {
     var velocityMag = node.velocity.magnitude();
 
     // terminal velocity
-    if (velocityMag > p.TerminalVelocity) {
-      node.velocity.scale(p.TerminalVelocity / velocityMag);
-      velocityMag = p.TerminalVelocity;
+    if (velocityMag > this.TerminalVelocity) {
+      node.velocity.scale(this.TerminalVelocity / velocityMag);
+      velocityMag = this.TerminalVelocity;
     }
 
-    if (velocityMag < p.SignificantMagnitude && node.force.magnitude() < p.SignificantMagnitude) {
+    if (velocityMag < this.SignificantMagnitude && node.force.magnitude() < this.SignificantMagnitude) {
       pl.ex.clearVec(node.velocity);
       pl.ex.clearVec(node.force);
       return false;
@@ -181,38 +181,32 @@ goog.scope(function() {
   };
 
   /**
-   * @const
    * @type {number}
    */
-  p.TerminalVelocity = 10;
+  p.prototype.TerminalVelocity = 10;
 
   /**
-   * @const
    * @type {number}
    */
-  p.SignificantMagnitude = 0.01;
+  p.prototype.SignificantMagnitude = 0.01;
 
   /**
-   * @const
    * @type {number}
    */
-  p.Inertia = 0.9;
+  p.prototype.Inertia = 0.9;
 
   /**
-   * @const
    * @type {number}
    */
-  p.GlobalAttraction = 0.005;
+  p.prototype.GlobalAttraction = 0.005;
 
   /**
-   * @const
    * @type {number}
    */
-  p.RepulsionFactor = 100;
+  p.prototype.RepulsionFactor = 300;
 
   /**
-   * @const
    * @type {number}
    */
-  p.ConnectionAttraction = 500;
+  p.prototype.ConnectionAttraction = 500;
 });
