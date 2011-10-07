@@ -2,6 +2,9 @@ goog.provide('demos.GraphDemo');
 goog.provide('demos.GraphDemo.Node');
 
 goog.require('demos.DemoBase');
+goog.require('goog.fx.DragEvent');
+goog.require('goog.fx.Dragger');
+goog.require('goog.fx.Dragger.EventType');
 goog.require('goog.math.Vec2');
 goog.require('pl.Graph');
 goog.require('pl.gfx');
@@ -15,10 +18,16 @@ demos.GraphDemo = function(canvas) {
   var g = demos.GraphDemo._createGraph();
   var graphElement = new pl.retained.GraphElement(g, canvas.width, canvas.height);
 
+  this._dragger = new goog.fx.Dragger(canvas);
+  this._dragger.addEventListener(goog.fx.Dragger.EventType.START, this._onDragStart, undefined, this);
+  this._dragger.addEventListener(goog.fx.Dragger.EventType.END, this._onDragEnd, undefined, this);
+  this._dragger.addEventListener(goog.fx.Dragger.EventType.DRAG, this._onDrag, undefined, this);
+
   goog.events.listen(canvas, goog.events.EventType.MOUSEOUT, this._onMouse, false, this);
   goog.events.listen(canvas, goog.events.EventType.MOUSEMOVE, this._onMouse, false, this);
 
   goog.base(this, canvas, graphElement);
+  this._graphElement = graphElement;
 };
 goog.inherits(demos.GraphDemo, demos.DemoBase);
 
@@ -29,6 +38,32 @@ demos.GraphDemo.prototype.frame = function() {
   var updated = goog.base(this, 'frame');
   this._updateCursor();
   return updated;
+};
+
+demos.GraphDemo.prototype._onDragStart = function(e) {
+  var hits = pl.retained.mouse.markMouseOver(this.getStage(), this._mouse);
+  if (hits && hits.length) {
+    var node = goog.array.findRight(hits, function(e) {
+      return pl.retained.GraphElement.isGraphElementNode(e);
+    });
+    if (node) {
+      this._dragElement = node;
+      return true;
+    }
+  }
+  this._dragElement = null;
+  return false;
+};
+
+demos.GraphDemo.prototype._onDrag = function(e) {
+  goog.asserts.assert(this._dragElement);
+  var point = new goog.math.Coordinate(e.browserEvent.offsetX, e.browserEvent.offsetY);
+  this._graphElement.dragElement(this._dragElement, point);
+};
+
+demos.GraphDemo.prototype._onDragEnd = function(e) {
+  this._dragElement = null;
+  this._graphElement.dragElement();
 };
 
 demos.GraphDemo.prototype._onMouse = function(e) {

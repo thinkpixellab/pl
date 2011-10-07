@@ -28,15 +28,16 @@ pl.retained.GraphElement = function(graph, width, height, opt_enableCache) {
   this._physics = new pl.GraphPhysics(this._graph, this.getSize());
 
   /**
-    * @type {!Array.<!pl.retained.Element>}
-    */
+   * @type {!Array.<!pl.retained.Element>}
+   */
   this._children = [];
 
   goog.iter.forEach(this._physics.getPoints(), function(p) {
     var e = pl.retained.GraphElement._createElement(p);
     e.claim(this);
     this._children.push(e);
-  }, this);
+  },
+  this);
 };
 goog.inherits(pl.retained.GraphElement, pl.retained.Element);
 
@@ -115,6 +116,24 @@ pl.retained.GraphElement.prototype.childInvalidated = function(child) {
  */
 pl.retained.GraphElement.isGraphElementNode = function(element) {
   return pl.retained.GraphElement._nodeProperty.isSet(element);
+};
+
+/**
+ * @param {!pl.retained.Element=} opt_element
+ * @param {!goog.math.Coordinate=} opt_coordinate
+ */
+pl.retained.GraphElement.prototype.dragElement = function(opt_element, opt_coordinate) {
+  if (opt_element) {
+    var e = opt_element;
+    var c = opt_coordinate;
+    goog.asserts.assert(pl.retained.GraphElement.isGraphElementNode(e));
+    goog.asserts.assert(c);
+    var aa = pl.retained.GraphElement._nodeProperty.get(e);
+    this._physics.dragPoint(aa[0], c);
+  }
+  else {
+    this._physics.dragPoint();
+  }
 };
 
 /**

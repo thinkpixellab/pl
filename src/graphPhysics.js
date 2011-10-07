@@ -67,6 +67,7 @@ goog.scope(function() {
     goog.iter.forEach(this._graph.getNodes(), function(node) {
       var d = this.getPoint(node);
       d.force.add(this._centerForce);
+      this._calcDrag(d);
       updated = this._updateNode(d) || updated;
       box = p._boxIncludeCoordinate(d.position, box);
     },
@@ -82,6 +83,34 @@ goog.scope(function() {
     }
 
     return updated;
+  };
+
+  /**
+   * @param {!pl.GraphPoint=} opt_point
+   * @param {!goog.math.Coordinate=} opt_coordinate
+   */
+  p.prototype.dragPoint = function(opt_point, opt_coordinate) {
+    if (opt_point) {
+      var p = opt_point;
+      var c = opt_coordinate;
+      this._draggingPoint = p;
+      this._draggingCoordinate = c;
+    }
+    else {
+      this._draggingPoint = null;
+      this._draggingCoordinate = null;
+    }
+  };
+
+  /**
+   * @private
+   * @param {!pl.GraphPoint} point
+   */
+  p.prototype._calcDrag = function(point) {
+    if (point == this._draggingPoint) {
+      var delta = goog.math.Vec2.difference(this._draggingCoordinate, point.position);
+      point.force.add(delta);
+    }
   };
 
   /**
