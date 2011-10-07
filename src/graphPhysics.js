@@ -140,7 +140,7 @@ goog.scope(function() {
 
     // connected attraction
     if (this._graph.containsEdge(d1.node, d2.node)) {
-      f.add(delta.clone().scale(dmag / this.ConnectionAttraction));
+      f.add(delta.clone().scale(dmag * this.ConnectionAttraction));
     }
 
     d1.force.add(f);
@@ -237,5 +237,5 @@ goog.scope(function() {
   /**
    * @type {number}
    */
-  p.prototype.ConnectionAttraction = 500;
+  p.prototype.ConnectionAttraction = 0.002;
 });
