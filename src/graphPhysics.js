@@ -115,6 +115,7 @@ goog.scope(function() {
   p.prototype._calcDrag = function(point) {
     if (point == this._draggingPoint) {
       var delta = goog.math.Vec2.difference(this._draggingCoordinate, point.position);
+      delta.scale(delta.magnitude() * 0.1);
       point.force.add(delta);
     }
   };
