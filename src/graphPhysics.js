@@ -46,6 +46,12 @@ goog.scope(function() {
     return goog.iter.map(this._graph.getNodes(), goog.bind(this.getPoint, this));
   };
 
+  p.prototype.getEdges = function() {
+    return goog.iter.map(this._graph.getEdges(), goog.bind(function(node) {
+      return goog.array.map(node, goog.bind(this.getPoint, this));
+    }, this));
+  };
+
   /**
    * @return {boolean}
    */

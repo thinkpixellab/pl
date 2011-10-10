@@ -16,7 +16,8 @@ goog.require('pl.retained.GraphElement');
  */
 demos.GraphDemo = function(canvas) {
   var g = demos.GraphDemo._createGraph();
-  var graphElement = new pl.retained.GraphElement(g, canvas.width, canvas.height);
+  var gp = new pl.GraphPhysics(g, pl.ex.getCanvasSize(canvas));
+  var graphElement = new pl.retained.GraphElement(gp, canvas.width, canvas.height);
 
   this._dragger = new goog.fx.Dragger(canvas);
   this._dragger.addEventListener(goog.fx.Dragger.EventType.START, this._onDragStart, undefined, this);

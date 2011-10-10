@@ -14,18 +14,16 @@ goog.require('pl.retained.ShapeType');
 // Don't go changing the children around, punk!
 /**
  * @constructor
- * @param {!pl.Graph} graph
+ * @param {!pl.GraphPhysics} gp
  * @param {number} width
  * @param {number} height
  * @param {boolean=} opt_enableCache
  * @implements {pl.retained.ElementParent}
  * @extends {pl.retained.Element}
  */
-pl.retained.GraphElement = function(graph, width, height, opt_enableCache) {
+pl.retained.GraphElement = function(gp, width, height, opt_enableCache) {
   goog.base(this, width, height, opt_enableCache);
-  this._graph = graph;
-
-  this._physics = new pl.GraphPhysics(this._graph, this.getSize());
+  this._physics = gp;
 
   /**
    * @type {!Array.<!pl.retained.Element>}
@@ -71,9 +69,9 @@ pl.retained.GraphElement.prototype.drawOverride = function(ctx) {
   ctx.shadowColor = 'black';
   ctx.shadowBlur = 1;
 
-  goog.iter.forEach(this._graph.getEdges(), function(pair) {
-    var c1 = this._physics.getPoint(pair[0]).position;
-    var c2 = this._physics.getPoint(pair[1]).position;
+  goog.iter.forEach(this._physics.getEdges(), function(pair) {
+    var c1 = pair[0].position;
+    var c2 = pair[1].position;
     pl.gfx.lineish(ctx, c2, c1);
   },
   this);
