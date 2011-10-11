@@ -129,8 +129,7 @@ pl.retained.GraphElement.prototype.dragElement = function(opt_element, opt_coord
     goog.asserts.assert(c);
     var aa = pl.retained.GraphElement._nodeProperty.get(e);
     this._physics.dragPoint(aa[0], c);
-  }
-  else {
+  } else {
     this._physics.dragPoint();
   }
 };
@@ -141,23 +140,23 @@ pl.retained.GraphElement.prototype.dragElement = function(opt_element, opt_coord
  * @return {!pl.retained.Element}
  */
 pl.retained.GraphElement._defaultElementFactory = function(nodeData) {
-  var canvas = new pl.retained.Canvas(20, 20, true);
+  var size = new goog.math.Size(20, 20);
+  var canvas = new pl.retained.Canvas(size.width, size.height, true);
 
-  var shape = new pl.retained.Shape(20, 20);
+  var shape = new pl.retained.Shape(size.width, size.height);
   shape.fillStyle = '#333';
   shape.type = pl.retained.ShapeType.ELLIPSE;
   canvas.addElement(shape);
 
-  var text = new pl.retained.Text(String(nodeData), 20, 13);
+  var text = new pl.retained.Text(String(nodeData), size.width, 13);
   text.isCentered = true;
   text.font = '11px Helvetica, Arial, sans-serif';
   canvas.addElement(text);
-  canvas.center(text, new goog.math.Coordinate(10, 10));
-  canvas.addTransform().setToTranslation(-10, -10);
+  canvas.center(text, new goog.math.Coordinate(size.width / 2, size.height / 2));
+  canvas.addTransform().setToTranslation(size.width / -2, size.height / -2);
 
   return canvas;
 };
-
 
 /**
  * @private
