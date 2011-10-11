@@ -263,6 +263,7 @@ pl.gfx.getOffsetVector = function(parentSize, childSize, horizontalAlignment, ve
  * @param {!goog.math.Coordinate} p1
  * @param {!goog.math.Coordinate} p2
  */
+// TODO: a better name, more paramaters?
 pl.gfx.lineish = function(ctx, p1, p2) {
   var distance = goog.math.Coordinate.distance(p1, p2);
   var r = 6;
