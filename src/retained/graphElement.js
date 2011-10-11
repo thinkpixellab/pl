@@ -14,14 +14,15 @@ goog.require('pl.retained.ShapeType');
 // Don't go changing the children around, punk!
 /**
  * @constructor
+ * @implements {pl.retained.ElementParent}
+ * @extends {pl.retained.Element}
  * @param {!pl.GraphPhysics} gp
  * @param {number} width
  * @param {number} height
  * @param {boolean=} opt_enableCache
- * @implements {pl.retained.ElementParent}
- * @extends {pl.retained.Element}
+ * @param {function(*):!pl.retained.Element=} opt_factory
  */
-pl.retained.GraphElement = function(gp, width, height, opt_enableCache) {
+pl.retained.GraphElement = function(gp, width, height, opt_enableCache, opt_factory) {
   goog.base(this, width, height, opt_enableCache);
   this._physics = gp;
 
@@ -31,7 +32,7 @@ pl.retained.GraphElement = function(gp, width, height, opt_enableCache) {
   this._children = [];
 
   goog.iter.forEach(this._physics.getPoints(), function(p) {
-    var e = pl.retained.GraphElement._createElement(p);
+    var e = pl.retained.GraphElement._createElement(p, opt_factory);
     e.claim(this);
     this._children.push(e);
   },
@@ -136,10 +137,10 @@ pl.retained.GraphElement.prototype.dragElement = function(opt_element, opt_coord
 
 /**
  * @private
- * @param {!pl.GraphPoint} point
+ * @param {*} nodeData
  * @return {!pl.retained.Element}
  */
-pl.retained.GraphElement._createElement = function(point) {
+pl.retained.GraphElement._defaultElementFactory = function(nodeData) {
   var canvas = new pl.retained.Canvas(20, 20, true);
 
   var shape = new pl.retained.Shape(20, 20);
@@ -147,18 +148,28 @@ pl.retained.GraphElement._createElement = function(point) {
   shape.type = pl.retained.ShapeType.ELLIPSE;
   canvas.addElement(shape);
 
-  var text = new pl.retained.Text(String(point.node), 20, 13);
+  var text = new pl.retained.Text(String(nodeData), 20, 13);
   text.isCentered = true;
   text.font = '11px Helvetica, Arial, sans-serif';
   canvas.addElement(text);
   canvas.center(text, new goog.math.Coordinate(10, 10));
-
   canvas.addTransform().setToTranslation(-10, -10);
 
+  return canvas;
+};
+
+
+/**
+ * @private
+ * @param {!pl.GraphPoint} point
+ * @param {function(*):!pl.retained.Element=} opt_factory
+ * @return {!pl.retained.Element}
+ */
+pl.retained.GraphElement._createElement = function(point, opt_factory) {
+  var factory = opt_factory || pl.retained.GraphElement._defaultElementFactory;
+  var canvas = factory(point.node);
   var tx = canvas.addTransform();
-
   pl.retained.GraphElement._nodeProperty.set(canvas, [point, tx]);
-
   return canvas;
 };
 
