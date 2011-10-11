@@ -2,6 +2,7 @@ goog.provide('pl.gfx');
 
 goog.require('goog.asserts');
 goog.require('goog.graphics.AffineTransform');
+goog.require('goog.math.Line');
 goog.require('goog.math.Size');
 
 /**
@@ -284,4 +285,48 @@ pl.gfx.lineish = function(ctx, p1, p2) {
   }
   ctx.closePath();
   ctx.fill();
+};
+
+/**
+ * @param {!CanvasRenderingContext2D} ctx
+ * @param {!goog.math.Coordinate} p1
+ * @param {!goog.math.Coordinate} p2
+ * @param {number=} opt_segLength
+ * @param {number=} opt_skipLength
+ */
+pl.gfx.dashTo = function(ctx, p1, p2, opt_segLength, opt_skipLength) {
+  if (!opt_segLength) {
+    opt_segLength = 5;
+  }
+  if (!opt_skipLength) {
+    opt_skipLength = 5;
+  }
+  goog.asserts.assert(opt_segLength > 0);
+  goog.asserts.assert(opt_skipLength > 0);
+
+  var line = new goog.math.Line(p1.x, p1.y, p2.x, p2.y);
+  var length = line.getSegmentLength();
+
+  var segLerp = opt_segLength / length;
+  var skipLerp = opt_skipLength / length;
+
+  var max = 1 / (segLerp + skipLerp);
+
+  ctx.beginPath();
+  for (var i = 0; i < max; i++) {
+    var lerpStart = i * (segLerp + skipLerp);
+    var lerpEnd = i * (segLerp + skipLerp) + segLerp;
+
+    if (lerpStart < 1) {
+      if (lerpEnd > 1) {
+        lerpEnd = 1;
+      }
+
+      var start = line.getInterpolatedPoint(lerpStart);
+      var end = line.getInterpolatedPoint(lerpEnd);
+      ctx.moveTo(start.x, start.y);
+      ctx.lineTo(end.x, end.y);
+    }
+  }
+  ctx.stroke();
 };

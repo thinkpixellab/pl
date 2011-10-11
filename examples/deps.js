@@ -82,7 +82,7 @@ goog.addDependency('../../../pl/src/box2d/dynamics/joints/b2RevoluteJointDef.js'
 goog.addDependency('../../../pl/src/debugDiv.js', ['pl.DebugDiv'], ['goog.asserts', 'goog.debug.LogManager', 'goog.dom', 'goog.style']);
 goog.addDependency('../../../pl/src/ex.js', ['pl.ex'], ['goog.array', 'goog.asserts', 'goog.iter', 'goog.math.Rect', 'goog.math.Size', 'goog.string', 'goog.style']);
 goog.addDependency('../../../pl/src/fpsLogger.js', ['pl.FpsLogger'], []);
-goog.addDependency('../../../pl/src/gfx.js', ['pl.gfx'], ['goog.asserts', 'goog.graphics.AffineTransform', 'goog.math.Size']);
+goog.addDependency('../../../pl/src/gfx.js', ['pl.gfx'], ['goog.asserts', 'goog.graphics.AffineTransform', 'goog.math.Line', 'goog.math.Size']);
 goog.addDependency('../../../pl/src/graph.js', ['pl.Graph'], ['goog.array', 'goog.math', 'goog.structs.Map', 'goog.structs.Set', 'pl.ex']);
 goog.addDependency('../../../pl/src/graphPhysics.js', ['pl.GraphPhysics'], ['goog.math.Box', 'goog.math.Size', 'goog.math.Vec2', 'pl.Graph', 'pl.GraphPoint']);
 goog.addDependency('../../../pl/src/graphPoint.js', ['pl.GraphPoint'], ['goog.math.Vec2', 'pl.Graph', 'pl.ex']);
