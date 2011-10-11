@@ -314,15 +314,11 @@ pl.gfx.dashTo = function(ctx, p1, p2, opt_segLength, opt_skipLength) {
 
   var max = 1 / (segLerp + skipLerp);
 
-  ctx.beginPath();
   for (var i = 0; i < max; i++) {
     var lerpStart = i * (segLerp + skipLerp);
-    var lerpEnd = i * (segLerp + skipLerp) + segLerp;
 
     if (lerpStart < 1) {
-      if (lerpEnd > 1) {
-        lerpEnd = 1;
-      }
+      var lerpEnd = Math.min(1, lerpStart + segLerp);
 
       var start = line.getInterpolatedPoint(lerpStart);
       var end = line.getInterpolatedPoint(lerpEnd);
@@ -330,5 +326,4 @@ pl.gfx.dashTo = function(ctx, p1, p2, opt_segLength, opt_skipLength) {
       ctx.lineTo(end.x, end.y);
     }
   }
-  ctx.stroke();
 };
