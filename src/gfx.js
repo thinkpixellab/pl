@@ -48,15 +48,16 @@ pl.gfx.ellipse = function(ctx, x, y, width, height) {
 /**
  * @const
  * @type {number}
+ * 4 * ((√(2) - 1) / 3);
  */
-pl.gfx.kappa = 0.5522848; // 4 * ((√(2) - 1) / 3);
+pl.gfx.kappa = 0.5522848;
 
-// 2011-08-17
-// Discovered here: http://stackoverflow.com/questions/4478742/html5-canvas-can-i-somehow-use-linefeeds-in-filltext
-// Inspired by: http://stackoverflow.com/users/128165/gaby-aka-g-petrioli
-// Created by: http://stackoverflow.com/users/791890/jeffchan
-// Copied from: http://jsfiddle.net/jeffchan/WHgaY/76/
 /**
+ * 2011-08-17
+ * Discovered here: http://stackoverflow.com/questions/4478742/html5-canvas-can-i-somehow-use-linefeeds-in-filltext
+ * Inspired by: http://stackoverflow.com/users/128165/gaby-aka-g-petrioli
+ * Created by: http://stackoverflow.com/users/791890/jeffchan
+ * Copied from: http://jsfiddle.net/jeffchan/WHgaY/76/
  * @param {!CanvasRenderingContext2D} ctx
  * @param {!string} text
  * @param {number} x
