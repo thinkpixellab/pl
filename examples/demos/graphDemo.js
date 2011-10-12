@@ -112,7 +112,7 @@ demos.GraphDemo._createGraph = function() {
 
 /**
  * @constructor
- * @param {number} value
+ * @param {*} value
  */
 demos.GraphDemo.Node = function(value) {
   this.value = value;
