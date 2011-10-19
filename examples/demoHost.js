@@ -6,6 +6,8 @@ goog.require('goog.Timer');
 goog.require('goog.asserts');
 goog.require('goog.debug.LogManager');
 goog.require('goog.dom');
+goog.require('goog.fx.anim');
+goog.require('goog.fx.anim.Animated');
 goog.require('goog.object');
 goog.require('goog.string');
 goog.require('goog.style');
@@ -20,12 +22,11 @@ goog.require('pl.retained.EventType');
 
 /**
  * @constructor
+ * @implements {goog.fx.anim.Animated}
  */
 DemoHost = function() {
   pl.DebugDiv.enable();
   goog.style.setUnselectable(document.body, true);
-
-  this._frameRequested = false;
 
   this._logger = goog.debug.LogManager.getRoot();
   this._fpsLogger = new pl.FpsLogger();
@@ -45,8 +46,6 @@ DemoHost = function() {
     this._history.setToken(value);
   },
   false, this);
-
-  this._frameFunc = goog.bind(this._drawFrame, this);
 
   //
   // History!
@@ -122,26 +121,23 @@ DemoHost.prototype._loadDemo = function(demoCtr) {
   this._requestFrame();
 };
 
-DemoHost.prototype._drawFrame = function() {
-  this._frameRequested = false;
+/**
+ * Function called when a frame is requested for the animation.
+ *
+ * @param {number} now Current time in milliseconds.
+ */
+DemoHost.prototype.onAnimationFrame = function(now) {
   this._fpsLogger.AddInterval();
 
-  if (this._demo) {
-    if (this._demo.frame()) {
-      this._requestFrame();
-    }
+  if (this._demo && this._demo.frame()) {
+    // no-op
+  } else {
+    goog.fx.anim.unregisterAnimation(this);
   }
 };
 
 DemoHost.prototype._requestFrame = function() {
-  if (!this._frameRequested) {
-    this._frameRequested = true;
-    if (this._frameMs) {
-      goog.Timer.callOnce(this._frameFunc, this._frameMs);
-    } else {
-      pl.ex.requestAnimationFrame(this._frameFunc);
-    }
-  }
+  goog.fx.anim.registerAnimation(this);
 };
 
 DemoHost.prototype._updateHUD = function() {
