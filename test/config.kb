@@ -1,0 +1,7 @@
+closure_path: ../../closure
+js_paths:
+  - .
+  - ../src
+deps_path: deps.js
+fix_paths:
+  - ../src
