@@ -1,0 +1,12 @@
+closure_path: ../../../google-closure-library
+inputs:
+  - modelDemo.js
+js_paths:
+  - .
+  - ../../src
+deps_path: deps.js
+compile_path: compiled.js
+externs: []
+fix_paths:
+  - ../../src
+  - modelDemo.js
