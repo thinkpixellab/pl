@@ -1,4 +1,4 @@
-closure_path: ../../../google-closure-library
+closure_path: ../../../closure
 inputs:
   - demoHost.js
 js_paths:

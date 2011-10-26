@@ -1,5 +1,5 @@
 map '/closure' do
-  run Rack::Directory.new('../google-closure-library')
+  run Rack::Directory.new('../closure')
 end
 
 map '/pl' do
