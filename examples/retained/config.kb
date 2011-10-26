@@ -1,13 +1,13 @@
-closure_path: ../../closure
+closure_path: ../../../google-closure-library
 inputs:
   - demoHost.js
 js_paths:
   - .
-  - ../src
+  - ../../src
 deps_path: deps.js
 compile_path: compiled.js
 externs: []
 fix_paths:
-  - ../src
+  - ../../src
   - demoHost.js
   - demos
