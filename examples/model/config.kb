@@ -1,4 +1,4 @@
-closure_path: ../../../google-closure-library
+closure_path: ../../../closure
 inputs:
   - modelDemo.js
 js_paths:
