@@ -3,7 +3,7 @@ goog.provide('pl.SoundEffect');
 /**
  @constructor
  @param {string} name
- @param {!Array.<string>} locations
+ @param {!Array.<!Array.<string>>} locations
  @param {number} simulCount
  */
 pl.SoundEffect = function(name, locations, simulCount) {
