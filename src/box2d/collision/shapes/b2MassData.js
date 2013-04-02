@@ -20,6 +20,8 @@ goog.provide('box2d.MassData');
 
 goog.require('box2d.Vec2');
 
+
+
 /** @constructor */
 box2d.MassData = function() {
   this.I = 0.0;

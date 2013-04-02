@@ -20,6 +20,8 @@ goog.provide('box2d.ContactConstraintPoint');
 
 goog.require('box2d.Vec2');
 
+
+
 /**
  @constructor
  */

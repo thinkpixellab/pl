@@ -87,25 +87,25 @@ qr.Util = {
 
     switch (maskPattern) {
 
-    case qr.MaskPattern.PATTERN000:
-      return (i + j) % 2 == 0;
-    case qr.MaskPattern.PATTERN001:
-      return i % 2 == 0;
-    case qr.MaskPattern.PATTERN010:
-      return j % 3 == 0;
-    case qr.MaskPattern.PATTERN011:
-      return (i + j) % 3 == 0;
-    case qr.MaskPattern.PATTERN100:
-      return (Math.floor(i / 2) + Math.floor(j / 3)) % 2 == 0;
-    case qr.MaskPattern.PATTERN101:
-      return (i * j) % 2 + (i * j) % 3 == 0;
-    case qr.MaskPattern.PATTERN110:
-      return ((i * j) % 2 + (i * j) % 3) % 2 == 0;
-    case qr.MaskPattern.PATTERN111:
-      return ((i * j) % 3 + (i + j) % 2) % 2 == 0;
+      case qr.MaskPattern.PATTERN000:
+        return (i + j) % 2 == 0;
+      case qr.MaskPattern.PATTERN001:
+        return i % 2 == 0;
+      case qr.MaskPattern.PATTERN010:
+        return j % 3 == 0;
+      case qr.MaskPattern.PATTERN011:
+        return (i + j) % 3 == 0;
+      case qr.MaskPattern.PATTERN100:
+        return (Math.floor(i / 2) + Math.floor(j / 3)) % 2 == 0;
+      case qr.MaskPattern.PATTERN101:
+        return (i * j) % 2 + (i * j) % 3 == 0;
+      case qr.MaskPattern.PATTERN110:
+        return ((i * j) % 2 + (i * j) % 3) % 2 == 0;
+      case qr.MaskPattern.PATTERN111:
+        return ((i * j) % 3 + (i + j) % 2) % 2 == 0;
 
-    default:
-      throw new Error('bad maskPattern:' + maskPattern);
+      default:
+        throw new Error('bad maskPattern:' + maskPattern);
     }
   },
 
@@ -126,48 +126,48 @@ qr.Util = {
 
       // 1 - 9
       switch (mode) {
-      case qr.Mode.MODE_NUMBER:
-        return 10;
-      case qr.Mode.MODE_ALPHA_NUM:
-        return 9;
-      case qr.Mode.MODE_8BIT_BYTE:
-        return 8;
-      case qr.Mode.MODE_KANJI:
-        return 8;
-      default:
-        throw new Error('mode:' + mode);
+        case qr.Mode.MODE_NUMBER:
+          return 10;
+        case qr.Mode.MODE_ALPHA_NUM:
+          return 9;
+        case qr.Mode.MODE_8BIT_BYTE:
+          return 8;
+        case qr.Mode.MODE_KANJI:
+          return 8;
+        default:
+          throw new Error('mode:' + mode);
       }
 
     } else if (type < 27) {
 
       // 10 - 26
       switch (mode) {
-      case qr.Mode.MODE_NUMBER:
-        return 12;
-      case qr.Mode.MODE_ALPHA_NUM:
-        return 11;
-      case qr.Mode.MODE_8BIT_BYTE:
-        return 16;
-      case qr.Mode.MODE_KANJI:
-        return 10;
-      default:
-        throw new Error('mode:' + mode);
+        case qr.Mode.MODE_NUMBER:
+          return 12;
+        case qr.Mode.MODE_ALPHA_NUM:
+          return 11;
+        case qr.Mode.MODE_8BIT_BYTE:
+          return 16;
+        case qr.Mode.MODE_KANJI:
+          return 10;
+        default:
+          throw new Error('mode:' + mode);
       }
 
     } else if (type < 41) {
 
       // 27 - 40
       switch (mode) {
-      case qr.Mode.MODE_NUMBER:
-        return 14;
-      case qr.Mode.MODE_ALPHA_NUM:
-        return 13;
-      case qr.Mode.MODE_8BIT_BYTE:
-        return 16;
-      case qr.Mode.MODE_KANJI:
-        return 12;
-      default:
-        throw new Error('mode:' + mode);
+        case qr.Mode.MODE_NUMBER:
+          return 14;
+        case qr.Mode.MODE_ALPHA_NUM:
+          return 13;
+        case qr.Mode.MODE_8BIT_BYTE:
+          return 16;
+        case qr.Mode.MODE_KANJI:
+          return 12;
+        default:
+          throw new Error('mode:' + mode);
       }
 
     } else {

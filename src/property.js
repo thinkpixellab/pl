@@ -4,6 +4,8 @@ goog.require('goog.array');
 goog.require('goog.math.Coordinate');
 goog.require('goog.math.Size');
 
+
+
 /**
  * @constructor
  * @param {!string} name
@@ -15,6 +17,7 @@ pl.Property = function(name, opt_defaultValue) {
   this._id = pl.Property._propertyId++;
 };
 
+
 /**
  * @param {!Object} object
  */
@@ -25,6 +28,7 @@ pl.Property.prototype.clear = function(object) {
     this._notify(object);
   }
 };
+
 
 /**
  * @param {!Object} object
@@ -39,6 +43,7 @@ pl.Property.prototype.get = function(object) {
   }
 };
 
+
 /**
  * @param {!Object} object
  */
@@ -47,6 +52,7 @@ pl.Property.prototype.set = function(object, value) {
   hash[this._id] = value;
   this._notify(object);
 };
+
 
 /**
  * @param {!Object} object
@@ -62,6 +68,7 @@ pl.Property.prototype._notify = function(object) {
     listener(this);
   }
 };
+
 
 /**
  * @param {!Object} object
@@ -79,6 +86,7 @@ pl.Property.prototype.getCore = function(object) {
   }
 };
 
+
 /**
  * @param {!Object} object
  * @param {!Function} listener.
@@ -90,12 +98,14 @@ pl.Property.watchChanges = function(object, listener) {
   pl.Property._callbackProperty.set(object, listener);
 };
 
+
 /**
  * @type {string}
  * @private
  */
 pl.Property._PROP_ID_PROPERTY = 'prop_uid_' +
     Math.floor(Math.random() * 2147483648).toString(36);
+
 
 /**
  * @type {number}

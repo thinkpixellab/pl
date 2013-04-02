@@ -7,6 +7,8 @@ goog.require('pl.retained.Element');
 goog.require('pl.retained.ElementParent');
 goog.require('pl.retained.helper');
 
+
+
 /**
  * @constructor
  * @param {number} width
@@ -23,12 +25,14 @@ pl.retained.Panel = function(width, height, opt_enableCache) {
 };
 goog.inherits(pl.retained.Panel, pl.retained.Element);
 
+
 /**
  * @param {!pl.retained.Element} element
  **/
 pl.retained.Panel.prototype.addElement = function(element) {
   this.insertAt(element, this._children.length);
 };
+
 
 /**
  * @param {!pl.retained.Element} element
@@ -42,6 +46,7 @@ pl.retained.Panel.prototype.insertAt = function(element, opt_i) {
   pl.retained.Panel._containerTransformProperty.set(element, element.addTransform());
   this.onChildrenChanged();
 };
+
 
 /**
  * @param {!pl.retained.Element} element
@@ -59,6 +64,7 @@ pl.retained.Panel.prototype.remove = function(element) {
   }
 };
 
+
 /**
  * @protected
  * @param {!pl.retained.Element} child
@@ -71,6 +77,7 @@ pl.retained.Panel.prototype.getChildTransform = function(child) {
   return tx;
 };
 
+
 /**
  * @override
  * @param {number} index
@@ -79,6 +86,7 @@ pl.retained.Panel.prototype.getChildTransform = function(child) {
 pl.retained.Panel.prototype.getVisualChild = function(index) {
   return this._children[index];
 };
+
 
 /**
  * @override
@@ -91,6 +99,7 @@ pl.retained.Panel.prototype.getVisualChildCount = function() {
 pl.retained.Panel.prototype.onChildrenChanged = function() {
   this.invalidateDraw();
 };
+
 
 /**
  * returns {?math.google.Rect}
@@ -108,6 +117,7 @@ pl.retained.Panel.prototype.getChildBounds = function() {
   return bounds;
 };
 
+
 /**
  * @override
  **/
@@ -118,6 +128,7 @@ pl.retained.Panel.prototype.update = function() {
   this);
   goog.base(this, 'update');
 };
+
 
 /**
  * @override
@@ -131,6 +142,7 @@ pl.retained.Panel.prototype.drawOverride = function(ctx) {
   }
 };
 
+
 /**
  * @param {!pl.retained.Element} child
  */
@@ -138,6 +150,7 @@ pl.retained.Panel.prototype.childInvalidated = function(child) {
   goog.asserts.assert(this.hasVisualChild(child), "Must be the container's child");
   this.invalidateDraw();
 };
+
 
 /**
  * @private

@@ -5,6 +5,8 @@ goog.require('goog.net.EventType');
 goog.require('goog.net.ImageLoader');
 goog.require('goog.object');
 
+
+
 /**
  * @constructor
  * @param {Object.<string, string>} source
@@ -47,6 +49,7 @@ pl.images.prototype.load = function(progress, complete) {
   loader.start();
 };
 
+
 /**
  * @param {!string} key
  * @param {!string} path
@@ -55,6 +58,7 @@ pl.images.prototype.add = function(key, path) {
   goog.asserts.assert(!goog.object.containsKey(this._source, key));
   goog.object.set(this._source, key, path);
 };
+
 
 /**
  * @param {string} key

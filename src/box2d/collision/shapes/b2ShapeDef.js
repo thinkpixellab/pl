@@ -20,6 +20,8 @@ goog.provide('box2d.ShapeDef');
 
 goog.require('box2d.Vec2');
 
+
+
 /** @constructor */
 box2d.ShapeDef = function() {
   this.type = box2d.ShapeDef.Type.unknownShape;
@@ -51,6 +53,7 @@ box2d.ShapeDef.prototype.maskBits = 0;
 // or always collide (positive). Zero means no collision group. Non-zero group
 // filtering always wins against the mask bits.
 box2d.ShapeDef.prototype.groupIndex = 0;
+
 
 /**
  @enum {number}

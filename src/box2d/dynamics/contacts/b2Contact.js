@@ -21,6 +21,8 @@ goog.provide('box2d.Contact');
 goog.require('box2d.ContactNode');
 goog.require('box2d.ContactRegister');
 
+
+
 /**
  @constructor
  */

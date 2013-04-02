@@ -22,6 +22,8 @@ goog.require('box2d.Shape');
 goog.require('box2d.ShapeDef');
 goog.require('box2d.Vec2');
 
+
+
 /**
  @constructor
  @extends {box2d.ShapeDef}
@@ -34,6 +36,7 @@ box2d.BoxDef = function() {
   this.extents = new box2d.Vec2(1.0, 1.0);
 };
 goog.inherits(box2d.BoxDef, box2d.ShapeDef);
+
 
 /**
  @override

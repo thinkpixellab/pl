@@ -23,6 +23,8 @@ goog.require('box2d.ContactFactory');
 goog.require('box2d.NullContact');
 goog.require('box2d.PairCallback');
 
+
+
 /**
  @constructor
  @extends {box2d.PairCallback}
@@ -42,6 +44,7 @@ box2d.ContactManager = function(world) {
   this.m_destroyImmediate = false;
 };
 goog.inherits(box2d.ContactManager, box2d.PairCallback);
+
 
 /**
   // This is a callback from the broadphase when two AABB proxies begin

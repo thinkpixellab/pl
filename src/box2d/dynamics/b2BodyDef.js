@@ -21,6 +21,8 @@ goog.provide('box2d.BodyDef');
 goog.require('box2d.Settings');
 goog.require('box2d.ShapeDef');
 
+
+
 /**
  @constructor
  */
@@ -73,6 +75,7 @@ box2d.BodyDef = function() {
    */
   this.preventRotation = false;
 };
+
 
 /**
  @param {!box2d.ShapeDef} shape

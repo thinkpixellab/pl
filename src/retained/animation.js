@@ -4,6 +4,8 @@ goog.require('goog.asserts');
 goog.require('pl.Behavior');
 goog.require('pl.retained.EventType');
 
+
+
 /**
  * @constructor
  * @extends {pl.Behavior}
@@ -24,6 +26,7 @@ pl.retained.Animation = function(element, frameCount, func, opt_finishFunc) {
 };
 goog.inherits(pl.retained.Animation, pl.Behavior);
 
+
 /**
  * @type {boolean}
  */
@@ -34,6 +37,7 @@ pl.retained.Animation.prototype.detach = function() {
   goog.asserts.assert(removed);
   goog.base(this, 'detach');
 };
+
 
 /**
  * @private
@@ -51,6 +55,7 @@ pl.retained.Animation.prototype._tick = function() {
   }
   this._frame = this._frame % this._frameCount;
 };
+
 
 /**
  @return {pl.retained.Element}

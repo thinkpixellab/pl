@@ -6,6 +6,8 @@ goog.require('goog.events.EventTarget');
 goog.require('goog.ui.KeyboardShortcutHandler');
 goog.require('goog.ui.KeyboardShortcutHandler.EventType');
 
+
+
 /**
  @constructor
  @extends {goog.events.EventTarget}
@@ -24,6 +26,7 @@ pl.KeyBinding = function(opt_skipStyles) {
       goog.bind(this._handleKey, this));
 };
 goog.inherits(pl.KeyBinding, goog.events.EventTarget);
+
 
 /**
  @param {!string} keybinding
@@ -62,6 +65,8 @@ pl.KeyBinding.prototype._handleKey = function(event) {
  @type {!string}
 */
 pl.KeyBinding.TYPE = 'KeyBindingEvent';
+
+
 
 /**
  @constructor

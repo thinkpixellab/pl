@@ -10,6 +10,7 @@ goog.require('demos.Squares');
 goog.require('demos.SwapDemo');
 goog.require('demos.TileDemo');
 
+
 /**
  * @type {Object.<string, function(new:demos.DemoBase, !HTMLCanvasElement)>}
  **/

@@ -20,6 +20,8 @@ goog.provide('box2d.Vec2');
 
 goog.require('goog.math.Vec2');
 
+
+
 // box2d.Vec2 has no constructor so that it
 // can be placed in a union.
 /**
@@ -49,6 +51,7 @@ box2d.Vec2.prototype.SetZero = function() {
   this.y = 0.0;
 };
 
+
 /**
  @param {number} x
  @param {number} y
@@ -58,21 +61,25 @@ box2d.Vec2.prototype.Set = function(x, y) {
   this.y = y;
 };
 
+
 /** @param {!goog.math.Coordinate} v */
 box2d.Vec2.prototype.SetV = function(v) {
   this.x = v.x;
   this.y = v.y;
 };
 
+
 /** @return {!box2d.Vec2} */
 box2d.Vec2.prototype.Negative = function() {
   return new box2d.Vec2(-this.x, -this.y);
 };
 
+
 /** @return {!box2d.Vec2} */
 box2d.Vec2.prototype.Copy = function() {
   return new box2d.Vec2(this.x, this.y);
 };
+
 
 /** @param {box2d.Mat22} A */
 box2d.Vec2.prototype.MulM = function(A) {
@@ -81,12 +88,14 @@ box2d.Vec2.prototype.MulM = function(A) {
   this.y = A.col1.y * tX + A.col2.y * this.y;
 };
 
+
 /** @param {!box2d.Mat22} A */
 box2d.Vec2.prototype.MulTM = function(A) {
   var tX = goog.math.Vec2.dot(this, A.col1);
   this.y = goog.math.Vec2.dot(this, A.col2);
   this.x = tX;
 };
+
 
 /** @param {number} s */
 box2d.Vec2.prototype.CrossVF = function(s) {
@@ -95,6 +104,7 @@ box2d.Vec2.prototype.CrossVF = function(s) {
   this.y = -s * tX;
 };
 
+
 /** @param {number} s */
 box2d.Vec2.prototype.CrossFV = function(s) {
   var tX = this.x;
@@ -102,11 +112,13 @@ box2d.Vec2.prototype.CrossFV = function(s) {
   this.y = s * tX;
 };
 
+
 /** @param {box2d.Vec2} b */
 box2d.Vec2.prototype.MinV = function(b) {
   this.x = this.x < b.x ? this.x : b.x;
   this.y = this.y < b.y ? this.y : b.y;
 };
+
 
 /** @param {box2d.Vec2} b */
 box2d.Vec2.prototype.MaxV = function(b) {
@@ -118,6 +130,7 @@ box2d.Vec2.prototype.Abs = function() {
   this.x = Math.abs(this.x);
   this.y = Math.abs(this.y);
 };
+
 
 /** @return {number} */
 box2d.Vec2.prototype.Normalize = function() {
@@ -132,10 +145,12 @@ box2d.Vec2.prototype.Normalize = function() {
   return length;
 };
 
+
 /** @return {boolean} */
 box2d.Vec2.prototype.IsValid = function() {
   return isFinite(this.x) && isFinite(this.y);
 };
+
 
 /**
  @param {!goog.math.Coordinate} a
@@ -146,6 +161,7 @@ box2d.Vec2.cross = function(a, b) {
   return a.x * b.y - a.y * b.x;
 };
 
+
 /**
  @param {number} s
  @param {!goog.math.Coordinate} a
@@ -154,6 +170,7 @@ box2d.Vec2.cross = function(a, b) {
 box2d.Vec2.crossScalar = function(s, a) {
   return new box2d.Vec2(-s * a.y, s * a.x);
 };
+
 
 /**
  @param {!goog.math.Coordinate} a
@@ -164,6 +181,7 @@ box2d.Vec2.add = function(a, b) {
   return new box2d.Vec2(a.x + b.x, a.y + b.y);
 };
 
+
 /**
  @param {!goog.math.Coordinate} a
  @param {!goog.math.Coordinate} b
@@ -173,6 +191,7 @@ box2d.Vec2.subtract = function(a, b) {
   return new box2d.Vec2(a.x - b.x, a.y - b.y);
 };
 
+
 /**
  @param {number} s
  @param {!box2d.Vec2} a
@@ -181,6 +200,7 @@ box2d.Vec2.subtract = function(a, b) {
 box2d.Vec2.multiplyScalar = function(s, a) {
   return new box2d.Vec2(s * a.x, s * a.y);
 };
+
 
 /**
  @param {!goog.math.Coordinate} a

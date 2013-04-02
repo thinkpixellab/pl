@@ -21,6 +21,8 @@ goog.provide('box2d.NullContact');
 goog.require('box2d.Contact');
 goog.require('box2d.ContactNode');
 
+
+
 /**
  @extends {box2d.Contact}
  @constructor

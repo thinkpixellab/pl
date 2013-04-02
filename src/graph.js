@@ -6,6 +6,8 @@ goog.require('goog.structs.Map');
 goog.require('goog.structs.Set');
 goog.require('pl.ex');
 
+
+
 /**
  * @constructor
  */
@@ -20,6 +22,7 @@ pl.Graph = function() {
    */
   this._adjacents = new goog.structs.Map();
 };
+
 
 /**
  * @param {!Object} node
@@ -42,6 +45,7 @@ pl.Graph.prototype.addNode = function(node, opt_adjacents) {
   }
 };
 
+
 /**
  * @param {!Object} node
  * @return {boolean}
@@ -49,6 +53,7 @@ pl.Graph.prototype.addNode = function(node, opt_adjacents) {
 pl.Graph.prototype.containsNode = function(node) {
   return this._set.contains(node);
 };
+
 
 /**
  * @param {!Object} node1
@@ -64,6 +69,7 @@ pl.Graph.prototype.containsEdge = function(node1, node2) {
   return set && set.contains(node2);
 };
 
+
 /**
  * @param {!Object} node
  * @return {!goog.iter.Iterable}
@@ -78,6 +84,7 @@ pl.Graph.prototype.getAdjacents = function(node) {
   }
 };
 
+
 /**
  * @return {!goog.iter.Iterable}
  */
@@ -85,12 +92,14 @@ pl.Graph.prototype.getNodes = function() {
   return this._set.__iterator__();
 };
 
+
 /**
  * @return {number}
  */
 pl.Graph.prototype.getNodeCount = function() {
   return this._set.getCount();
 };
+
 
 /**
  * @return {!goog.iter.Iterator} each element is an array with 2 nodes
@@ -108,6 +117,7 @@ pl.Graph.prototype.getPairs = function() {
   });
 };
 
+
 /**
  * @return {!goog.iter.Iterator} each element is an array with 2 nodes
     no pairs are repeated
@@ -117,13 +127,14 @@ pl.Graph.prototype.getEdges = function() {
   var _this = this;
   return pl.ex.selectMany(this._set.__iterator__(), function(node1) {
     return goog.iter.filter(_this.getAdjacents(/** @type {!Object} */ (node1)),
-      function(node2) {
-        var id1 = goog.getUid(/** @type {!Object} */ (node1));
-        var id2 = goog.getUid(/** @type {!Object} */ (node2));
-        return id1 < id2;
-      });
+        function(node2) {
+          var id1 = goog.getUid(/** @type {!Object} */ (node1));
+          var id2 = goog.getUid(/** @type {!Object} */ (node2));
+          return id1 < id2;
+        });
   });
 };
+
 
 /**
  * @return {number}
@@ -134,6 +145,7 @@ pl.Graph.prototype.getEdgeCount = function() {
 
 // TODO: implement remove
 // ...and make sure attached properties are removed!
+
 
 /**
  * @private

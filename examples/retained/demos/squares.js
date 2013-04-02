@@ -10,6 +10,8 @@ goog.require('pl.retained.Panel');
 goog.require('pl.retained.Shape');
 goog.require('pl.retained.Stage');
 
+
+
 /**
  * @constructor
  * @extends {demos.DemoBase}
@@ -58,6 +60,7 @@ demos.Squares.createShape = function(size) {
 
   return shape;
 };
+
 
 /**
  * @const

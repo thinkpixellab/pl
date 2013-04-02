@@ -8,6 +8,8 @@ goog.require('pl.retained.Element');
 goog.require('pl.retained.ElementParent');
 goog.require('pl.retained.EventType');
 
+
+
 /**
  * @constructor
  * @extends {goog.events.EventTarget}
@@ -23,12 +25,14 @@ pl.retained.Stage = function(canvas, rootElement) {
 };
 goog.inherits(pl.retained.Stage, goog.events.EventTarget);
 
+
 /**
  * @return {!goog.math.Size}
  */
 pl.retained.Stage.prototype.getSize = function() {
   return pl.ex.getCanvasSize(this._canvas);
 };
+
 
 /**
  * @param {goog.math.Size} size
@@ -44,6 +48,7 @@ pl.retained.Stage.prototype.setSize = function(size) {
   return false;
 };
 
+
 /**
  * @return {boolean} Returns 'true' if the system has updated in the last frame.
  *                   Indicates animations are running and you might want to continue
@@ -52,8 +57,8 @@ pl.retained.Stage.prototype.setSize = function(size) {
 pl.retained.Stage.prototype.draw = function() {
   if (!this._ctx) {
     this._ctx =
-    /** @type {CanvasRenderingContext2D} */
-    (this._canvas.getContext('2d'));
+        /** @type {CanvasRenderingContext2D} */
+        (this._canvas.getContext('2d'));
   } else {
     this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height);
   }
@@ -61,17 +66,19 @@ pl.retained.Stage.prototype.draw = function() {
   return this._element.draw(this._ctx);
 };
 
+
 /**
  * @return {!CanvasRenderingContext2D}
  */
 pl.retained.Stage.prototype.getContext = function() {
   if (!this._ctx) {
     this._ctx =
-    /** @type {CanvasRenderingContext2D} */
-    (this._canvas.getContext('2d'));
+        /** @type {CanvasRenderingContext2D} */
+        (this._canvas.getContext('2d'));
   }
   return this._ctx;
 };
+
 
 /**
  * @return {!pl.retained.Element}
@@ -79,6 +86,7 @@ pl.retained.Stage.prototype.getContext = function() {
 pl.retained.Stage.prototype.getRoot = function() {
   return this._element;
 };
+
 
 /**
  * @param {!pl.retained.Element} child

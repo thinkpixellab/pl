@@ -19,6 +19,9 @@
 goog.provide('box2d.DistanceJointDef');
 
 goog.require('box2d.JointDef');
+
+
+
 /**
  @constructor
  @extends {box2d.JointDef}

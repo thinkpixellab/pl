@@ -21,6 +21,8 @@ goog.provide('box2d.RevoluteJoint');
 goog.require('box2d.Joint');
 goog.require('box2d.RevoluteJointDef');
 
+
+
 // Point-to-point constraint
 // C = p2 - p1
 // Cdot = v2 - v1

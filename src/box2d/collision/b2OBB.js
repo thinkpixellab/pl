@@ -20,6 +20,8 @@ goog.provide('box2d.OBB');
 goog.require('box2d.Mat22');
 goog.require('box2d.Vec2');
 
+
+
 // A manifold for two touching convex shapes.
 /**
  @constructor

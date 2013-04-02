@@ -13,6 +13,8 @@ goog.require('pl.retained.Panel');
 goog.require('pl.retained.VerticalAlignment');
 goog.require('pl.retained._NavLayerTxPanel');
 
+
+
 /**
  * @constructor
  * @param {number} width
@@ -47,12 +49,14 @@ pl.retained.NavLayer = function(width, height, opt_enableCache) {
 };
 goog.inherits(pl.retained.NavLayer, pl.retained.Element);
 
+
 /**
  * @return {boolean}
  */
 pl.retained.NavLayer.prototype.canForward = function() {
   return !this._txPanel;
 };
+
 
 /**
  * @param {!pl.retained.Element} element
@@ -79,21 +83,21 @@ pl.retained.NavLayer.prototype.forward = function(element, tx, opt_frameCount) {
 
     // copy this guy to a canvas
     var tempCanvas =
-    /** @type {!HTMLCanvasElement} */
-    (document.createElement('canvas'));
+        /** @type {!HTMLCanvasElement} */
+        (document.createElement('canvas'));
 
     tempCanvas.width = ghostChild.width;
     tempCanvas.height = ghostChild.height;
 
     var tempCtx =
-    /** @type {!CanvasRenderingContext2D} */
-    (tempCanvas.getContext('2d'));
+        /** @type {!CanvasRenderingContext2D} */
+        (tempCanvas.getContext('2d'));
 
     ghostChild.drawCore(tempCtx);
 
     this._txPanel = new pl.retained._NavLayerTxPanel(this.width, this.height,
-      tempCanvas, element, tx, existingTx, frameCount,
-      this.horizontalChildAlignment, this.verticalChildAlignment, this.childOffset || new goog.math.Vec2(0, 0));
+        tempCanvas, element, tx, existingTx, frameCount,
+        this.horizontalChildAlignment, this.verticalChildAlignment, this.childOffset || new goog.math.Vec2(0, 0));
     this._txPanel.claim(this);
   }
 
@@ -107,6 +111,7 @@ pl.retained.NavLayer.prototype.forward = function(element, tx, opt_frameCount) {
   this.invalidateDraw();
 };
 
+
 /**
  * @override
  * @param {goog.math.Size} size
@@ -119,6 +124,7 @@ pl.retained.NavLayer.prototype.setSize = function(size) {
   }
   return baseRet;
 };
+
 
 /**
  * @private
@@ -134,6 +140,7 @@ pl.retained.NavLayer.prototype._claimChild = function() {
   this._updateChildLocation();
 };
 
+
 /**
  * @override
  * @param {number} index
@@ -148,6 +155,7 @@ pl.retained.NavLayer.prototype.getVisualChild = function(index) {
   throw Error('Item not found');
 };
 
+
 /**
  * @override
  * @return {number}
@@ -161,6 +169,7 @@ pl.retained.NavLayer.prototype.getVisualChildCount = function() {
     return 0;
   }
 };
+
 
 /**
  * @override
@@ -183,6 +192,7 @@ pl.retained.NavLayer.prototype.update = function() {
   goog.base(this, 'update');
 };
 
+
 /**
  * @override
  * @param {!CanvasRenderingContext2D} ctx
@@ -194,6 +204,7 @@ pl.retained.NavLayer.prototype.drawOverride = function(ctx) {
     element.drawInternal(ctx);
   }
 };
+
 
 /**
  * @param {!pl.retained.Element} child
@@ -212,6 +223,7 @@ pl.retained.NavLayer.prototype._updateChildLocation = function() {
   offset = pl.gfx.getOffsetVector(this.getSize(), this._child.getSize(), this.horizontalChildAlignment, this.verticalChildAlignment, offset);
   tx.setToTranslation(offset.x, offset.y);
 };
+
 
 /**
  * @private

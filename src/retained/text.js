@@ -3,6 +3,8 @@ goog.provide('pl.retained.Text');
 goog.require('pl.gfx');
 goog.require('pl.retained.Element');
 
+
+
 /**
  * @constructor
  * @extends {pl.retained.Element}
@@ -29,10 +31,12 @@ pl.retained.Text.prototype.isCentered = false;
 pl.retained.Text.prototype.shadowColor = undefined;
 pl.retained.Text.prototype.shadowBlur = 4;
 
+
 /**
  * @type {?(string|CanvasGradient|CanvasPattern)}
  */
 pl.retained.Text.prototype.fillStyle = null;
+
 
 /**
  * @override

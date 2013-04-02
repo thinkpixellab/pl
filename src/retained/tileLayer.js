@@ -4,6 +4,8 @@ goog.require('goog.math.Vec2');
 goog.require('pl.ex');
 goog.require('pl.gfx');
 
+
+
 /**
  * @constructor
  * @param {number} width
@@ -21,6 +23,7 @@ pl.retained.TileLayer = function(width, height, image, opt_tileSize) {
 };
 goog.inherits(pl.retained.TileLayer, pl.retained.Element);
 
+
 /**
  * @param {!goog.math.Vec2} offset
  */
@@ -32,6 +35,7 @@ pl.retained.TileLayer.prototype.setOffset = function(offset) {
 pl.retained.TileLayer.prototype.getOffset = function() {
   return this._offset.clone();
 };
+
 
 /**
  * @override
@@ -48,6 +52,7 @@ pl.retained.TileLayer.prototype.drawOverride = function(ctx) {
   ctx.fillStyle = this._pattern;
   pl.gfx.fillRect(ctx, rect);
 };
+
 
 /**
  * @private

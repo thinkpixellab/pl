@@ -21,6 +21,8 @@ goog.provide('box2d.CircleDef');
 goog.require('box2d.Shape');
 goog.require('box2d.ShapeDef');
 
+
+
 /**
  * @constructor
  * @extends {box2d.ShapeDef}

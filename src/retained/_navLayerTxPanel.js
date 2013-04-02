@@ -5,6 +5,8 @@ goog.require('pl.retained.HorizontalAlignment');
 goog.require('pl.retained.Panel');
 goog.require('pl.retained.VerticalAlignment');
 
+
+
 /**
  * @constructor
  * @extends {pl.retained.Panel}
@@ -64,6 +66,7 @@ pl.retained._NavLayerTxPanel.prototype.isDone = function() {
 pl.retained._NavLayerTxPanel.prototype.dispose = function() {
   this.remove(this._newChild);
 };
+
 
 /**
  * @override

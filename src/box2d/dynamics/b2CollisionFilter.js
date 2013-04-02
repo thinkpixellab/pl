@@ -18,6 +18,8 @@
 
 goog.provide('box2d.CollisionFilter');
 
+
+
 /**
  @constructor
  */
@@ -38,6 +40,7 @@ box2d.CollisionFilter.prototype.ShouldCollide = function(shape1, shape2) {
   var collide = (shape1.maskBits & shape2.categoryBits) != 0 && (shape1.categoryBits & shape2.maskBits) != 0;
   return collide;
 };
+
 
 /**
   @type {!box2d.CollisionFilter}

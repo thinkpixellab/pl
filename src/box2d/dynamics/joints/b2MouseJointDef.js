@@ -20,6 +20,8 @@ goog.provide('box2d.MouseJointDef');
 
 goog.require('box2d.JointDef');
 
+
+
 /**
  @constructor
  @extends {box2d.JointDef}

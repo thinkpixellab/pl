@@ -5,6 +5,8 @@ goog.require('goog.math.Coordinate');
 goog.require('pl.retained.Element');
 goog.require('pl.retained.Panel');
 
+
+
 /**
  * @constructor
  * @param {number} width
@@ -16,6 +18,7 @@ pl.retained.Canvas = function(width, height, opt_enableCache) {
   goog.base(this, width, height, opt_enableCache);
 };
 goog.inherits(pl.retained.Canvas, pl.retained.Panel);
+
 
 /**
  * @param {!pl.retained.Element} element
@@ -29,6 +32,7 @@ pl.retained.Canvas.prototype.topLeft = function(element, opt_value) {
   }
   return pl.ex.transformCoordinate(tx, new goog.math.Coordinate());
 };
+
 
 /**
  * @param {!pl.retained.Element} element

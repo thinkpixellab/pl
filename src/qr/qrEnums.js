@@ -2,6 +2,7 @@ goog.provide('qr.ErrorCorrectLevel');
 goog.provide('qr.MaskPattern');
 goog.provide('qr.Mode');
 
+
 /**
  * @enum {number}
  */
@@ -12,6 +13,7 @@ qr.Mode = {
   MODE_KANJI: 1 << 3
 };
 
+
 /**
  * @enum {number}
  */
@@ -21,6 +23,7 @@ qr.ErrorCorrectLevel = {
   Q: 3,
   H: 2
 };
+
 
 /**
  * @enum {number}

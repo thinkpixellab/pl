@@ -20,6 +20,8 @@ goog.require('pl.ex');
 goog.require('pl.images');
 goog.require('pl.retained.EventType');
 
+
+
 /**
  * @constructor
  * @implements {goog.fx.anim.Animated}
@@ -51,7 +53,7 @@ DemoHost = function() {
   // History!
   //
   var historyElement =
-  /** @type {!HTMLInputElement} */ (document.getElementById('history_state'));
+      /** @type {!HTMLInputElement} */ (document.getElementById('history_state'));
 
   this._history = new goog.History(false, undefined, historyElement);
   this._history.addEventListener(goog.history.EventType.NAVIGATE, this._navigate, false, this);
@@ -60,6 +62,7 @@ DemoHost = function() {
   this._requestFrame();
   this._updateHUD();
 };
+
 
 /**
  * @export
@@ -71,9 +74,9 @@ DemoHost.load = function() {
     'pixellab_transparent': 'resources/pixellab_transparent.png'
   });
   DemoHost.images.load(function(p) {},
-  function() {
-    goog.global['$demoHost'] = new DemoHost();
-  });
+      function() {
+        goog.global['$demoHost'] = new DemoHost();
+      });
 };
 
 DemoHost.images = null;
@@ -92,6 +95,7 @@ DemoHost.prototype._navigate = function(e) {
   this._selectControl.setValue(demoName);
   this._loadDemo(demo);
 };
+
 
 /**
  * @param {function(new:demos.DemoBase, !HTMLCanvasElement)} demoCtr
@@ -119,6 +123,7 @@ DemoHost.prototype._loadDemo = function(demoCtr) {
 
   this._requestFrame();
 };
+
 
 /**
  * Function called when a frame is requested for the animation.

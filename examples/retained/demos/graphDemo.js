@@ -10,6 +10,8 @@ goog.require('pl.Graph');
 goog.require('pl.gfx');
 goog.require('pl.retained.GraphElement');
 
+
+
 /**
  * @constructor
  * @extends {demos.DemoBase}
@@ -31,6 +33,7 @@ demos.GraphDemo = function(canvas) {
   this._graphElement = graphElement;
 };
 goog.inherits(demos.GraphDemo, demos.DemoBase);
+
 
 /**
  * @override
@@ -110,6 +113,8 @@ demos.GraphDemo._createGraph = function() {
   return g;
 };
 
+
+
 /**
  * @constructor
  * @param {*} value
@@ -117,6 +122,7 @@ demos.GraphDemo._createGraph = function() {
 demos.GraphDemo.Node = function(value) {
   this.value = value;
 };
+
 
 /**
  * @return {!string}

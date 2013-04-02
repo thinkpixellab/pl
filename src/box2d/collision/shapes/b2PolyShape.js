@@ -27,6 +27,8 @@ goog.require('box2d.Settings');
 goog.require('box2d.Shape');
 goog.require('box2d.Vec2');
 
+
+
 // A convex polygon. The position of the polygon (m_position) is the
 // position of the centroid. The vertices of the incoming polygon are pre-rotated
 // according to the local rotation. The vertices are also shifted to be centered

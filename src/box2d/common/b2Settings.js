@@ -18,48 +18,91 @@
 
 goog.provide('box2d.Settings');
 
+
 /** @const @type {number} */
 box2d.Settings.USHRT_MAX = 0x0000ffff;
+
+
 /** @const @type {number} */
 box2d.Settings.invalid = box2d.Settings.USHRT_MAX;
+
+
 /** @const @type {number} */
 box2d.Settings.b2_pi = Math.PI;
+
+
 /** @const @type {number} */
 box2d.Settings.b2_massUnitsPerKilogram = 1.0;
+
+
 /** @const @type {number} */
 box2d.Settings.b2_timeUnitsPerSecond = 1.0;
+
+
 /** @const @type {number} */
 box2d.Settings.b2_lengthUnitsPerMeter = 30.0;
+
+
 /** @const @type {number} */
 box2d.Settings.b2_maxManifoldPoints = 2;
+
+
 /** @const @type {number} */
 box2d.Settings.b2_maxShapesPerBody = 64;
+
+
 /** @const @type {number} */
 box2d.Settings.b2_maxPolyVertices = 8;
+
+
 /** @const @type {number} */
 box2d.Settings.b2_maxProxies = 1024;
+
+
 /** @const @type {number} */
 box2d.Settings.b2_maxPairs = 8 * box2d.Settings.b2_maxProxies;
+
+
 /** @const @type {number} */
 box2d.Settings.b2_linearSlop = 0.005 * box2d.Settings.b2_lengthUnitsPerMeter;
+
+
 /** @const @type {number} */
 box2d.Settings.b2_angularSlop = 2.0 / 180.0 * box2d.Settings.b2_pi;
+
+
 /** @const @type {number} */
 box2d.Settings.b2_velocityThreshold = 1.0 * box2d.Settings.b2_lengthUnitsPerMeter / box2d.Settings.b2_timeUnitsPerSecond;
+
+
 /** @const @type {number} */
 box2d.Settings.b2_maxLinearCorrection = 0.2 * box2d.Settings.b2_lengthUnitsPerMeter;
+
+
 /** @const @type {number} */
 box2d.Settings.b2_maxAngularCorrection = 8.0 / 180.0 * box2d.Settings.b2_pi;
+
+
 /** @const @type {number} */
 box2d.Settings.b2_contactBaumgarte = 0.2;
+
+
 /** @const @type {number} */
 box2d.Settings.b2_timeToSleep = 0.5 * box2d.Settings.b2_timeUnitsPerSecond;
+
+
 /** @const @type {number} */
 box2d.Settings.b2_linearSleepTolerance = 0.01 * box2d.Settings.b2_lengthUnitsPerMeter / box2d.Settings.b2_timeUnitsPerSecond;
+
+
 /** @const @type {number} */
 box2d.Settings.b2_angularSleepTolerance = 2.0 / 180.0 / box2d.Settings.b2_timeUnitsPerSecond;
+
+
 /** @const @type {number} */
 box2d.Settings.FLT_EPSILON = 0.0000001192092896;
+
+
 /** @const @type {function(boolean)} */
 box2d.Settings.b2Assert = function(a) {
   if (!a) {

@@ -20,6 +20,8 @@ goog.provide('box2d.Proxy');
 
 goog.require('box2d.Settings');
 
+
+
 /**
  @constructor
  */

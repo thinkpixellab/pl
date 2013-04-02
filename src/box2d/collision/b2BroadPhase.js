@@ -32,6 +32,8 @@ Also, some ideas, such integral values for fast compares comes from
 Bullet (http:/www.bulletphysics.com).
 */
 
+
+
 // Notes:
 // - we use bound arrays instead of linked lists for cache coherence.
 // - we use quantized integral values for fast compares.
@@ -344,18 +346,18 @@ box2d.BroadPhase.prototype.ComputeBounds = function(lowerValues, upperValues, aa
   // lower/upper bounds that would have equal values.
   // TODO_ERIN implement fast float to uint16 conversion.
   lowerValues[0] =
-  /*uint*/
-  (this.m_quantizationFactor.x * (minVertexX - this.m_worldAABB.minVertex.x)) & (box2d.Settings.USHRT_MAX - 1);
+      /*uint*/
+      (this.m_quantizationFactor.x * (minVertexX - this.m_worldAABB.minVertex.x)) & (box2d.Settings.USHRT_MAX - 1);
   upperValues[0] = (
-  /*uint*/
-  (this.m_quantizationFactor.x * (maxVertexX - this.m_worldAABB.minVertex.x)) & 0x0000ffff) | 1;
+      /*uint*/
+      (this.m_quantizationFactor.x * (maxVertexX - this.m_worldAABB.minVertex.x)) & 0x0000ffff) | 1;
 
   lowerValues[1] =
-  /*uint*/
-  (this.m_quantizationFactor.y * (minVertexY - this.m_worldAABB.minVertex.y)) & (box2d.Settings.USHRT_MAX - 1);
+      /*uint*/
+      (this.m_quantizationFactor.y * (minVertexY - this.m_worldAABB.minVertex.y)) & (box2d.Settings.USHRT_MAX - 1);
   upperValues[1] = (
-  /*uint*/
-  (this.m_quantizationFactor.y * (maxVertexY - this.m_worldAABB.minVertex.y)) & 0x0000ffff) | 1;
+      /*uint*/
+      (this.m_quantizationFactor.y * (maxVertexY - this.m_worldAABB.minVertex.y)) & 0x0000ffff) | 1;
 };
 
 // This one is only used for validation.
@@ -448,6 +450,7 @@ box2d.BroadPhase.prototype.IncrementTimeStamp = function() {
     ++this.m_timeStamp;
   }
 };
+
 
 // Call this.MoveProxy times like, then when you are done
 // call this.Commit to finalized the proxy pairs (for your time step).
@@ -647,12 +650,14 @@ box2d.BroadPhase.prototype.MoveProxy = function(proxyId, aabb) {
   }
 };
 
+
 /**
  @return {!Array.<!box2d.Contact>}
  */
 box2d.BroadPhase.prototype.Commit = function() {
   return this.m_pairManager.Commit();
 };
+
 
 /**
  // Create and destroy proxies. These call Flush first.
@@ -785,6 +790,7 @@ box2d.BroadPhase.prototype.CreateProxy = function(aabb, userData) {
 
   return proxyId;
 };
+
 
 /**
  @private

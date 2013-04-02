@@ -22,6 +22,8 @@ goog.require('box2d.Mat22');
 goog.require('box2d.ShapeDef');
 goog.require('box2d.Vec2');
 
+
+
 // Shapes are created automatically when a body is created.
 // Client code does not normally interact with shapes.
 /**
@@ -59,7 +61,7 @@ box2d.Shape.prototype.GetType = function() {
   return this.m_type;
 };
 box2d.Shape.prototype. // Get the parent body of this shape.
-GetBody = function() {
+    GetBody = function() {
   return this.m_body;
 };
 box2d.Shape.prototype.GetPosition = function() {

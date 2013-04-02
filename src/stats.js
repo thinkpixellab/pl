@@ -1,6 +1,8 @@
 goog.provide('pl.Stats');
 
 goog.require('goog.dom');
+
+
 /**
  @param {!string} account_key
  */
@@ -11,16 +13,18 @@ pl.Stats.addGoogleAnalytics = function(account_key) {
   pl.Stats.gaqPush(['_trackPageview']);
 };
 
+
 /**
  * @param {Array.<Object>|function()} commandArray
  */
 pl.Stats.gaqPush = function(commandArray) {
   var gaq = goog.object.get(goog.global, '_gaq', null);
   if (!gaq) {
-      goog.object.add(goog.global, '_gaq', gaq = []);
+    goog.object.add(goog.global, '_gaq', gaq = []);
   }
   gaq.push(commandArray);
 };
+
 
 /**
  * @param {string} category
@@ -32,6 +36,7 @@ pl.Stats.gaqPush = function(commandArray) {
 pl.Stats.gaqTrackEvent = function(category, action, opt_label, opt_value) {
   pl.Stats.gaqPush(['_trackEvent', category, action, opt_label, opt_value]);
 };
+
 
 /**
  @param {number} projectId
@@ -45,6 +50,7 @@ pl.Stats.addStatCounter = function(projectId, securityId) {
   pl.Stats._addScript('http://www.statcounter.com/counter/counter_xhtml.js');
 };
 
+
 /**
  @private
  @param {!string} script_uri
@@ -57,15 +63,15 @@ pl.Stats._addScript = function(script_uri) {
 
   var heads = document.getElementsByTagName('head');
   if (heads.length != 1) {
-      throw Error("Couldn't find a single head tag.");
+    throw Error("Couldn't find a single head tag.");
   }
 
   var head = heads[0];
 
   var headScripts = head.getElementsByTagName('script');
   if (headScripts.length == 0) {
-      goog.dom.appendChild(head, script);
+    goog.dom.appendChild(head, script);
   } else {
-      goog.dom.insertSiblingBefore(script, headScripts[0]);
+    goog.dom.insertSiblingBefore(script, headScripts[0]);
   }
 };

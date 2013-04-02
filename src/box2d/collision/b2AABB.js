@@ -20,6 +20,8 @@ goog.provide('box2d.AABB');
 
 goog.require('box2d.Vec2');
 
+
+
 // A manifold for two touching convex shapes.
 /**
  @constructor
@@ -32,6 +34,7 @@ box2d.AABB = function() {
   /** @type {box2d.Vec2} */
   this.maxVertex = new box2d.Vec2();
 };
+
 
 /** @return {boolean} */
 box2d.AABB.prototype.IsValid = function() {

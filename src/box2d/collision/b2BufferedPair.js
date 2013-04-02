@@ -18,6 +18,8 @@
 
 goog.provide('box2d.BufferedPair');
 
+
+
 /**
  @constructor
  */

@@ -6,6 +6,8 @@ goog.require('pl.retained.Element');
 goog.require('pl.retained.EventType');
 goog.require('pl.retained.Stage');
 
+
+
 /**
  * @constructor
  * @extends {goog.events.EventTarget}
@@ -29,6 +31,7 @@ demos.DemoBase = function(canvas, rootElement) {
 };
 goog.inherits(demos.DemoBase, goog.events.EventTarget);
 
+
 /**
  * @protected
  * @return {!pl.retained.Stage}
@@ -37,6 +40,7 @@ demos.DemoBase.prototype.getStage = function() {
   return this._stage;
 };
 
+
 /**
  * @protected
  * @return {!HTMLCanvasElement}
@@ -44,6 +48,7 @@ demos.DemoBase.prototype.getStage = function() {
 demos.DemoBase.prototype.getCanvas = function() {
   return this._canvas;
 };
+
 
 /**
  * @return {boolean}

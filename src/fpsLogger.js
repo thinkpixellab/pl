@@ -1,5 +1,7 @@
 goog.provide('pl.FpsLogger');
 
+
+
 /**
  @constructor
  */
@@ -28,6 +30,7 @@ pl.FpsLogger = function() {
   this.fps = NaN;
 };
 
+
 /**
  @return {number}
  **/
@@ -50,6 +53,7 @@ pl.FpsLogger.prototype.AddInterval = function() {
 
   return this.fps;
 };
+
 
 /**
  @const

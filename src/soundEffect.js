@@ -1,5 +1,7 @@
 goog.provide('pl.SoundEffect');
 
+
+
 /**
  @constructor
  @param {string} name
@@ -35,6 +37,7 @@ pl.SoundEffect = function(name, locations, simulCount) {
   }
 };
 
+
 /**
  @return {Element}
  */
@@ -53,6 +56,7 @@ pl.SoundEffect.prototype.play = function() {
   audio.play();
   return audio;
 };
+
 
 /**
  * @param {string} name of the audio being added.
@@ -78,6 +82,7 @@ pl.SoundEffect.create = function(name, data) {
   }
   return audio;
 };
+
 
 /**
  @private

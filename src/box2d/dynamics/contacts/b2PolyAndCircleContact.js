@@ -24,6 +24,8 @@ goog.require('box2d.ContactNode');
 goog.require('box2d.Manifold');
 goog.require('box2d.PolyShape');
 
+
+
 /**
  @constructor
  @extends {box2d.Contact}

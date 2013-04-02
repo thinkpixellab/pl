@@ -10,6 +10,8 @@ goog.require('pl.retained.Element');
 goog.require('pl.retained.Shape');
 goog.require('pl.retained.ShapeType');
 
+
+
 // TODO/NOTE: we don't support dynamic graphs
 // Don't go changing the children around, punk!
 /**
@@ -40,6 +42,7 @@ pl.retained.GraphElement = function(gp, width, height, opt_enableCache, opt_fact
 };
 goog.inherits(pl.retained.GraphElement, pl.retained.Element);
 
+
 /**
  * @override
  **/
@@ -60,6 +63,7 @@ pl.retained.GraphElement.prototype.update = function() {
   }
   goog.base(this, 'update');
 };
+
 
 /**
  * @override
@@ -84,6 +88,7 @@ pl.retained.GraphElement.prototype.drawOverride = function(ctx) {
   }
 };
 
+
 /**
  * @override
  * @param {number} index
@@ -93,6 +98,7 @@ pl.retained.GraphElement.prototype.getVisualChild = function(index) {
   return this._children[index];
 };
 
+
 /**
  * @override
  * @return {number}
@@ -100,6 +106,7 @@ pl.retained.GraphElement.prototype.getVisualChild = function(index) {
 pl.retained.GraphElement.prototype.getVisualChildCount = function() {
   return this._children.length;
 };
+
 
 /**
  * @param {!pl.retained.Element} child
@@ -109,6 +116,7 @@ pl.retained.GraphElement.prototype.childInvalidated = function(child) {
   this.invalidateDraw();
 };
 
+
 /**
  * @param {!pl.retained.Element} element
  * @return {boolean}
@@ -116,6 +124,7 @@ pl.retained.GraphElement.prototype.childInvalidated = function(child) {
 pl.retained.GraphElement.isGraphElementNode = function(element) {
   return pl.retained.GraphElement._nodeProperty.isSet(element);
 };
+
 
 /**
  * @param {!pl.retained.Element=} opt_element
@@ -133,6 +142,7 @@ pl.retained.GraphElement.prototype.dragElement = function(opt_element, opt_coord
     this._physics.dragPoint();
   }
 };
+
 
 /**
  * @private
@@ -158,6 +168,7 @@ pl.retained.GraphElement._defaultElementFactory = function(nodeData) {
   return canvas;
 };
 
+
 /**
  * @private
  * @param {!pl.GraphPoint} point
@@ -171,6 +182,7 @@ pl.retained.GraphElement._createElement = function(point, opt_factory) {
   pl.retained.GraphElement._nodeProperty.set(canvas, [point, tx]);
   return canvas;
 };
+
 
 /**
  * @private

@@ -23,6 +23,8 @@ goog.require('box2d.Collision');
 goog.require('box2d.Contact');
 goog.require('box2d.Manifold');
 
+
+
 /**
  @constructor
  @extends {box2d.Contact}

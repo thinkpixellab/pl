@@ -18,6 +18,8 @@
 
 goog.provide('box2d.Mat22');
 
+
+
 /** @constructor
  @param {number=} angle
  @param {box2d.Vec2=} c1
@@ -45,6 +47,7 @@ box2d.Mat22 = function(angle, c1, c2) {
   }
 };
 
+
 /** @param {number} angle */
 box2d.Mat22.prototype.Set = function(angle) {
   var c = Math.cos(angle);
@@ -55,6 +58,7 @@ box2d.Mat22.prototype.Set = function(angle) {
   this.col2.y = c;
 };
 
+
 /**
  @param {!goog.math.Coordinate} c1
  @param {!goog.math.Coordinate} c2 */
@@ -63,16 +67,19 @@ box2d.Mat22.prototype.SetVV = function(c1, c2) {
   this.col2.SetV(c2);
 };
 
+
 /** @return {box2d.Mat22} */
 box2d.Mat22.prototype.Copy = function() {
   return new box2d.Mat22(0, this.col1, this.col2);
 };
+
 
 /** @param {box2d.Mat22} m */
 box2d.Mat22.prototype.SetM = function(m) {
   this.col1.SetV(m.col1);
   this.col2.SetV(m.col2);
 };
+
 
 /** @param {box2d.Mat22} m */
 box2d.Mat22.prototype.AddM = function(m) {
@@ -96,6 +103,7 @@ box2d.Mat22.prototype.SetZero = function() {
   this.col2.y = 0.0;
 };
 
+
 /** @param {box2d.Mat22} out */
 box2d.Mat22.prototype.Invert = function(out) {
   var a = this.col1.x;
@@ -112,6 +120,7 @@ box2d.Mat22.prototype.Invert = function(out) {
   out.col2.y = det * a;
   return out;
 };
+
 
 // this.Solve A * x = b
 /**

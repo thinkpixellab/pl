@@ -1,5 +1,7 @@
 goog.provide('qr.EightBitByte');
 
+
+
 /**
  * @constructor
  * @param {string} data

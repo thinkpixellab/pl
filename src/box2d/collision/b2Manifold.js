@@ -22,6 +22,8 @@ goog.require('box2d.ContactPoint');
 goog.require('box2d.Settings');
 goog.require('box2d.Vec2');
 
+
+
 // A manifold for two touching convex shapes.
 /**
  @constructor

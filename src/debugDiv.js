@@ -29,6 +29,7 @@ pl.DebugDiv.disable = function() {
   goog.asserts.assert(!document.getElementById(pl.DebugDiv.c_divId));
 };
 
+
 /**
  @return {boolean} true if on, false otherwise.
  */
@@ -51,6 +52,7 @@ pl.DebugDiv.clear = function() {
   }
 };
 
+
 /**
  * Log a LogRecord.
  * @param {goog.debug.LogRecord} logRecord A log record to log.
@@ -63,6 +65,7 @@ pl.DebugDiv._onLog = function(logRecord) {
     goog.dom.appendChild(pl.DebugDiv.s_debugDiv, c);
   }
 };
+
 
 /**
  @const

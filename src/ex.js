@@ -8,6 +8,7 @@ goog.require('goog.math.Size');
 goog.require('goog.string');
 goog.require('goog.style');
 
+
 /**
  * Sets a style value on an element.
  *
@@ -30,6 +31,7 @@ pl.ex.setStyle = function(element, style, value) {
   });
 };
 
+
 /**
  * @param {HTMLCanvasElement} canvasElement
  * @return {!goog.math.Size}
@@ -50,6 +52,7 @@ pl.ex.requestAnimationFrame = function(callback) {
   func(callback);
 };
 
+
 /**
  * Almost 10x faster than Math.round, per
  * http://www.html5rocks.com/en/tutorials/canvas/performance/
@@ -59,6 +62,7 @@ pl.ex.requestAnimationFrame = function(callback) {
 pl.ex.round = function(number) {
   return (0.5 + number) << 0;
 };
+
 
 /**
  * @param {!Array.<!goog.math.Coordinate>} points
@@ -73,6 +77,7 @@ pl.ex.flattenPoints = function(points) {
   return nums;
 };
 
+
 /**
  * //TODO: check for non-even numbered input?
  * @param {!Array.<number>} numbers
@@ -85,6 +90,7 @@ pl.ex.expandPoints = function(numbers) {
   }
   return points;
 };
+
 
 /**
  * Note: this method mutates the point that was passed in.
@@ -100,6 +106,7 @@ pl.ex.transformCoordinate = function(tx, point) {
   return point;
 };
 
+
 /**
  * @param {!goog.graphics.AffineTransform} tx
  * @param {!Array.<!goog.math.Coordinate>} points
@@ -111,6 +118,7 @@ pl.ex.transformCoordinates = function(tx, points) {
   });
   return points;
 };
+
 
 /**
  * @param {!Array} arr The source array.
@@ -125,6 +133,7 @@ pl.ex.getRandom = function(arr, opt_randFn) {
   var i = Math.floor(randFn() * (arr.length));
   return arr[i];
 };
+
 
 /**
  * Search an array for the first element that satisfies a given condition and
@@ -145,11 +154,13 @@ pl.ex.first = function(arr, f, opt_obj) {
   }
 };
 
+
 /**
  * @const
- * @type Array.<string>
+ * @type {Array.<string>}
  **/
 pl.ex.prefixes = 'webkit moz o ms khtml'.split(' ');
+
 
 /**
  * @const
@@ -165,6 +176,7 @@ pl.ex.getPoints = function(rect) {
     new goog.math.Coordinate(rect.left, rect.top + rect.height)
   ];
 };
+
 
 /**
  * @param {!goog.iter.Iterable} iterable
@@ -201,6 +213,7 @@ pl.ex.selectMany = function(iterable, f) {
   return newIter;
 };
 
+
 /**
  * @param {!goog.iter.Iterable} iterable
  * @param {function(*): boolean=} opt_function
@@ -221,6 +234,7 @@ pl.ex.count = function(iterable, opt_function) {
   return count;
 };
 
+
 /**
  * @param {!goog.math.Vec2} vec
  * @param {number} x
@@ -232,6 +246,7 @@ pl.ex.setVec = function(vec, x, y) {
   vec.y = y;
   return vec;
 };
+
 
 /**
  * @param {!goog.math.Vec2} vec

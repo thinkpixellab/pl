@@ -20,6 +20,8 @@ goog.provide('box2d.Pair');
 
 goog.require('box2d.Settings');
 
+
+
 // The pair manager is used by the broad-phase to quickly add/remove/find pairs
 // of overlapping proxies. It is based closely on code provided by Pierre Terdiman.
 // http:
@@ -62,19 +64,28 @@ box2d.Pair.prototype = {
   status: 0
 };
 
+
 /**
   @type {box2d.Contact}
 */
 box2d.Pair.prototype.contactData = null;
 
+
 /** @const @type {number} */
 box2d.Pair.b2_nullPair = box2d.Settings.USHRT_MAX;
+
+
 /** @const @type {number} */
 box2d.Pair.b2_nullProxy = box2d.Settings.USHRT_MAX;
+
+
 /** @const @type {number} */
 box2d.Pair.b2_tableCapacity = box2d.Settings.b2_maxPairs;
+
+
 /** @const @type {number} */
 box2d.Pair.b2_tableMask = box2d.Pair.b2_tableCapacity - 1;
+
 
 /**
  @enum {number}

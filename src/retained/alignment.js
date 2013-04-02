@@ -1,6 +1,7 @@
 goog.provide('pl.retained.HorizontalAlignment');
 goog.provide('pl.retained.VerticalAlignment');
 
+
 /**
  * @enum {string}
  */
@@ -9,6 +10,7 @@ pl.retained.VerticalAlignment = {
   BOTTOM: 'Bottom',
   CENTER: 'Center'
 };
+
 
 /**
  * @enum {string}

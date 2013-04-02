@@ -9,6 +9,8 @@ goog.require('pl.retained.Stage');
 goog.require('pl.retained.Text');
 goog.require('pl.retained.helper');
 
+
+
 /**
  * @constructor
  * @extends {demos.DemoBase}
@@ -42,6 +44,7 @@ demos.CarouselDemo = function(canvas) {
   });
 };
 goog.inherits(demos.CarouselDemo, demos.DemoBase);
+
 
 /**
  * @override

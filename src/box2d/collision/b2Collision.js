@@ -107,8 +107,8 @@ box2d.Collision.EdgeSeparation = function(poly1, edge1, poly2) {
   return separation;
 };
 box2d.Collision.FindMaxSeparation = function(edgeIndex
-/*int ptr*/
-, poly1, poly2, conservative) {
+    /*int ptr*/
+    , poly1, poly2, conservative) {
   var count1 = poly1.m_vertexCount;
 
   // Vector pointing from the origin of poly1 to the origin of poly2.

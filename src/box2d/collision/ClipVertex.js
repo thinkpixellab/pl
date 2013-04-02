@@ -21,6 +21,8 @@ goog.provide('box2d.ClipVertex');
 goog.require('box2d.ContactID');
 goog.require('box2d.Vec2');
 
+
+
 /**
  @constructor
  */

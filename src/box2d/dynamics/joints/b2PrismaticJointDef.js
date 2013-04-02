@@ -21,6 +21,8 @@ goog.provide('box2d.PrismaticJointDef');
 goog.require('box2d.JointDef');
 goog.require('box2d.Vec2');
 
+
+
 /**
  @constructor
  @extends {box2d.JointDef}

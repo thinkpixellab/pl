@@ -6,6 +6,8 @@ goog.require('qr.Mode');
 goog.require('qr.RSBlock');
 goog.require('qr.Util');
 
+
+
 /**
  * @constructor
  * @param {number} typeNumber
@@ -249,6 +251,7 @@ qr.Code.prototype = {
 qr.Code.PAD0 = 0xEC;
 qr.Code.PAD1 = 0x11;
 
+
 /**
  * @return {!Array.<number>}
  */
@@ -302,6 +305,7 @@ qr.Code.createData = function(typeNumber, errorCorrectLevel, dataList) {
 
   return qr.Code.createBytes(buffer, rsBlocks);
 };
+
 
 /**
  * @return {!Array.<number>}
@@ -379,6 +383,7 @@ qr.Code.createBytes = function(buffer, rsBlocks) {
   return data;
 };
 
+
 /**
  * @param {string} data
  */
@@ -387,6 +392,7 @@ qr.Code.prototype.addData = function(data) {
   this.dataList.push(newData);
   this._dataCache = null;
 };
+
 
 /**
  * @param {boolean} test

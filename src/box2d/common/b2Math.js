@@ -23,6 +23,7 @@ goog.require('box2d.Vec2');
 
 goog.require('goog.math');
 
+
 /**
  @param {!box2d.Mat22} A
  @param {!box2d.Vec2} v
@@ -31,6 +32,7 @@ goog.require('goog.math');
 box2d.Math.b2MulMV = function(A, v) {
   return new box2d.Vec2(A.col1.x * v.x + A.col2.x * v.y, A.col1.y * v.x + A.col2.y * v.y);
 };
+
 
 /**
  @return {!box2d.Vec2}
@@ -46,6 +48,7 @@ box2d.Math.b2MulMM = function(A, B) {
 box2d.Math.b2AbsM = function(A) {
   return new box2d.Mat22(0, box2d.Vec2.abs(A.col1), box2d.Vec2.abs(A.col2));
 };
+
 
 /**
  @param {number} a

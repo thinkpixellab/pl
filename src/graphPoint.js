@@ -5,6 +5,7 @@ goog.require('pl.Graph');
 goog.require('pl.ex');
 
 
+
 /**
  * @constructor
  * @param {!Object} node
@@ -18,6 +19,7 @@ pl.GraphPoint = function(node, width, height) {
   this.force = new goog.math.Vec2(0, 0);
   this._version = undefined;
 };
+
 
 /**
  * @param {number} version

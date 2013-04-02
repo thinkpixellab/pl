@@ -20,6 +20,8 @@ goog.provide('box2d.GearJointDef');
 
 goog.require('box2d.JointDef');
 
+
+
 // A gear joint is used to connect two joints together. Either joint
 // can be a revolute or prismatic joint. You specify a gear ratio
 // to bind the motions together:

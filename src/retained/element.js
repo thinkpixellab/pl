@@ -13,6 +13,8 @@ goog.require('pl.gfx');
 goog.require('pl.retained.ElementParent');
 goog.require('pl.retained.EventType');
 
+
+
 /**
  * @constructor
  * @extends {goog.events.EventTarget}
@@ -35,10 +37,12 @@ pl.retained.Element = function(width, height, opt_enableCache) {
 };
 goog.inherits(pl.retained.Element, goog.events.EventTarget);
 
+
 /**
  * @type {?number}
  */
 pl.retained.Element.prototype.alpha = null;
+
 
 /**
  * @protected
@@ -47,17 +51,20 @@ pl.retained.Element.prototype.alpha = null;
  */
 pl.retained.Element.prototype.clip = true;
 
+
 /**
  * @private
  * @type {?goog.math.Size}
  */
 pl.retained.Element.prototype._lastDrawSize = null;
 
+
 /**
  * @private
  * @type {?pl.retained.ElementParent}
  */
 pl.retained.Element.prototype._parent = null;
+
 
 /**
  * @return {!goog.graphics.AffineTransform}
@@ -72,6 +79,7 @@ pl.retained.Element.prototype.getTransform = function() {
   return tx;
 };
 
+
 /**
  * @return {!goog.graphics.AffineTransform}
  */
@@ -81,6 +89,7 @@ pl.retained.Element.prototype.addTransform = function() {
   txs.push(tx);
   return tx;
 };
+
 
 /**
  * @param {!goog.graphics.AffineTransform} tx
@@ -93,12 +102,14 @@ pl.retained.Element.prototype.removeTransform = function(tx) {
   }
 };
 
+
 /**
  * @return {!goog.math.Size}
  */
 pl.retained.Element.prototype.getSize = function() {
   return new goog.math.Size(this.width, this.height);
 };
+
 
 /**
  * @param {goog.math.Size} size
@@ -114,12 +125,14 @@ pl.retained.Element.prototype.setSize = function(size) {
   return false;
 };
 
+
 /**
  * @return {!goog.math.Rect}
  */
 pl.retained.Element.prototype.getRect = function() {
   return new goog.math.Rect(0, 0, this.width, this.height);
 };
+
 
 /**
  * Ensures this element is drawn the next pass
@@ -132,6 +145,7 @@ pl.retained.Element.prototype.invalidateDraw = function() {
   }
 };
 
+
 /**
  * @param {number} index
  * @return {!pl.retained.Element}
@@ -140,12 +154,14 @@ pl.retained.Element.prototype.getVisualChild = function(index) {
   throw Error('No children for this element');
 };
 
+
 /**
  * @return {number}
  */
 pl.retained.Element.prototype.getVisualChildCount = function() {
   return 0;
 };
+
 
 /**
  * @param {!pl.retained.Element} element
@@ -161,6 +177,7 @@ pl.retained.Element.prototype.hasVisualChild = function(element) {
   return false;
 };
 
+
 /**
  * @param {!pl.retained.ElementParent} parent
  */
@@ -169,6 +186,7 @@ pl.retained.Element.prototype.claim = function(parent) {
   this._parent = parent;
 };
 
+
 /**
  * @param {!pl.retained.ElementParent} parent
  */
@@ -176,6 +194,7 @@ pl.retained.Element.prototype.disown = function(parent) {
   goog.asserts.assert(this._parent == parent);
   this._parent = null;
 };
+
 
 /**
  * @param {!CanvasRenderingContext2D} ctx
@@ -189,6 +208,7 @@ pl.retained.Element.prototype.draw = function(ctx) {
   this.drawInternal(ctx);
   return dirty;
 };
+
 
 /**
  * @param {!pl.retained.Element} ancestor
@@ -213,6 +233,7 @@ pl.retained.Element.prototype.transformToAncestor = function(ancestor) {
   return tx;
 };
 
+
 /**
  * @param {!pl.retained.Element} ancestor
  * @return {!goog.math.Rect}
@@ -226,11 +247,13 @@ pl.retained.Element.prototype.boundsToAncestor = function(ancestor) {
   return goog.math.Rect.createFromBox(box);
 };
 
+
 /**
  * @protected
  * @param {!CanvasRenderingContext2D} ctx
  */
 pl.retained.Element.prototype.drawOverride = goog.abstractMethod;
+
 
 /**
  * @protected
@@ -238,6 +261,7 @@ pl.retained.Element.prototype.drawOverride = goog.abstractMethod;
 pl.retained.Element.prototype.update = function() {
   this.dispatchEvent(pl.retained.EventType.UPDATE);
 };
+
 
 /**
  * @protected
@@ -253,6 +277,7 @@ pl.retained.Element.prototype.drawCore = function(ctx) {
   this._lastDrawSize = this.getSize();
 };
 
+
 /**
  * @private
  */
@@ -260,6 +285,7 @@ pl.retained.Element.prototype._invalidateParent = function() {
   goog.asserts.assert(this._parent);
   this._parent.childInvalidated(this);
 };
+
 
 /**
  * @private
@@ -287,11 +313,13 @@ pl.retained.Element.prototype._drawNormal = function(ctx) {
   ctx.restore();
 };
 
+
 /**
  * @protected
  * @param {!CanvasRenderingContext2D} ctx
  **/
 pl.retained.Element.prototype.drawInternal = pl.retained.Element.prototype._drawNormal;
+
 
 /**
  * @private
@@ -308,15 +336,15 @@ pl.retained.Element.prototype._drawCached = function(ctx) {
   if (!this._cacheCanvas || !goog.math.Size.equals(pl.ex.getCanvasSize(this._cacheCanvas), this._lastDrawSize)) {
     if (!this._cacheCanvas) {
       this._cacheCanvas =
-      /** @type {!HTMLCanvasElement} */
-      (document.createElement('canvas'));
+          /** @type {!HTMLCanvasElement} */
+          (document.createElement('canvas'));
     }
     this._cacheCanvas.width = this.width;
     this._cacheCanvas.height = this.height;
 
     var cacheCtx =
-    /** @type {!CanvasRenderingContext2D} */
-    (this._cacheCanvas.getContext('2d'));
+        /** @type {!CanvasRenderingContext2D} */
+        (this._cacheCanvas.getContext('2d'));
 
     this.drawCore(cacheCtx);
   }

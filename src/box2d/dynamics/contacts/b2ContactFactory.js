@@ -5,6 +5,7 @@ goog.require('box2d.PolyAndCircleContact');
 goog.require('box2d.PolyContact');
 goog.require('box2d.Shape');
 
+
 /**
  @return {box2d.Contact}
  */
@@ -41,6 +42,7 @@ box2d.ContactFactory.Destroy = function(contact, allocator) {
   }
 };
 
+
 /**
  @private
  */
@@ -59,6 +61,7 @@ box2d.ContactFactory._InitializeRegisters = function() {
 
 };
 
+
 /**
  @private
  */
@@ -71,6 +74,7 @@ box2d.ContactFactory._AddType = function(createFcn, type1, type2) {
     box2d.ContactFactory.s_registers[type2][type1].primary = false;
   }
 };
+
 
 /**
  @type {Array.<Array.<box2d.ContactRegister>>}

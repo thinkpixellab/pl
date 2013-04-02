@@ -29,6 +29,8 @@ goog.require('box2d.JointFactory');
 goog.require('box2d.TimeStep');
 goog.require('box2d.WorldListener');
 
+
+
 /**
  @constructor
  @param {!box2d.AABB} worldAABB
@@ -92,6 +94,7 @@ box2d.World.prototype.SetListener = function(listener) {
   this.m_listener = listener;
 };
 
+
 /**
  Register a collision filter to provide specific control over collision.
  Otherwise the default filter is used (box2d.CollisionFilter).
@@ -100,6 +103,7 @@ box2d.World.prototype.SetListener = function(listener) {
 box2d.World.prototype.SetFilter = function(filter) {
   this.collisionFilter = filter;
 };
+
 
 // Create and destroy rigid bodies. Destruction is deferred until the
 // the next call to this.Step. This is done so that bodies may be destroyed
@@ -121,6 +125,8 @@ box2d.World.prototype.CreateBody = function(def) {
 
   return b;
 };
+
+
 // Body destruction is deferred to make contact processing more robust.
 /**
  @param {!box2d.Body} b
@@ -192,6 +198,7 @@ box2d.World.prototype.CleanBodyList = function() {
 
   this.m_contactManager.m_destroyImmediate = false;
 };
+
 
 /**
  @param {!box2d.JointDef} def
@@ -310,6 +317,7 @@ box2d.World.prototype.GetGroundBody = function() {
   return this.m_groundBody;
 };
 
+
 /**
  @param {number} dt
  @param {number} iterations
@@ -356,7 +364,7 @@ box2d.World.prototype.Step = function(dt, iterations) {
   var stackSize = this.m_bodyCount;
   var stack = new Array(this.m_bodyCount);
   for (var k = 0; k < this.m_bodyCount; k++)
-  stack[k] = null;
+    stack[k] = null;
 
   for (var seed = this.m_bodyList; seed != null; seed = seed.m_next) {
     if (seed.m_flags & (box2d.Body.Flags.staticFlag | box2d.Body.Flags.islandFlag | box2d.Body.Flags.sleepFlag | box2d.Body.Flags.frozenFlag)) {

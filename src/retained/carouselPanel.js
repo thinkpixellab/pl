@@ -7,6 +7,8 @@ goog.require('goog.math.Size');
 goog.require('pl.retained.Element');
 goog.require('pl.retained.Panel');
 
+
+
 /**
  * @constructor
  * @param {number} width
@@ -24,6 +26,7 @@ pl.retained.CarouselPanel = function(width, height, opt_enableCache) {
   this._middleElement = null;
 };
 goog.inherits(pl.retained.CarouselPanel, pl.retained.Panel);
+
 
 /**
  * @param {pl.retained.Element=} opt_element
@@ -43,6 +46,7 @@ pl.retained.CarouselPanel.prototype.middleElement = function(opt_element) {
   return this._middleElement;
 };
 
+
 /**
  * @param {number=} opt_radian
  * @return {number}
@@ -56,6 +60,7 @@ pl.retained.CarouselPanel.prototype.angle = function(opt_radian) {
   return this._angle;
 };
 
+
 /**
  * @param {goog.math.Size=} opt_value
  * @return {goog.math.Size}
@@ -67,6 +72,7 @@ pl.retained.CarouselPanel.prototype.radius = function(opt_value) {
   }
   return this._radius.clone();
 };
+
 
 /**
  * should be a value <= 1 && > 0
@@ -80,6 +86,7 @@ pl.retained.CarouselPanel.prototype.backScale = function(opt_value) {
   }
   return this._backScale;
 };
+
 
 /**
  * @override
@@ -97,6 +104,7 @@ pl.retained.CarouselPanel.prototype.onChildrenChanged = function() {
   goog.base(this, 'onChildrenChanged');
 };
 
+
 /**
  * @override
  **/
@@ -104,6 +112,7 @@ pl.retained.CarouselPanel.prototype.update = function() {
   this._updateLocations();
   goog.base(this, 'update');
 };
+
 
 /**
  * @override
@@ -115,6 +124,7 @@ pl.retained.CarouselPanel.prototype.insertAt = function(element, opt_i) {
   goog.base(this, 'insertAt', element, opt_i);
   pl.retained.CarouselPanel._centerProperty.set(element, new goog.math.Coordinate());
 };
+
 
 /**
  * @override
@@ -175,6 +185,7 @@ pl.retained.CarouselPanel.prototype._updateLocations = function() {
     });
   }
 };
+
 
 /**
  * @private

@@ -18,6 +18,8 @@
 
 goog.provide('box2d.Bound');
 
+
+
 /**
  @constructor
  */
@@ -27,12 +29,15 @@ box2d.Bound = function() {
   this.stabbingCount = 0;
 };
 
+
 /**
  @return {boolean}
 */
 box2d.Bound.prototype.IsLower = function() {
   return (this.value & 1) == 0;
 };
+
+
 /**
  @return {boolean}
 */

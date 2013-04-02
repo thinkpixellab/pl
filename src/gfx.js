@@ -5,6 +5,7 @@ goog.require('goog.graphics.AffineTransform');
 goog.require('goog.math.Line');
 goog.require('goog.math.Size');
 
+
 /**
  * @param {!CanvasRenderingContext2D} ctx
  * @param {number} x
@@ -22,6 +23,7 @@ pl.gfx.fillCircle = function(ctx, x, y, radius, fill) {
   ctx.restore();
 };
 
+
 /**
  * @param {!CanvasRenderingContext2D} ctx
  * @param {number} x
@@ -31,11 +33,11 @@ pl.gfx.fillCircle = function(ctx, x, y, radius, fill) {
  */
 pl.gfx.ellipse = function(ctx, x, y, width, height) {
   var hB = (width / 2) * pl.gfx.kappa,
-    vB = (height / 2) * pl.gfx.kappa,
-    eX = x + width,
-    eY = y + height,
-    mX = x + width / 2,
-    mY = y + height / 2;
+      vB = (height / 2) * pl.gfx.kappa,
+      eX = x + width,
+      eY = y + height,
+      mX = x + width / 2,
+      mY = y + height / 2;
   ctx.beginPath();
   ctx.moveTo(x, mY);
   ctx.bezierCurveTo(x, mY - vB, mX - hB, y, mX, y);
@@ -45,12 +47,14 @@ pl.gfx.ellipse = function(ctx, x, y, width, height) {
   ctx.closePath();
 };
 
+
 /**
  * @const
  * @type {number}
  * 4 * ((√(2) - 1) / 3);
  */
 pl.gfx.kappa = 0.5522848;
+
 
 /**
  * 2011-08-17
@@ -73,8 +77,8 @@ pl.gfx.multiFillText = function(ctx, text, x, y, lineHeight, fitWidth, opt_measu
   var sections = text.split('\n');
 
   var i, index, str, wordWidth, words, currentLine = 0,
-    maxHeight = 0,
-    maxWidth = 0;
+      maxHeight = 0,
+      maxWidth = 0;
 
   var printNextLine = function(str) {
     if (!measureOnly) {
@@ -128,6 +132,7 @@ pl.gfx.multiFillText = function(ctx, text, x, y, lineHeight, fitWidth, opt_measu
   return new goog.math.Size(maxWidth, maxHeight);
 };
 
+
 /**
  * @param {!CanvasRenderingContext2D} ctx
  * @param {!goog.graphics.AffineTransform} tx
@@ -135,6 +140,7 @@ pl.gfx.multiFillText = function(ctx, text, x, y, lineHeight, fitWidth, opt_measu
 pl.gfx.setTransform = function(ctx, tx) {
   ctx.setTransform(tx.getScaleX(), tx.getShearY(), tx.getShearX(), tx.getScaleY(), tx.getTranslateX(), tx.getTranslateY());
 };
+
 
 /**
  * @param {!CanvasRenderingContext2D} ctx
@@ -145,6 +151,7 @@ pl.gfx.transform = function(ctx, tx) {
     ctx.transform(tx.getScaleX(), tx.getShearY(), tx.getShearX(), tx.getScaleY(), tx.getTranslateX(), tx.getTranslateY());
   }
 };
+
 
 /**
  * @param {!goog.graphics.AffineTransform} tx
@@ -157,6 +164,7 @@ pl.gfx.affineOffsetScale = function(tx, scaleX, scaleY, offsetX, offsetY) {
   tx.setTransform(scaleX, 0, 0, scaleY, (1 - scaleX) * offsetX, (1 - scaleY) * offsetY);
 };
 
+
 /**
  * @param {!CanvasRenderingContext2D} ctx
  * @param {!goog.math.Rect} rect
@@ -164,6 +172,7 @@ pl.gfx.affineOffsetScale = function(tx, scaleX, scaleY, offsetX, offsetY) {
 pl.gfx.fillRect = function(ctx, rect) {
   ctx.fillRect(rect.left, rect.top, rect.width, rect.height);
 };
+
 
 /**
  * @param {!CanvasRenderingContext2D} ctx
@@ -181,6 +190,7 @@ pl.gfx.lineToPath = function(ctx, points) {
   }
 };
 
+
 /**
  * @param {goog.graphics.AffineTransform} source
  * @param {goog.graphics.AffineTransform} target
@@ -197,6 +207,7 @@ pl.gfx.lerpTx = function(source, target, lerp) {
 
   return new goog.graphics.AffineTransform(m00, m10, m01, m11, m02, m12);
 };
+
 
 /**
  * Given an item of `itemSize` provide the transform needed to make it fit into
@@ -216,6 +227,7 @@ pl.gfx.getTransitionTx = function(itemSize, targetRect) {
   return tx;
 };
 
+
 /**
  * @param {!goog.math.Size} parentSize
  * @param {!goog.math.Size} childSize
@@ -228,31 +240,31 @@ pl.gfx.getOffsetVector = function(parentSize, childSize, horizontalAlignment, ve
   // we'll return this value...clone it to ensure encapsulation
   offset = offset.clone();
   switch (horizontalAlignment) {
-  case pl.retained.HorizontalAlignment.LEFT:
-    //no-op
-    break;
-  case pl.retained.HorizontalAlignment.CENTER:
-    offset.x += (parentSize.width - childSize.width) / 2;
-    break;
-  case pl.retained.HorizontalAlignment.RIGHT:
-    offset.x += parentSize.width - childSize.width;
-    break;
-  default:
-    throw Error('horizontalAlignment value not expected ' + horizontalAlignment);
+    case pl.retained.HorizontalAlignment.LEFT:
+      //no-op
+      break;
+    case pl.retained.HorizontalAlignment.CENTER:
+      offset.x += (parentSize.width - childSize.width) / 2;
+      break;
+    case pl.retained.HorizontalAlignment.RIGHT:
+      offset.x += parentSize.width - childSize.width;
+      break;
+    default:
+      throw Error('horizontalAlignment value not expected ' + horizontalAlignment);
   }
 
   switch (verticalAlignment) {
-  case pl.retained.VerticalAlignment.TOP:
-    //no-op
-    break;
-  case pl.retained.VerticalAlignment.CENTER:
-    offset.y += (parentSize.height - childSize.height) / 2;
-    break;
-  case pl.retained.VerticalAlignment.BOTTOM:
-    offset.y += parentSize.height - childSize.height;
-    break;
-  default:
-    throw Error('verticalAlignment value not expected ' + verticalAlignment);
+    case pl.retained.VerticalAlignment.TOP:
+      //no-op
+      break;
+    case pl.retained.VerticalAlignment.CENTER:
+      offset.y += (parentSize.height - childSize.height) / 2;
+      break;
+    case pl.retained.VerticalAlignment.BOTTOM:
+      offset.y += parentSize.height - childSize.height;
+      break;
+    default:
+      throw Error('verticalAlignment value not expected ' + verticalAlignment);
   }
 
   return offset;
@@ -288,6 +300,7 @@ pl.gfx.lineish = function(ctx, p1, p2) {
   ctx.closePath();
   ctx.fill();
 };
+
 
 /**
  * @param {!CanvasRenderingContext2D} ctx

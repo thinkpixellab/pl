@@ -5,6 +5,8 @@ goog.require('pl.retained.Panel');
 goog.require('pl.retained.Stage');
 goog.require('pl.retained.Text');
 
+
+
 /**
  * @constructor
  * @extends {demos.DemoBase}
@@ -24,6 +26,7 @@ demos.RotateTextDemo = function(canvas) {
   this._tx = container.addTransform();
 };
 goog.inherits(demos.RotateTextDemo, demos.DemoBase);
+
 
 /**
  * @override

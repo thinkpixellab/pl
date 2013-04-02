@@ -21,6 +21,8 @@ goog.provide('box2d.DistanceJoint');
 goog.require('box2d.DistanceJointDef');
 goog.require('box2d.Joint');
 
+
+
 // C = norm(p2 - p1) - L
 // u = (p2 - p1) / norm(p2 - p1)
 // Cdot = dot(u, v2 + cross(w2, r2) - v1 - cross(w1, r1))

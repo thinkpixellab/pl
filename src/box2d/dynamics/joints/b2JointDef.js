@@ -20,6 +20,8 @@ goog.provide('box2d.JointDef');
 
 goog.require('box2d.Joint');
 
+
+
 /**
  @constructor
  @param {boolean} collideConnected

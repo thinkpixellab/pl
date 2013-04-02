@@ -8,6 +8,7 @@ goog.require('box2d.PolyDef');
 goog.require('box2d.PolyShape');
 goog.require('box2d.ShapeDef');
 
+
 /**
  @param {!box2d.ShapeDef} def
  @param {!box2d.Body} body

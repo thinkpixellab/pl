@@ -18,6 +18,8 @@
 
 goog.provide('box2d.Features');
 
+
+
 /**
  @constructor
  @param {!box2d.ContactID} contactId

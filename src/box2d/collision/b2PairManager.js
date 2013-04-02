@@ -24,6 +24,8 @@ goog.provide('box2d.PairManager');
 goog.require('box2d.BufferedPair');
 goog.require('box2d.Pair');
 
+
+
 /**
  @constructor
  */
@@ -247,6 +249,7 @@ box2d.PairManager.prototype = {
   // Thomas Wang's hash, see: http:
 };
 
+
 /**
  @private
  @param {number} proxyId1
@@ -265,6 +268,7 @@ box2d.PairManager.prototype._find = function(proxyId1, proxyId2) {
 
   return this._findHash(proxyId1, proxyId2, hash);
 };
+
 
 /**
  @private
@@ -287,6 +291,7 @@ box2d.PairManager.prototype._findHash = function(proxyId1, proxyId2, hash) {
   //box2d.Settings.b2Assert(index < b2_maxPairs);
   return this.m_pairs[index];
 };
+
 
 /**
   @return {!Array.<!box2d.Contact>}

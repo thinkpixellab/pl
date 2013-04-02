@@ -1,5 +1,6 @@
 goog.provide('pl.retained.EventType');
 
+
 /**
  * Constants for event names.
  * @enum {string}

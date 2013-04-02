@@ -1,5 +1,7 @@
 goog.provide('qr.Polynomial');
 
+
+
 /**
  @constructor
  */

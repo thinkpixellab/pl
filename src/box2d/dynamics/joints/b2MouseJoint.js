@@ -20,6 +20,9 @@ goog.provide('box2d.MouseJoint');
 
 goog.require('box2d.Joint');
 goog.require('box2d.MouseJointDef');
+
+
+
 // p = attached point, m = mouse point
 // C = p - m
 // Cdot = v
@@ -109,8 +112,8 @@ box2d.MouseJoint.prototype.SetTarget = function(target) {
   this.m_target = target;
 };
 box2d.MouseJoint.prototype. //--------------- Internals Below -------------------
-// Presolve vars
-PrepareVelocitySolver = function() {
+    // Presolve vars
+    PrepareVelocitySolver = function() {
   var b = this.m_body2;
 
   var tMat;

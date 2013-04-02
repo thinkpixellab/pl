@@ -3,6 +3,8 @@ goog.provide('pl.retained.Image');
 goog.require('pl.gfx');
 goog.require('pl.retained.Element');
 
+
+
 /**
  * @constructor
  * @extends {pl.retained.Element}
@@ -15,6 +17,7 @@ pl.retained.Image = function(value, width, height) {
   this._value = value;
 };
 goog.inherits(pl.retained.Image, pl.retained.Element);
+
 
 /**
  * @override

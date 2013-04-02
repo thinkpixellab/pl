@@ -23,6 +23,8 @@ goog.require('box2d.Math');
 goog.require('box2d.ShapeFactory');
 goog.require('box2d.Vec2');
 
+
+
 // A rigid body. Internal computation are done in terms
 // of the center of mass position. The center of mass may
 // be offset from the body's origin.
@@ -254,6 +256,7 @@ box2d.Body.prototype.GetAngularVelocity = function() {
   return this.m_angularVelocity;
 };
 
+
 // Apply a force at a world point. Additive.
 /**
  * @param {!goog.math.Vec2} force
@@ -418,18 +421,22 @@ box2d.Body.prototype.Freeze = function() {
   }
 };
 
+
 /**
  @param {!box2d.Vec2} v
  */
 box2d.Body.prototype.SetLinearVelocity = function(v) {
   this.m_linearVelocity.SetV(v);
 };
+
+
 /**
  @return {!box2d.Vec2}
  */
 box2d.Body.prototype.GetLinearVelocity = function() {
   return this.m_linearVelocity;
 };
+
 
 /**
  @enum {number}

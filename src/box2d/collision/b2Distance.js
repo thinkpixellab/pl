@@ -232,41 +232,41 @@ box2d.Distance.Distance = function(p1Out, p2Out, shape1, shape2) {
     }
 
     switch (pointCount) {
-    case 0:
-      //p1s[0] = w1;
-      p1s[0].SetV(w1);
-      //p2s[0] = w2;
-      p2s[0].SetV(w2);
-      points[0].x = wX;
-      points[0].y = wY;
-      //*p1Out = p1s[0];
-      p1Out.SetV(p1s[0]);
-      //*p2Out = p2s[0];
-      p2Out.SetV(p2s[0]);
-      ++pointCount;
-      break;
+      case 0:
+        //p1s[0] = w1;
+        p1s[0].SetV(w1);
+        //p2s[0] = w2;
+        p2s[0].SetV(w2);
+        points[0].x = wX;
+        points[0].y = wY;
+        //*p1Out = p1s[0];
+        p1Out.SetV(p1s[0]);
+        //*p2Out = p2s[0];
+        p2Out.SetV(p2s[0]);
+        ++pointCount;
+        break;
 
-    case 1:
-      //p1s[1] = w1;
-      p1s[1].SetV(w1);
-      //p2s[1] = w2;
-      p2s[1].SetV(w2);
-      //points[1] = w;
-      points[1].x = wX;
-      points[1].y = wY;
-      pointCount = box2d.Distance.ProcessTwo(p1Out, p2Out, p1s, p2s, points);
-      break;
+      case 1:
+        //p1s[1] = w1;
+        p1s[1].SetV(w1);
+        //p2s[1] = w2;
+        p2s[1].SetV(w2);
+        //points[1] = w;
+        points[1].x = wX;
+        points[1].y = wY;
+        pointCount = box2d.Distance.ProcessTwo(p1Out, p2Out, p1s, p2s, points);
+        break;
 
-    case 2:
-      //p1s[2] = w1;
-      p1s[2].SetV(w1);
-      //p2s[2] = w2;
-      p2s[2].SetV(w2);
-      //points[2] = w;
-      points[2].x = wX;
-      points[2].y = wY;
-      pointCount = box2d.Distance.ProcessThree(p1Out, p2Out, p1s, p2s, points);
-      break;
+      case 2:
+        //p1s[2] = w1;
+        p1s[2].SetV(w1);
+        //p2s[2] = w2;
+        p2s[2].SetV(w2);
+        //points[2] = w;
+        points[2].x = wX;
+        points[2].y = wY;
+        pointCount = box2d.Distance.ProcessThree(p1Out, p2Out, p1s, p2s, points);
+        break;
     }
 
     // If we have three points, then the origin is in the corresponding triangle.
