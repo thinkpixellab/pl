@@ -11,7 +11,10 @@ goog.require('pl.retained.Stage');
  * @return {?Array.<!pl.retained.Element>}
  */
 pl.retained.mouse.markMouseOver = function(stage, opt_coordinate) {
-    var items = /** @type {undefined|Array.<!pl.retained.Element>} */ pl.retained.mouse._stageMouseCacheProperty.get(stage);
+    var items =
+    /** @type {undefined|Array.<!pl.retained.Element>} */
+    (pl.retained.mouse._stageMouseCacheProperty.get(stage));
+
     if (items) {
       goog.array.forEach(items, function(e) {
         pl.retained.mouse.IsMouseOverProperty.clear(e);

@@ -25,14 +25,14 @@ demos.SwapDemo.prototype.frame = function() {
 
   if (this._count <= 0) {
     this._count = 50;
-    var shape = demos.SwapDemo.createShape(this._size.width, this._size.height);
-    this.getStage()._element.insertAt(shape);
+    var shape = this._createShape(this._size.width, this._size.height);
+    this._getRootElement().insertAt(shape);
   }
   this._count--;
   return updated;
 };
 
-demos.SwapDemo.createShape = function(w, h) {
+demos.SwapDemo.prototype._createShape = function(w, h) {
   var shape = new pl.retained.Shape(w, h);
   shape.fillStyle = pl.ex.getRandom(demos.SwapDemo._fills);
   var tx = shape.addTransform();
@@ -45,10 +45,17 @@ demos.SwapDemo.createShape = function(w, h) {
     element.invalidateDraw();
   },
   function(element) {
-    element._parent.remove(element);
+    this._getRootElement().remove(element);
   });
 
   return shape;
+};
+
+/**
+ * @return {!pl.retained.Element}
+ */
+demos.SwapDemo.prototype._getRootElement = function() {
+  return this.getStage().getRoot();
 };
 
 demos.SwapDemo._fills = ['red', 'green', 'blue', 'yellow'];

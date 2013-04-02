@@ -53,7 +53,7 @@ pl.retained.Stage.prototype.draw = function() {
   if (!this._ctx) {
     this._ctx =
     /** @type {CanvasRenderingContext2D} */
-    this._canvas.getContext('2d');
+    (this._canvas.getContext('2d'));
   } else {
     this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height);
   }
@@ -68,7 +68,7 @@ pl.retained.Stage.prototype.getContext = function() {
   if (!this._ctx) {
     this._ctx =
     /** @type {CanvasRenderingContext2D} */
-    this._canvas.getContext('2d');
+    (this._canvas.getContext('2d'));
   }
   return this._ctx;
 };

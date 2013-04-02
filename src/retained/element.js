@@ -309,14 +309,14 @@ pl.retained.Element.prototype._drawCached = function(ctx) {
     if (!this._cacheCanvas) {
       this._cacheCanvas =
       /** @type {!HTMLCanvasElement} */
-      document.createElement('canvas');
+      (document.createElement('canvas'));
     }
     this._cacheCanvas.width = this.width;
     this._cacheCanvas.height = this.height;
 
     var cacheCtx =
     /** @type {!CanvasRenderingContext2D} */
-    this._cacheCanvas.getContext('2d');
+    (this._cacheCanvas.getContext('2d'));
 
     this.drawCore(cacheCtx);
   }
