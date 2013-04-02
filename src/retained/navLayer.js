@@ -80,16 +80,20 @@ pl.retained.NavLayer.prototype.forward = function(element, tx, opt_frameCount) {
     // copy this guy to a canvas
     var tempCanvas =
     /** @type {!HTMLCanvasElement} */
-    document.createElement('canvas');
+    (document.createElement('canvas'));
+
     tempCanvas.width = ghostChild.width;
     tempCanvas.height = ghostChild.height;
 
     var tempCtx =
     /** @type {!CanvasRenderingContext2D} */
-    tempCanvas.getContext('2d');
+    (tempCanvas.getContext('2d'));
+
     ghostChild.drawCore(tempCtx);
 
-    this._txPanel = new pl.retained._NavLayerTxPanel(this.width, this.height, tempCanvas, element, tx, existingTx, frameCount, this.horizontalChildAlignment, this.verticalChildAlignment, this.childOffset || new goog.math.Vec2(0, 0));
+    this._txPanel = new pl.retained._NavLayerTxPanel(this.width, this.height,
+      tempCanvas, element, tx, existingTx, frameCount,
+      this.horizontalChildAlignment, this.verticalChildAlignment, this.childOffset || new goog.math.Vec2(0, 0));
     this._txPanel.claim(this);
   }
 

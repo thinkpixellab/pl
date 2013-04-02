@@ -116,11 +116,12 @@ pl.Graph.prototype.getPairs = function() {
 pl.Graph.prototype.getEdges = function() {
   var _this = this;
   return pl.ex.selectMany(this._set.__iterator__(), function(node1) {
-    return goog.iter.filter(_this.getAdjacents(node1), function(node2) {
-      var id1 = goog.getUid(/** @type {!Object} */ (node1));
-      var id2 = goog.getUid(/** @type {!Object} */ (node2));
-      return id1 < id2;
-    });
+    return goog.iter.filter(_this.getAdjacents(/** @type {!Object} */ (node1)),
+      function(node2) {
+        var id1 = goog.getUid(/** @type {!Object} */ (node1));
+        var id2 = goog.getUid(/** @type {!Object} */ (node2));
+        return id1 < id2;
+      });
   });
 };
 

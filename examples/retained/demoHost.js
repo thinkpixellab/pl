@@ -51,8 +51,7 @@ DemoHost = function() {
   // History!
   //
   var historyElement =
-  /** @type {!HTMLInputElement} */
-  document.getElementById('history_state');
+  /** @type {!HTMLInputElement} */ (document.getElementById('history_state'));
 
   this._history = new goog.History(false, undefined, historyElement);
   this._history.addEventListener(goog.history.EventType.NAVIGATE, this._navigate, false, this);
