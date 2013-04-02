@@ -648,7 +648,7 @@ box2d.BroadPhase.prototype.MoveProxy = function(proxyId, aabb) {
 };
 
 /**
- @return {!Array.<box2d.Pair>}
+ @return {!Array.<!box2d.Contact>}
  */
 box2d.BroadPhase.prototype.Commit = function() {
   return this.m_pairManager.Commit();

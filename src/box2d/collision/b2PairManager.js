@@ -289,7 +289,7 @@ box2d.PairManager.prototype._findHash = function(proxyId1, proxyId2, hash) {
 };
 
 /**
-  @return {!Array.<box2d.Pair>}
+  @return {!Array.<!box2d.Contact>}
 */
 box2d.PairManager.prototype.Commit = function() {
   var i = 0;

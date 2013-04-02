@@ -76,7 +76,7 @@ box2d.World = function(worldAABB, gravity, doSleep) {
   this.m_groundBody = this.CreateBody(bd);
 
   /**
-   @type {!Array.<box2d.Pair>}
+   @type {!Array.<!box2d.Contact>}
    */
   this.lastPairs = [];
 
