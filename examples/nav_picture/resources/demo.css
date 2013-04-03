@@ -1,0 +1,16 @@
+@import url(common.css);
+
+
+body {
+  background-color: #222;
+  font: normal 10pt Helvetica, Arial, sans-serif;
+}
+
+#container {
+  margin: 20px auto;
+}
+
+#content {
+  display: block;
+  margin: 2px auto;
+}

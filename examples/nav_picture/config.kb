@@ -1,0 +1,13 @@
+closure_path: ../../../closure
+inputs:
+  - demoHost.js
+js_paths:
+  - .
+  - ../../src
+deps_path: deps.js
+compile_path: compiled.js
+externs: []
+fix_paths:
+  - ../../src
+  - demoHost.js
+  - demos
