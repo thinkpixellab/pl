@@ -80,11 +80,7 @@ DemoHost.prototype._loadDemo = function(demoCtr) {
 DemoHost.prototype.onAnimationFrame = function(now) {
   this._fpsLogger.AddInterval();
 
-  if (this._demo && this._demo.frame()) {
-    // no-op
-  } else {
-    goog.fx.anim.unregisterAnimation(this);
-  }
+  this._demo.frame();
 };
 
 DemoHost.prototype._requestFrame = function() {
