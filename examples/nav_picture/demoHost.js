@@ -17,13 +17,12 @@ goog.require('pl.retained.EventType');
  * @constructor
  * @implements {goog.fx.anim.Animated}
  */
-DemoHost = function() {
-  goog.style.setUnselectable(document.body, true);
-
+DemoHost = function(opt_canvas) {
   this._logger = goog.debug.LogManager.getRoot();
   this._fpsLogger = new pl.FpsLogger();
 
   this._requestFrame();
+  this._canvas = opt_canvas;
   this._loadDemo(demos.NavLayerDemo);
 };
 
@@ -31,8 +30,8 @@ DemoHost = function() {
 /**
  * @export
  */
-DemoHost.load = function() {
-  goog.global['$demoHost'] = new DemoHost();
+DemoHost.load = function(opt_canvas) {
+  goog.global['$demoHost'] = new DemoHost(opt_canvas);
 };
 
 DemoHost.prototype._frameMs = 0;
@@ -42,21 +41,12 @@ DemoHost.prototype._frameMs = 0;
  * @param {function(new:demos.DemoBase, !HTMLCanvasElement)} demoCtr
  */
 DemoHost.prototype._loadDemo = function(demoCtr) {
-  var oldCanvas = document.getElementById('content');
-  var newCanvas = /** @type {!HTMLCanvasElement} */ (goog.dom.createDom('canvas', {
-    'id': 'content',
-    'width': oldCanvas.width,
-    'height': oldCanvas.height
-  }));
-  goog.style.setStyle(newCanvas, 'background', 'black');
-  goog.dom.replaceNode(newCanvas, oldCanvas);
-
-  if (this._demo) {
-    this._demo.dispose();
-    this._demo = null;
+  if (this._canvas == null) {
+    this._canvas = document.getElementById('content');
   }
+  goog.style.setStyle(this._canvas, 'background', 'black');
 
-  this._demo = new demoCtr(newCanvas);
+  this._demo = new demoCtr(this._canvas);
   this._demo.addEventListener(pl.retained.EventType.UPDATE, function(e) {
     this._requestFrame();
   },
