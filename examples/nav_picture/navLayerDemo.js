@@ -22,7 +22,9 @@ demos.NavLayerDemo = function(canvas) {
 
   goog.base(this, canvas, this._nav);
 
-  goog.events.listen(canvas, goog.events.EventType.MOUSEDOWN, this._onMouseDown, false, this);
+  var self = this;
+  canvas.addEventListener('touchstart', function(e) { self._onTouchStart(e); } );
+  canvas.addEventListener('mousedown', function(e) { self._onMouseDown(e); } );
   this._count = 0;
   this._forward(new goog.graphics.AffineTransform());
 };
@@ -35,17 +37,37 @@ demos.NavLayerDemo.prototype._forward = function(tx) {
   }
 };
 
-demos.NavLayerDemo.prototype._onMouseDown = function(e) {
+demos.NavLayerDemo.prototype._onTouchStart = function(e) {
+  e.preventDefault();
   e.stopPropagation();
+  var touch = e.touches[0];
+  this.log(['touch[0]', touch.clientX, touch.clientY]);
 
-  this._lastMouse = new goog.math.Coordinate(e.offsetX, e.offsetY);
+  // TODO: note touch events have no 'offset'...at least not everywhere
+  // in Chrome, but not other browsers
+  // Should address this
+  var coord = new goog.math.Coordinate(touch.clientX, touch.clientY);
+
+  this.log(['coord', coord]);
+
+  this._onPointInput(coord);
+};
+
+demos.NavLayerDemo.prototype._onMouseDown = function(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  this._onPointInput(new goog.math.Coordinate(e.offsetX, e.offsetY));
+};
+
+demos.NavLayerDemo.prototype._onPointInput = function(coordinate) {
+  this._lastMouse = coordinate;
   var hits = pl.retained.mouse.markMouseOver(this.getStage(), this._lastMouse);
 
   if (hits && hits.length) {
     var last = hits[hits.length - 1];
     this._itemClick(last);
   }
-};
+}
 
 demos.NavLayerDemo.prototype._itemClick = function(element) {
   var tx = new goog.graphics.AffineTransform();

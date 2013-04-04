@@ -3,6 +3,7 @@ goog.provide('DemoHost');
 goog.require('demos.NavLayerDemo');
 goog.require('goog.Timer');
 goog.require('goog.asserts');
+goog.require('goog.debug.Console');
 goog.require('goog.debug.LogManager');
 goog.require('goog.dom');
 goog.require('goog.fx.anim');
@@ -31,7 +32,11 @@ DemoHost = function(opt_canvas) {
  * @export
  */
 DemoHost.load = function(opt_canvas) {
+  goog.debug.Console.autoInstall();
+  goog.debug.Console.instance.setCapturing(true);
   goog.global['$demoHost'] = new DemoHost(opt_canvas);
+
+  goog.debug.LogManager.getRoot().config('load finished');
 };
 
 DemoHost.prototype._frameMs = 0;

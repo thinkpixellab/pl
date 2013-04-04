@@ -2,6 +2,7 @@ goog.provide('demos.DemoBase');
 
 goog.require('goog.array');
 goog.require('goog.asserts');
+goog.require('goog.debug.Logger');
 goog.require('pl.retained.Element');
 goog.require('pl.retained.EventType');
 goog.require('pl.retained.Stage');
@@ -55,4 +56,10 @@ demos.DemoBase.prototype.getCanvas = function() {
  */
 demos.DemoBase.prototype.frame = function() {
   return this._stage.draw();
+};
+
+demos.DemoBase.prototype._logger = goog.debug.LogManager.getRoot();
+
+demos.DemoBase.prototype.log = function(msg) {
+  this._logger.info(msg);
 };
