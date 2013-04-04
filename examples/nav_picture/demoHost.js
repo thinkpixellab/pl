@@ -7,12 +7,8 @@ goog.require('goog.debug.LogManager');
 goog.require('goog.dom');
 goog.require('goog.fx.anim');
 goog.require('goog.fx.anim.Animated');
-goog.require('goog.object');
 goog.require('goog.string');
-goog.require('pl.DebugDiv');
 goog.require('pl.FpsLogger');
-goog.require('pl.ex');
-goog.require('pl.images');
 goog.require('pl.retained.EventType');
 
 
@@ -22,14 +18,12 @@ goog.require('pl.retained.EventType');
  * @implements {goog.fx.anim.Animated}
  */
 DemoHost = function() {
-  pl.DebugDiv.enable();
   goog.style.setUnselectable(document.body, true);
 
   this._logger = goog.debug.LogManager.getRoot();
   this._fpsLogger = new pl.FpsLogger();
 
   this._requestFrame();
-  this._updateHUD();
   this._loadDemo(demos.NavLayerDemo);
 };
 
@@ -79,18 +73,9 @@ DemoHost.prototype._loadDemo = function(demoCtr) {
  */
 DemoHost.prototype.onAnimationFrame = function(now) {
   this._fpsLogger.AddInterval();
-
   this._demo.frame();
 };
 
 DemoHost.prototype._requestFrame = function() {
   goog.fx.anim.registerAnimation(this);
-};
-
-DemoHost.prototype._updateHUD = function() {
-  pl.DebugDiv.clear();
-  this._logger.info(String(this._fpsLogger.fps));
-
-  var func = goog.bind(this._updateHUD, this);
-  goog.Timer.callOnce(func, 500);
 };
